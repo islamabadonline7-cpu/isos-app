@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISOS Super App</title>
+    <link rel="manifest" href="manifest.json">
+    <style>
+        :root { --navy: #001f3f; --gold: #D4AF37; --white: #ffffff; --black: #000000; }
+        body { margin: 0; background: #f0f2f5; font-family: 'Arial', sans-serif; }
+        
+        /* Main App Container */
+        .app-container { max-width: 450px; margin: auto; background: var(--navy); min-height: 100vh; display: flex; flex-direction: column; border: 4px solid var(--gold); position: relative; }
+        
+        /* Header with Logo */
+        .header { padding: 15px; text-align: center; border-bottom: 2px solid var(--gold); background: rgba(255,255,255,0.05); }
+        .logo { width: 80px; height: 80px; border: 2px solid var(--gold); border-radius: 15px; background: white; padding: 5px; }
+
+        /* Navigation Tabs */
+        .nav-tabs { display: flex; justify-content: space-around; background: var(--white); padding: 12px 0; border-bottom: 2px solid var(--gold); }
+        .tab { cursor: pointer; color: var(--navy); font-weight: bold; font-size: 13px; transition: 0.3s; }
+        .tab:hover { color: var(--gold); }
+
+        /* Service Cards & Content */
+        .content { flex: 1; padding: 15px; overflow-y: auto; background: var(--white); }
+        .service-card { background: var(--navy); color: var(--white); padding: 15px; border-radius: 15px; margin-bottom: 15px; border-right: 6px solid var(--gold); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .service-card h3 { margin-top: 0; color: var(--gold); font-size: 18px; }
+        .service-card p { color: #f4f4f4; font-size: 14px; line-height: 1.6; }
+        .read-more { background: var(--gold); border: none; padding: 8px 15px; border-radius: 8px; color: var(--navy); font-weight: bold; cursor: pointer; }
+        
+        /* Bottom AI Voice Bar */
+        .ai-bar { padding: 15px; background: var(--navy); border-top: 2px solid var(--gold); text-align: center; }
+        .mic-btn { background: var(--gold); color: var(--navy); border: none; padding: 15px; border-radius: 30px; font-weight: bold; width: 100%; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="header">
+            <img src="logo.png" class="logo" alt="ISOS Logo">
+            <h2 style="color: var(--gold); margin: 10px 0 0 0;">ISOS پورٹل</h2>
+        </div>
+
+        <div class="nav-tabs">
+            <div class="tab">🏠 ہوم</div>
+            <div class="tab">🎓 تعلیم</div>
+            <div class="tab">🌍 ویزہ</div>
+            <div class="tab">📜 MOFA</div>
+        </div>
+
+        <div class="content" id="app-content">
+            <div class="service-card">
+                <h3>🎓 HEC ڈگری تصدیق</h3>
+                <p>اپنی ڈگری کی تصدیق کا مکمل طریقہ کار، فیس اور ٹائم لائن کی تفصیلات یہاں موجود ہیں۔</p>
+                <button class="read-more">تفصیل دیکھیں</button>
+            </div>
+            
+            <div class="service-card" style="background: #f9f9f9; border: 1px solid var(--gold); color: var(--black);">
+                <h3 style="color: var(--navy);">🌍 ویزہ اپڈیٹس</h3>
+                <p style="color: #333;">سعودی عرب اور قطر ایمبیسی کے سلاٹس کی تازہ ترین معلومات حاصل کریں۔</p>
+                <button class="read-more" style="background: var(--navy); color: white;">چیک کریں</button>
+            </div>
+        </div>
+
+        <div class="ai-bar">
+            <button class="mic-btn">
+                <span>🎤</span> ISOS AI سے بات کریں
+            </button>
+        </div>
+    </div>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                .then(reg => console.log('ISOS App Live!', reg))
+                .catch(err => console.log('Registration Failed', err));
+            });
+        }
+    </script>
+</body>
+</html>
