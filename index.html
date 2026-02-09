@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Islamabad Online</title>
+    <title>Islamabad Online - Smart App</title>
     <link rel="manifest" href="manifest.json">
     <style>
         :root { --navy: #001f3f; --gold: #D4AF37; }
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; }
-        .app-header { background: var(--navy); padding: 15px; text-align: center; border-bottom: 3px solid var(--gold); }
-        .mic-btn { background: var(--gold); color: var(--navy); border: none; padding: 12px 30px; border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 18px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
-        .web-frame { width: 100%; height: calc(100vh - 80px); border: none; }
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: 'Arial', sans-serif; background: #f4f4f4; }
+        .app-header { background: var(--navy); padding: 12px; text-align: center; border-bottom: 3px solid var(--gold); position: sticky; top: 0; z-index: 100; }
+        .mic-btn { background: var(--gold); color: var(--navy); border: none; padding: 10px 25px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 16px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); transition: 0.3s; }
+        .mic-btn:active { transform: scale(0.95); }
+        .web-container { width: 100%; height: calc(100vh - 75px); border: none; }
     </style>
 </head>
 <body>
@@ -18,13 +19,14 @@
         <button id="micBtn" class="mic-btn" onclick="startVoiceChat()">🎤 بول کر تلاش کریں</button>
     </div>
 
-    <iframe src="https://onlinehubs.world/isos/" class="web-frame"></iframe>
+    <iframe src="https://onlinehubs.world/isos/" class="web-container" id="siteFrame"></iframe>
 
     <script>
         function startVoiceChat() {
             const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
             recognition.lang = 'ur-PK';
             const btn = document.getElementById('micBtn');
+            const frame = document.getElementById('siteFrame');
 
             recognition.onstart = () => {
                 btn.innerText = "🔴 میں سن رہا ہوں...";
@@ -32,22 +34,31 @@
             };
 
             recognition.onresult = (event) => {
-                const transcript = event.results[0][0].transcript;
+                const text = event.results[0][0].transcript;
                 btn.innerText = "🎤 بول کر تلاش کریں";
                 btn.style.background = "#D4AF37";
 
-                // وائس کمانڈز کی مثالیں
-                if (transcript.includes("ویزہ")) {
-                    window.open("https://islamabadonlineservices.blogspot.com/p/visa-services.html", "_self");
-                } else if (transcript.includes("تعلیم")) {
-                    window.open("https://islamabadonlineservices.blogspot.com/p/hec-degree-attestation.html", "_self");
+                // تمام سروسز کے وائس کمانڈز
+                if (text.includes("ویزہ")) {
+                    frame.src = "https://islamabadonlineservices.blogspot.com/p/visa-services.html";
+                } else if (text.includes("تعلیم") || text.includes("ڈگری")) {
+                    frame.src = "https://islamabadonlineservices.blogspot.com/p/hec-degree-attestation.html";
+                } else if (text.includes("نادرا") || text.includes("شناختی کارڈ")) {
+                    frame.src = "https://islamabadonlineservices.blogspot.com/p/nadra-services.html";
+                } else if (text.includes("پاسپورٹ")) {
+                    frame.src = "https://islamabadonlineservices.blogspot.com/p/passport-services.html";
+                } else if (text.includes("لائسنس")) {
+                    frame.src = "https://islamabadonlineservices.blogspot.com/p/driving-license.html";
+                } else if (text.includes("ایف بی آر") || text.includes("ٹیکس")) {
+                    frame.src = "https://islamabadonlineservices.blogspot.com/p/fbr-services.html";
+                } else {
+                    alert("آپ نے کہا: " + text + ". فی الحال اس سروس کے لیے کمانڈ موجود نہیں، براہ کرم مینیو سے تلاش کریں۔");
                 }
             };
 
             recognition.onerror = () => {
                 btn.innerText = "🎤 بول کر تلاش کریں";
                 btn.style.background = "#D4AF37";
-                alert("مائیکروفون تک رسائی ممکن نہیں ہو سکی۔");
             };
 
             recognition.start();
