@@ -3,130 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ISOS Super App</title>
+    <title>Islamabad Online</title>
     <link rel="manifest" href="manifest.json">
     <style>
-        :root { --navy: #001f3f; --gold: #D4AF37; --white: #ffffff; }
-        body { margin: 0; background: #f0f2f5; font-family: 'Arial', sans-serif; overflow-x: hidden; }
-        .app-container { max-width: 450px; margin: auto; background: var(--navy); min-height: 100vh; display: flex; flex-direction: column; border: 4px solid var(--gold); }
-        .header { padding: 15px; text-align: center; border-bottom: 2px solid var(--gold); background: rgba(255,255,255,0.05); }
-        .logo { width: 80px; height: 80px; border-radius: 12px; background: white; padding: 5px; border: 2px solid var(--gold); }
-        .install-banner { display: none; background: #28a745; color: white; padding: 12px; text-align: center; font-weight: bold; cursor: pointer; font-size: 14px; position: sticky; top: 0; z-index: 100; }
-        .nav-tabs { display: flex; justify-content: space-around; background: var(--white); padding: 12px 0; border-bottom: 2px solid var(--gold); }
-        .tab { cursor: pointer; color: var(--navy); font-weight: bold; text-decoration: none; font-size: 13px; transition: 0.3s; }
-        .tab:hover { color: var(--gold); }
-        .content { flex: 1; padding: 15px; background: var(--white); }
-        .service-card { background: var(--navy); color: var(--white); padding: 15px; border-radius: 15px; margin-bottom: 15px; border-right: 6px solid var(--gold); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .service-card h3 { margin-top: 0; color: var(--gold); font-size: 18px; }
-        .btn-link { background: var(--gold); color: var(--navy); padding: 10px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; text-decoration: none; display: inline-block; margin-top: 10px; font-size: 14px; }
-        .ai-bar { padding: 15px; background: var(--navy); border-top: 2px solid var(--gold); }
-        .mic-btn { background: var(--gold); color: var(--navy); border: none; padding: 15px; border-radius: 30px; width: 100%; font-weight: bold; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        :root { --navy: #001f3f; --gold: #D4AF37; }
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: 'Arial', sans-serif; }
+        .app-header { background: var(--navy); padding: 12px; text-align: center; border-bottom: 3px solid var(--gold); }
+        .mic-btn { background: var(--gold); color: var(--navy); border: none; padding: 10px 25px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 16px; }
+        .web-view { width: 100%; height: calc(100vh - 75px); border: none; }
     </style>
 </head>
 <body>
-    <div id="install-banner" class="install-banner" onclick="installApp()">
-        📲 ISOS ایپ فون میں انسٹال کرنے کے لیے یہاں کلک کریں
+    <div class="app-header">
+        <button id="micBtn" class="mic-btn" onclick="startVoiceChat()">🎤 بول کر تلاش کریں</button>
     </div>
 
-    <div class="app-container">
-        <div class="header">
-            <img src="logo.png" class="logo" alt="ISOS Logo">
-            <h2 style="color: var(--gold); margin: 10px 0;">ISOS سروسز پورٹل</h2>
-        </div>
-
-        <div class="nav-tabs">
-            <a href="https://islamabadonlineservices.blogspot.com/" class="tab">🏠 ہوم</a>
-            <a href="https://islamabadonlineservices.blogspot.com/p/hec-degree-attestation.html" class="tab">🎓 تعلیم</a>
-            <a href="https://islamabadonlineservices.blogspot.com/p/visa-services.html" class="tab">🌍 ویزہ</a>
-            <a href="https://islamabadonlineservices.blogspot.com/p/mofa-attestation.html" class="tab">📜 MOFA</a>
-        </div>
-
-        <div class="content">
-            <div class="service-card">
-                <h3>🎓 تعلیمی دستاویزات (HEC/IBCC)</h3>
-                <p>ڈگری اور دیگر اسناد کی تصدیق کا مکمل طریقہ کار اور فیس کی تفصیلات۔</p>
-                <a href="https://islamabadonlineservices.blogspot.com/p/hec-degree-attestation.html" class="btn-link">تفصیل دیکھیں</a>
-            </div>
-            
-            <div class="service-card" style="background: #f8f9fa; border: 1px solid var(--gold); color: #333;">
-                <h3 style="color: var(--navy);">🌍 ویزہ سروسز (Visa Guide)</h3>
-                <p>سعودی عرب، قطر اور دیگر ممالک کے ویزہ سلاٹس اور ضرورتات۔</p>
-                <a href="https://islamabadonlineservices.blogspot.com/p/visa-services.html" class="btn-link" style="background: var(--navy); color: white;">ابھی چیک کریں</a>
-            </div>
-        </div>
-
-        <div class="ai-bar">
-            <button class="mic-btn" onclick="startVoiceChat()">
-                <span>🎤</span> ISOS AI سے بات کریں
-            </button>
-        </div>
-    </div>
+    <iframe src="https://onlinehubs.world/isos/" class="web-view"></iframe>
 
     <script>
-        // Service Worker Registration
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js');
-        }
-
-        // PWA Install Logic
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            document.getElementById('install-banner').style.display = 'block';
-        });
-
-        function installApp() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choice) => {
-                    if (choice.outcome === 'accepted') {
-                        document.getElementById('install-banner').style.display = 'none';
-                    }
-                    deferredPrompt = null;
-                });
-            }
-        }
-
-     // ISOS AI وائس انجن (یہاں سے کاپی کریں)
         function startVoiceChat() {
             const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
             recognition.lang = 'ur-PK';
+            const btn = document.getElementById('micBtn');
 
             recognition.onstart = () => {
-                alert("ISOS AI آپ کی بات سن رہا ہے، براہ کرم 'ویزہ' یا 'تعلیم' بولیں...");
+                btn.innerText = "🔴 میں سن رہا ہوں...";
+                btn.style.background = "#ff4d4d";
             };
 
             recognition.onresult = (event) => {
                 const transcript = event.results[0][0].transcript;
-                processAIResponse(transcript);
+                btn.innerText = "🎤 بول کر تلاش کریں";
+                btn.style.background = "#D4AF37";
+
+                if (transcript.includes("ویزہ")) {
+                    window.location.href = "https://islamabadonlineservices.blogspot.com/p/visa-services.html";
+                } else if (transcript.includes("تعلیم")) {
+                    window.location.href = "https://islamabadonlineservices.blogspot.com/p/hec-degree-attestation.html";
+                }
+            };
+
+            recognition.onerror = () => {
+                btn.innerText = "🎤 بول کر تلاش کریں";
+                btn.style.background = "#D4AF37";
             };
 
             recognition.start();
-        }
-
-        function processAIResponse(text) {
-            let msg = new SpeechSynthesisUtterance();
-            msg.lang = 'ur-PK';
-
-            if (text.includes("تعلیم") || text.includes("ڈگری") || text.includes("ایجوکیشن")) {
-                msg.text = "جی شہزاد صاحب، میں آپ کو تعلیمی تصدیق کے صفحے پر لے جا رہا ہوں";
-                window.speechSynthesis.speak(msg);
-                setTimeout(() => {
-                    window.location.href = 'https://islamabadonlineservices.blogspot.com/p/hec-degree-attestation.html';
-                }, 2500);
-            } 
-            else if (text.includes("ویزہ") || text.includes("سلاٹ") || text.includes("ایمبیسی")) {
-                msg.text = "ویزہ سروسز کی تازہ ترین معلومات حاضر ہیں";
-                window.speechSynthesis.speak(msg);
-                setTimeout(() => {
-                    window.location.href = 'https://islamabadonlineservices.blogspot.com/p/visa-services.html';
-                }, 2500);
-            }
-            else {
-                msg.text = "معذرت، میں آپ کی بات نہیں سمجھ سکا۔ کیا آپ ویزہ یا تعلیم کے بارے میں جاننا چاہتے ہیں؟";
-                window.speechSynthesis.speak(msg);
-            }
         }
     </script>
 </body>
