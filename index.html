@@ -7,10 +7,10 @@
     <link rel="manifest" href="manifest.json">
     <style>
         :root { --navy: #001f3f; --gold: #D4AF37; }
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: 'Arial', sans-serif; }
-        .app-header { background: var(--navy); padding: 12px; text-align: center; border-bottom: 3px solid var(--gold); }
-        .mic-btn { background: var(--gold); color: var(--navy); border: none; padding: 10px 25px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 16px; }
-        .web-view { width: 100%; height: calc(100vh - 75px); border: none; }
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; }
+        .app-header { background: var(--navy); padding: 15px; text-align: center; border-bottom: 3px solid var(--gold); }
+        .mic-btn { background: var(--gold); color: var(--navy); border: none; padding: 12px 30px; border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 18px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        .web-frame { width: 100%; height: calc(100vh - 80px); border: none; }
     </style>
 </head>
 <body>
@@ -18,7 +18,7 @@
         <button id="micBtn" class="mic-btn" onclick="startVoiceChat()">🎤 بول کر تلاش کریں</button>
     </div>
 
-    <iframe src="https://onlinehubs.world/isos/" class="web-view"></iframe>
+    <iframe src="https://onlinehubs.world/isos/" class="web-frame"></iframe>
 
     <script>
         function startVoiceChat() {
@@ -36,16 +36,18 @@
                 btn.innerText = "🎤 بول کر تلاش کریں";
                 btn.style.background = "#D4AF37";
 
+                // وائس کمانڈز کی مثالیں
                 if (transcript.includes("ویزہ")) {
-                    window.location.href = "https://islamabadonlineservices.blogspot.com/p/visa-services.html";
+                    window.open("https://islamabadonlineservices.blogspot.com/p/visa-services.html", "_self");
                 } else if (transcript.includes("تعلیم")) {
-                    window.location.href = "https://islamabadonlineservices.blogspot.com/p/hec-degree-attestation.html";
+                    window.open("https://islamabadonlineservices.blogspot.com/p/hec-degree-attestation.html", "_self");
                 }
             };
 
             recognition.onerror = () => {
                 btn.innerText = "🎤 بول کر تلاش کریں";
                 btn.style.background = "#D4AF37";
+                alert("مائیکروفون تک رسائی ممکن نہیں ہو سکی۔");
             };
 
             recognition.start();
