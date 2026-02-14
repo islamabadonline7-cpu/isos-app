@@ -3,24 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ISOS Super AI - Master v3.0</title>
+    <title>ISOS Super AI - Master v5.0</title>
     <link rel="manifest" href="manifest.json">
     <style>
         body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: 'Segoe UI', Tahoma, sans-serif; background: #001f3f; }
-        
-        /* اسپلش اسکرین */
         #splash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #001f3f; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 20000; transition: 0.8s; cursor: pointer; }
         .logo { width: 140px; height: auto; border-radius: 20px; box-shadow: 0 0 30px rgba(255,215,0,0.4); animation: breathe 2s infinite; }
-        
-        /* ٹاپ پی سی پینل */
-        #pc-panel { position: fixed; top: 0; width: 100%; background: #FFD700; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; box-sizing: border-box; z-index: 15000; height: 50px; }
-        .btn { background: #ff4444; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        .ai-label { color: #001f3f; font-weight: bold; font-size: 14px; }
-
-        /* ایپ مینیو ایریا */
-        .app-view { width: 100%; height: calc(100vh - 50px); margin-top: 50px; }
+        #pc-panel { position: fixed; top: 0; width: 100%; background: #FFD700; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; box-sizing: border-box; z-index: 15000; height: 55px; box-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .btn { background: #ff4444; color: white; border: none; padding: 6px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .ai-label { color: #001f3f; font-weight: bold; font-size: 14px; border-right: 3px solid #001f3f; padding-right: 10px; }
+        .app-view { width: 100%; height: calc(100vh - 55px); margin-top: 55px; }
         iframe { width: 100%; height: 100%; border: none; }
-
         @keyframes breathe { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.05); opacity: 1; } }
     </style>
 </head>
@@ -29,19 +22,19 @@
     <div id="splash">
         <img src="logo.png" alt="ISOS" class="logo">
         <h2 style="color: #FFD700; margin-top: 15px;">ISLAMABAD ONLINE SERVICES</h2>
-        <p style="color: white;">سپر AI شروع کرنے کے لیے ٹچ کریں</p>
+        <p style="color: white;">سپر AI فعال کرنے کے لیے کلک کریں</p>
     </div>
 
     <div id="pc-panel">
         <span class="ai-label" id="ai-status">سسٹم تیار ہے...</span>
         <div>
-            <button class="btn" style="background: #28a745;" onclick="location.reload()">دوبارہ شروع 🔄</button>
-            <button class="btn" onclick="terminateAI()">AI بند کریں 🛑</button>
+            <button class="btn" style="background: #28a745; margin-left: 10px;" onclick="location.reload()">ریفریش 🔄</button>
+            <button class="btn" onclick="terminateAI()">بند کریں 🛑</button>
         </div>
     </div>
 
     <div class="app-view">
-        <iframe id="main-frame" src="https://isos.onlinehubs.world/" allow="microphone; camera; autoplay"></iframe>
+        <iframe id="main-frame" src="https://isos.onlinehubs.world/" allow="microphone; camera; autoplay; clipboard-write"></iframe>
     </div>
 
     <script>
@@ -51,18 +44,46 @@
         let isRunning = false;
         let isSpeaking = false;
 
-        const brain = [
-            { keys: ["سروس", "کام", "کیا کرتے"], msg: "شہزاد صاحب، ہم ویزہ پورٹل، دستاویزات کی تصدیق، اور پروٹیکٹر کی خدمات فراہم کرتے ہیں۔", url: "https://isos.onlinehubs.world/" },
-            { keys: ["ویزہ", "ویزا"], msg: "جی، میں آپ کے لیے گلوبل ویزہ پورٹل کھول رہی ہوں۔", url: "https://isos.onlinehubs.world/p/global-visa-portal.html" },
-            { keys: ["اسٹیٹس", "چیک"], msg: "آپ یہاں اپنا پاسپورٹ یا فائل اسٹیٹس ٹریک کر سکتے ہیں۔", url: "https://isos.onlinehubs.world/p/status.html" }
+        // مینیو بار اور سب پیجز کا مکمل نالج بیس
+        const isosKnowledge = [
+            { 
+                keys: ["سروس", "کام", "سہولیات", "کیا کیا"], 
+                msg: "شہزاد صاحب، اسلام آباد آن لائن سروسز میں ہم گلوبل ویزہ، اپائنٹمنٹ، موفہ اٹیسٹیشن، ایجوکیشن ڈگری کی تصدیق، اور فیملی رجسٹریشن کی سہولیات دیتے ہیں۔ آپ مینیو بار میں ان تمام کے بٹن دیکھ سکتے ہیں۔", 
+                url: "https://isos.onlinehubs.world/" 
+            },
+            { 
+                keys: ["ویزہ", "ویزا", "پورٹل"], 
+                msg: "جی، گلوبل ویزہ پورٹل میں سعودی، قطر، اور دبئی کی سروسز شامل ہیں۔ میں متعلقہ پیج کھول رہی ہوں۔", 
+                url: "https://isos.onlinehubs.world/p/global-visa-portal.html" 
+            },
+            { 
+                keys: ["اپائنٹمنٹ", "ٹائم", "سلاٹ"], 
+                msg: "ویزہ اپائنٹمنٹ بک کرنے کے لیے یہ رہا ہمارا مخصوص صفحہ۔", 
+                url: "https://isos.onlinehubs.world/p/visa-appointment.html" 
+            },
+            { 
+                keys: ["تصدیق", "اٹیسٹیشن", "موفہ", "ڈگری"], 
+                msg: "اسناد کی تصدیق کے لیے ہم موفہ، ایچ ای سی اور سفارت خانوں سے سروس فراہم کرتے ہیں۔", 
+                url: "https://isos.onlinehubs.world/p/mofa-and-embassies-attestation.html" 
+            },
+            { 
+                keys: ["رابطہ", "واٹس ایپ", "نمبر", "ایڈریس"], 
+                msg: "آپ مینیو میں رابطہ کے بٹن سے ہمیں واٹس ایپ کر سکتے ہیں یا ہمارا پتہ دیکھ سکتے ہیں۔", 
+                url: "https://isos.onlinehubs.world/p/contact-us.html" 
+            },
+            { 
+                keys: ["اسٹیٹس", "ٹریک", "چیک"], 
+                msg: "آپ اپنا اسٹیٹس یہاں سے چیک کر سکتے ہیں۔", 
+                url: "https://isos.onlinehubs.world/p/status.html" 
+            }
         ];
 
         function talk(text) {
             window.speechSynthesis.cancel();
             const speech = new SpeechSynthesisUtterance(text);
             speech.lang = 'ur-PK';
-            speech.onstart = () => { isSpeaking = true; status.innerText = "AI بول رہا ہے..."; };
-            speech.onend = () => { isSpeaking = false; status.innerText = "میں سن رہی ہوں..."; };
+            speech.onstart = () => { isSpeaking = true; status.innerText = "AI جواب دے رہا ہے..."; };
+            speech.onend = () => { isSpeaking = false; status.innerText = "میں سن رہی ہوں، بولئے..."; };
             window.speechSynthesis.speak(speech);
         }
 
@@ -70,7 +91,7 @@
             if (isRunning) return;
             isRunning = true;
             document.getElementById('splash').style.display = 'none';
-            talk("اسلام آباد آن لائن سروسز میں خوش آمدید۔ میں آپ کی سپر اے آئی ہوں۔ میں آپ کی کیا مدد کر سکتی ہوں؟");
+            talk("خوش آمدید! میں اسلام آباد آن لائن سروسز کی اسمارٹ اسسٹنٹ ہوں۔ میں آپ کے مینیو اور تمام سروسز سے واقف ہوں۔ آپ کیا جاننا چاہتے ہیں؟");
             startListening();
         }
 
@@ -78,39 +99,34 @@
             recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
             recognition.lang = 'ur-PK';
             recognition.continuous = true;
-            recognition.interimResults = false;
-
             recognition.onresult = (event) => {
                 const query = event.results[event.results.length - 1][0].transcript.toLowerCase();
-                processQuery(query);
+                processIntelligence(query);
             };
-
             recognition.onerror = () => { if(isRunning) recognition.start(); };
             recognition.onend = () => { if(isRunning && !isSpeaking) recognition.start(); };
             recognition.start();
         }
 
-        function processQuery(cmd) {
-            let matched = false;
-            brain.forEach(item => {
+        function processIntelligence(cmd) {
+            let found = false;
+            isosKnowledge.forEach(item => {
                 if (item.keys.some(k => cmd.includes(k))) {
                     talk(item.msg);
                     frame.src = item.url;
-                    matched = true;
+                    found = true;
                 }
             });
-            if (!matched) talk("معذرت، کیا آپ ویزہ، اسٹیٹس یا ہماری سروسز کے بارے میں جاننا چاہتے ہیں؟");
+            if (!found) talk("میں آپ کی بات سمجھنے کی کوشش کر رہی ہوں۔ کیا آپ ویزہ، اٹیسٹیشن یا مینیو کے بارے میں پوچھنا چاہتے ہیں؟");
         }
 
         function terminateAI() {
             isRunning = false;
             window.speechSynthesis.cancel();
             if (recognition) recognition.stop();
-            status.innerText = "AI بند کر دیا گیا";
-            alert("سپر AI اسسٹنٹ اب خاموش ہے۔");
+            status.innerText = "AI بند ہے";
         }
 
-        // PWA سروس ورکر رجسٹریشن
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js');
         }
