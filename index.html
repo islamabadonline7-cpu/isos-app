@@ -5,30 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ISOS Super AI Smart App</title>
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #001f3f; }
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: 'Segoe UI', sans-serif; background: #001f3f; }
         
-        /* اسپلش اسکرین */
+        /* اسپلش اسکرین اور لوگو */
         #splash-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #001f3f; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10000; transition: 1s; }
-        .logo-circle { width: 130px; height: 130px; background: #FFD700; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 45px; font-weight: 900; color: #001f3f; box-shadow: 0 0 40px rgba(255,215,0,0.5); animation: pulse 2s infinite; }
-        .brand-name { color: #FFD700; margin-top: 25px; font-size: 22px; font-weight: bold; letter-spacing: 1px; }
-        
-        /* AI آپشنز کارڈ */
-        #ai-options-box { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); width: 85%; background: rgba(0, 31, 63, 0.95); border: 2px solid #FFD700; border-radius: 15px; padding: 15px; display: none; z-index: 9999; box-shadow: 0 5px 20px rgba(0,0,0,0.5); text-align: center; }
-        .option-btn { display: block; background: #FFD700; color: #001f3f; padding: 10px; margin: 8px 0; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 14px; transition: 0.3s; }
-        .option-btn:hover { background: #fff; }
+        .logo-img { width: 150px; height: auto; border-radius: 20px; box-shadow: 0 0 30px rgba(255,215,0,0.3); animation: pulse 2s infinite; }
+        .brand-name { color: #FFD700; margin-top: 25px; font-size: 22px; font-weight: bold; }
+
+        /* پاز بٹن */
+        #stop-panel { position: fixed; top: 15px; right: 15px; z-index: 10001; }
+        .stop-btn { background: #ff4444; color: #fff; border: none; padding: 8px 12px; border-radius: 5px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+
+        /* AI آپشنز باکس */
+        #ai-options-box { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); width: 85%; background: rgba(0, 31, 63, 0.95); border: 2px solid #FFD700; border-radius: 15px; padding: 15px; display: none; z-index: 9999; text-align: center; }
+        .option-btn { display: block; background: #FFD700; color: #001f3f; padding: 10px; margin: 8px 0; border-radius: 8px; text-decoration: none; font-weight: bold; transition: 0.3s; }
 
         .app-wrapper { width: 100%; height: 100vh; }
         #main-frame { width: 100%; height: 100%; border: none; }
         
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
     </style>
 </head>
 <body onclick="activateSmartAI()">
 
     <div id="splash-screen">
-        <div class="logo-circle">ISOS</div>
+        <img src="logo.png" alt="ISOS Logo" class="logo-img">
         <div class="brand-name">ISLAMABAD ONLINE SERVICES</div>
-        <p style="color: #fff; margin-top: 15px; font-size: 14px;">سپر AI لوڈ ہو رہا ہے...</p>
+        <p style="color: #fff; margin-top: 15px; font-size: 14px;">شروع کرنے کے لیے کہیں بھی کلک کریں...</p>
+    </div>
+
+    <div id="stop-panel">
+        <button class="stop-btn" onclick="stopAI(event)">AI بند کریں 🛑</button>
     </div>
 
     <div id="ai-options-box">
@@ -47,8 +54,8 @@
         const speechText = document.getElementById('ai-speech-text');
         const optionsList = document.getElementById('options-list');
         let aiStarted = false;
+        let recognition;
 
-        // 1. نالج بیس اور لنکس کی میپنگ (آٹو سنک لاجک)
         const knowledgeBase = {
             "ویزہ": {
                 msg: "ویزہ کے لیے یہ بہترین صفحات موجود ہیں، آپ کہاں جانا چاہیں گے؟",
@@ -60,17 +67,11 @@
             "اسٹیٹس": {
                 msg: "جی، میں آپ کو ٹریکنگ اور اسٹیٹس پیج پر لے چلتی ہوں۔",
                 links: [{ t: "اسٹیٹس چیک کریں", l: "https://isos.onlinehubs.world/p/status.html" }]
-            },
-            "اٹیسٹیشن": {
-                msg: "تصدیق کے لیے ہمارے پاس یہ سروسز موجود ہیں:",
-                links: [
-                    { t: "موفہ تصدیق", l: "https://isos.onlinehubs.world/p/mofa-and-embassies-attestation.html" },
-                    { t: "تعلیمی اسناد", l: "https://isos.onlinehubs.world/p/educational-documents-ibcc-hec.html" }
-                ]
             }
         };
 
         function speakUrdu(text) {
+            window.speechSynthesis.cancel(); 
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'ur-PK';
             window.speechSynthesis.speak(utterance);
@@ -79,57 +80,49 @@
         function activateSmartAI() {
             if (aiStarted) return;
             aiStarted = true;
-            
-            // اسپلش اسکرین ہٹائیں
             splash.style.opacity = '0';
             setTimeout(() => { splash.style.display = 'none'; }, 1000);
-
             speakUrdu("اسلام آباد آن لائن سروسز میں خوش آمدید۔ میں آپ کی کیا مدد کر سکتی ہوں؟");
             setTimeout(listenUser, 5000);
         }
 
         function listenUser() {
-            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
             recognition.lang = 'ur-PK';
+            recognition.continuous = true;
             recognition.start();
 
             recognition.onresult = (event) => {
-                const cmd = event.results[0][0].transcript.toLowerCase();
+                const cmd = event.results[event.results.length - 1][0].transcript.toLowerCase();
                 handleCommand(cmd);
             };
-            recognition.onend = () => { recognition.start(); };
         }
 
         function handleCommand(cmd) {
-            let found = false;
             optionsList.innerHTML = "";
-            
             for (let key in knowledgeBase) {
                 if (cmd.includes(key)) {
                     const data = knowledgeBase[key];
                     speechText.innerText = data.msg;
                     speakUrdu(data.msg);
-                    
                     data.links.forEach(item => {
                         const a = document.createElement('a');
-                        a.href = "#";
-                        a.className = "option-btn";
-                        a.innerText = item.t;
-                        a.onclick = () => { 
-                            frame.src = item.l; 
-                            optionsBox.style.display = "none";
-                        };
+                        a.href = "#"; a.className = "option-btn"; a.innerText = item.t;
+                        a.onclick = () => { frame.src = item.l; optionsBox.style.display = "none"; };
                         optionsList.appendChild(a);
                     });
-                    
                     optionsBox.style.display = "block";
-                    found = true;
-                    break;
+                    return;
                 }
             }
-            if (!found) {
-                speakUrdu("معذرت، میں آپ کی بات نہیں سمجھ سکی۔ کیا آپ ویزہ یا اسٹیٹس کے بارے میں جاننا چاہتے ہیں؟");
-            }
+        }
+
+        function stopAI(event) {
+            event.stopPropagation();
+            window.speechSynthesis.cancel();
+            if (recognition) recognition.stop();
+            optionsBox.style.display = "none";
+            alert("AI اسسٹنٹ روک دیا گیا ہے۔");
         }
     </script>
 </body>
