@@ -1,15 +1,16 @@
 {
-  "short_name": "ISB Online",
-  "name": "Islamabad Online Services",
-  "start_url": "index.html",
-  "display": "standalone",
-  "theme_color": "#001f3f",
-  "background_color": "#ffffff",
-  "icons": [
+  "manifest_version": 3,
+  "name": "ISOS AI Manager v2.0",
+  "version": "2.0",
+  "description": "شہزاد صاحب کا ذاتی AI اسسٹنٹ برائے ISOS ویب مینجمنٹ",
+  "icons": {
+    "192": "logo.png"
+  },
+  "content_scripts": [
     {
-      "src": "logo.png",
-      "sizes": "192x192",
-      "type": "image/png"
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
     }
-  ]
+  ],
+  "permissions": ["storage", "activeTab"]
 }
