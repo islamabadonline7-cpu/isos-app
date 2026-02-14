@@ -3,126 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ISOS Super AI Smart App</title>
+    <title>ISOS Super Intelligence System</title>
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: 'Segoe UI', sans-serif; background: #001f3f; }
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: 'Segoe UI', Arial, sans-serif; background: #001f3f; }
         
-        /* اسپلش اسکرین اور لوگو */
-        #splash-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #001f3f; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10000; transition: 1s; }
-        .logo-img { width: 150px; height: auto; border-radius: 20px; box-shadow: 0 0 30px rgba(255,215,0,0.3); animation: pulse 2s infinite; }
-        .brand-name { color: #FFD700; margin-top: 25px; font-size: 22px; font-weight: bold; }
+        /* اسپلش اسکرین */
+        #splash-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #001f3f; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 20000; transition: 1s; cursor: pointer; }
+        .logo-img { width: 150px; height: auto; border-radius: 20px; box-shadow: 0 0 40px rgba(255,215,0,0.4); animation: pulse 2s infinite; }
+        
+        /* ٹاپ کنٹرول بار (کمپیوٹر پر نظر آنے کے لیے) */
+        #top-controls { position: fixed; top: 0; left: 0; width: 100%; background: #FFD700; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; box-sizing: border-box; z-index: 15000; box-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .control-btn { background: #ff4444; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 14px; }
+        .status-text { color: #001f3f; font-weight: bold; font-size: 14px; }
 
-        /* پاز بٹن */
-        #stop-panel { position: fixed; top: 15px; right: 15px; z-index: 10001; }
-        .stop-btn { background: #ff4444; color: #fff; border: none; padding: 8px 12px; border-radius: 5px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-
-        /* AI آپشنز باکس */
-        #ai-options-box { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); width: 85%; background: rgba(0, 31, 63, 0.95); border: 2px solid #FFD700; border-radius: 15px; padding: 15px; display: none; z-index: 9999; text-align: center; }
-        .option-btn { display: block; background: #FFD700; color: #001f3f; padding: 10px; margin: 8px 0; border-radius: 8px; text-decoration: none; font-weight: bold; transition: 0.3s; }
-
-        .app-wrapper { width: 100%; height: 100vh; }
+        /* ایپ مینیو اور فریم */
+        .app-container { width: 100%; height: 100vh; padding-top: 45px; box-sizing: border-box; }
         #main-frame { width: 100%; height: 100%; border: none; }
-        
+
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
     </style>
 </head>
-<body onclick="activateSmartAI()">
+<body onclick="startExperience()">
 
     <div id="splash-screen">
         <img src="logo.png" alt="ISOS Logo" class="logo-img">
-        <div class="brand-name">ISLAMABAD ONLINE SERVICES</div>
-        <p style="color: #fff; margin-top: 15px; font-size: 14px;">شروع کرنے کے لیے کہیں بھی کلک کریں...</p>
+        <h2 style="color: #FFD700; margin-top: 20px;">ISLAMABAD ONLINE SERVICES</h2>
+        <p style="color: white;">سپر AI شروع کرنے کے لیے یہاں کلک کریں</p>
     </div>
 
-    <div id="stop-panel">
-        <button class="stop-btn" onclick="stopAI(event)">AI بند کریں 🛑</button>
+    <div id="top-controls">
+        <span class="status-text" id="ai-label">AI لوڈ ہو رہا ہے...</span>
+        <div>
+            <button class="control-btn" style="background: #28a745; margin-right: 5px;" onclick="location.reload()">دوبارہ شروع 🔄</button>
+            <button class="control-btn" onclick="killAI()">AI بند کریں 🛑</button>
+        </div>
     </div>
 
-    <div id="ai-options-box">
-        <p id="ai-speech-text" style="color: #fff; margin-bottom: 10px; font-weight: bold;"></p>
-        <div id="options-list"></div>
-    </div>
-
-    <div class="app-wrapper">
+    <div class="app-container">
         <iframe id="main-frame" src="https://isos.onlinehubs.world/" allow="microphone; camera; clipboard-write"></iframe>
     </div>
 
     <script>
+        const label = document.getElementById('ai-label');
         const frame = document.getElementById('main-frame');
-        const splash = document.getElementById('splash-screen');
-        const optionsBox = document.getElementById('ai-options-box');
-        const speechText = document.getElementById('ai-speech-text');
-        const optionsList = document.getElementById('options-list');
-        let aiStarted = false;
         let recognition;
+        let active = false;
 
-        const knowledgeBase = {
-            "ویزہ": {
-                msg: "ویزہ کے لیے یہ بہترین صفحات موجود ہیں، آپ کہاں جانا چاہیں گے؟",
-                links: [
-                    { t: "گلوبل ویزہ پورٹل", l: "https://isos.onlinehubs.world/p/global-visa-portal.html" },
-                    { t: "ویزہ اپائنٹمنٹ", l: "https://isos.onlinehubs.world/p/visa-appointment.html" }
-                ]
-            },
-            "اسٹیٹس": {
-                msg: "جی، میں آپ کو ٹریکنگ اور اسٹیٹس پیج پر لے چلتی ہوں۔",
-                links: [{ t: "اسٹیٹس چیک کریں", l: "https://isos.onlinehubs.world/p/status.html" }]
-            }
-        };
+        // ڈیٹا بیس (ڈراپ ڈاؤن پیجز کے ساتھ)
+        const knowledge = [
+            { keys: ["ویزہ", "ویزا"], msg: "جی، میں آپ کے لیے ویزہ پورٹل کھول رہی ہوں۔", url: "https://isos.onlinehubs.world/p/global-visa-portal.html" },
+            { keys: ["اسٹیٹس", "چیک", "پاسپورٹ"], msg: "آپ یہاں اپنا اسٹیٹس چیک کر سکتے ہیں۔", url: "https://isos.onlinehubs.world/p/status.html" },
+            { keys: ["پروٹیکٹر", "محفوظ"], msg: "پروٹیکٹر سروسز کی معلومات حاضر ہیں۔", url: "https://isos.onlinehubs.world/p/protector-services.html" },
+            { keys: ["تصدیق", "موفہ"], msg: "اسناد کی تصدیق کا صفحہ لوڈ ہو رہا ہے۔", url: "https://isos.onlinehubs.world/p/mofa-and-embassies-attestation.html" }
+        ];
 
-        function speakUrdu(text) {
-            window.speechSynthesis.cancel(); 
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'ur-PK';
-            window.speechSynthesis.speak(utterance);
+        function speak(text) {
+            window.speechSynthesis.cancel();
+            const msg = new SpeechSynthesisUtterance(text);
+            msg.lang = 'ur-PK';
+            msg.onstart = () => { label.innerText = "AI بول رہا ہے..."; };
+            msg.onend = () => { label.innerText = "میں سن رہی ہوں، بولئے..."; };
+            window.speechSynthesis.speak(msg);
         }
 
-        function activateSmartAI() {
-            if (aiStarted) return;
-            aiStarted = true;
-            splash.style.opacity = '0';
-            setTimeout(() => { splash.style.display = 'none'; }, 1000);
-            speakUrdu("اسلام آباد آن لائن سروسز میں خوش آمدید۔ میں آپ کی کیا مدد کر سکتی ہوں؟");
-            setTimeout(listenUser, 5000);
+        function startExperience() {
+            if (active) return;
+            active = true;
+            document.getElementById('splash-screen').style.opacity = '0';
+            setTimeout(() => { document.getElementById('splash-screen').style.display = 'none'; }, 1000);
+            
+            speak("اسلام آباد آن لائن سروسز میں خوش آمدید۔ میں آپ کی کیا مدد کر سکتی ہوں؟");
+            initRecognition();
         }
 
-        function listenUser() {
+        function initRecognition() {
             recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
             recognition.lang = 'ur-PK';
             recognition.continuous = true;
-            recognition.start();
-
+            
             recognition.onresult = (event) => {
-                const cmd = event.results[event.results.length - 1][0].transcript.toLowerCase();
-                handleCommand(cmd);
+                const text = event.results[event.results.length - 1][0].transcript.toLowerCase();
+                processAI(text);
             };
+
+            recognition.onend = () => { if(active) recognition.start(); };
+            recognition.start();
         }
 
-        function handleCommand(cmd) {
-            optionsList.innerHTML = "";
-            for (let key in knowledgeBase) {
-                if (cmd.includes(key)) {
-                    const data = knowledgeBase[key];
-                    speechText.innerText = data.msg;
-                    speakUrdu(data.msg);
-                    data.links.forEach(item => {
-                        const a = document.createElement('a');
-                        a.href = "#"; a.className = "option-btn"; a.innerText = item.t;
-                        a.onclick = () => { frame.src = item.l; optionsBox.style.display = "none"; };
-                        optionsList.appendChild(a);
-                    });
-                    optionsBox.style.display = "block";
-                    return;
+        function processAI(cmd) {
+            let found = false;
+            knowledge.forEach(item => {
+                if (item.keys.some(k => cmd.includes(k))) {
+                    speak(item.msg);
+                    frame.src = item.url;
+                    found = true;
                 }
-            }
+            });
+            if (!found) speak("معذرت، کیا آپ ویزہ یا پروٹیکٹر کے بارے میں پوچھنا چاہتے ہیں؟");
         }
 
-        function stopAI(event) {
-            event.stopPropagation();
+        function killAI() {
+            active = false;
             window.speechSynthesis.cancel();
             if (recognition) recognition.stop();
-            optionsBox.style.display = "none";
-            alert("AI اسسٹنٹ روک دیا گیا ہے۔");
+            label.innerText = "AI بند ہے";
+            alert("AI اسسٹنٹ کو مکمل طور پر بند کر دیا گیا ہے۔");
         }
     </script>
 </body>
