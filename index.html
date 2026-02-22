@@ -1,32 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <style>
-        /* پورا صفحہ شفاف کر دیں */
-        body, html { 
-            margin: 0; padding: 0; 
-            background: transparent !important; 
-            overflow: hidden; 
-        }
-        #koko-container {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            align-items: flex-end; /* اسے نیچے کی طرف رکھیں */
-            justify-content: flex-end; /* دائیں کونے میں */
-        }
-        img, video {
-            width: 300px; /* سائز بڑا کریں تاکہ وہ کھڑی نظر آئے */
-            height: auto;
-            /* کوئی بارڈر یا دائرہ نہیں ہونا چاہیے */
-            border: none !important;
-            box-shadow: none !important;
-        }
-    </style>
-</head>
-<body>
-    <div id="koko-container">
-        <img src="https://drive.google.com/thumbnail?id=1Xz2IKfoCIvqh9DBITi9z6o7CU6lluWDh&sz=w1000">
-    </div>
-</body>
-</html>
+// آواز کو فعال کرنے کا نیا طریقہ
+document.body.addEventListener('click', function() {
+    const synth = window.speechSynthesis;
+    
+    // اگر پہلے سے کچھ بول رہی ہے تو اسے روک دیں
+    if (synth.speaking) { return; }
+
+    const message = new SpeechSynthesisUtterance("اسلام آباد آن لائن سروسز میں خوش آمدید! میں آپ کی کیا مدد کر سکتی ہوں؟");
+    message.lang = 'ur-PK';
+    message.pitch = 1.2; // تھوڑی دوستانہ آواز کے لیے
+    message.rate = 0.9;  // بولنے کی رفتار تھوڑی کم
+    
+    synth.speak(message);
+    console.log("Koko is now speaking after click!");
+}, { once: true }); // یہ صرف پہلے کلک پر چلے گا
