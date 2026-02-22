@@ -1,31 +1,34 @@
-<!DOCTYPE html>
-<html style="background: transparent;">
-<head>
+<div id="koko-global-wrapper" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; cursor: pointer;">
+    <img id="koko-avatar" 
+         src="https://drive.google.com/uc?export=view&id=17cAxvXGtDISfjQpeThBF3JdhgEulCABr" 
+         alt="Ko Ko Assistant" 
+         style="width: 150px; height: auto; transition: all 0.3s ease-in-out;"
+         onclick="welcomeSpeech()">
+    
     <style>
-        body { margin: 0; padding: 0; overflow: hidden; background: transparent !important; cursor: pointer; }
-        #koko-img { width: 300px; height: auto; transition: transform 0.3s; }
-        #koko-img:hover { transform: scale(1.05); }
+        @keyframes talking {
+            0% { transform: scale(1); filter: brightness(1); }
+            50% { transform: scale(1.05); filter: brightness(1.2); }
+            100% { transform: scale(1); filter: brightness(1); }
+        }
+        .is-talking { animation: talking 0.5s infinite; }
     </style>
-</head>
-<body onclick="startTalking()">
-    <img id="koko-img" src="https://drive.google.com/thumbnail?id=1Xz2IKfoCIvqh9DBITi9z6o7CU6lluWDh&sz=w1000">
 
     <script>
-        function startTalking() {
+        function welcomeSpeech() {
+            const img = document.getElementById('koko-avatar');
             const synth = window.speechSynthesis;
             if (synth.speaking) return;
 
-            const message = new SpeechSynthesisUtterance("اسلام آباد آن لائن سروسز میں خوش آمدید! میں کوکو ہوں، آپ کی اسمارٹ اسسٹنٹ۔");
-            message.lang = 'ur-PK';
-            message.pitch = 1.1;
-            message.rate = 0.9;
-            
-            synth.speak(message);
-            
-            // اینیمیشن کا اثر (تصویر تھوڑا سا ہلے گی جیسے بات کر رہی ہو)
-            document.getElementById('koko-img').style.filter = "brightness(1.2)";
-            message.onend = () => { document.getElementById('koko-img').style.filter = "brightness(1)"; };
+            const text = "اسلام آباد آن لائن سروسز میں خوش آمدید! میں کوکو ہوں، آپ کی اسمارٹ اسسٹنٹ۔";
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'ur-PK';
+            utterance.rate = 0.8;
+
+            utterance.onstart = () => { img.classList.add('is-talking'); };
+            utterance.onend = () => { img.classList.remove('is-talking'); };
+
+            synth.speak(utterance);
         }
     </script>
-</body>
-</html>
+</div>
