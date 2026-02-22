@@ -1,29 +1,37 @@
-<div id="koko-global-wrapper" style="position: fixed; bottom: 20px; right: 20px; z-index: 10000; cursor: pointer;">
-    <img id="koko-avatar" 
-         src="https://drive.google.com/uc?export=view&id=17cAxvXGtDISfjQpeThBF3JdhgEulCABr" 
-         alt="Ko Ko Assistant" 
-         style="width: 150px; height: auto; transition: all 0.3s ease-in-out;"
-         onclick="welcomeSpeech()">
-    
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISOS - Ko Ko Assistant</title>
     <style>
-        @keyframes talking {
-            0% { transform: scale(1); filter: brightness(1); }
-            50% { transform: scale(1.05); filter: brightness(1.2); }
-            100% { transform: scale(1); filter: brightness(1); }
-        }
-        .is-talking { animation: talking 0.5s infinite; }
+        body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: transparent; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: hidden; }
+        .koko-container { text-align: center; cursor: pointer; transition: transform 0.3s; }
+        .koko-avatar { width: 250px; height: auto; filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.3)); }
+        .koko-container:hover { transform: scale(1.05); }
+        .is-talking { animation: wave 0.5s infinite alternate; }
+        @keyframes wave { from { transform: translateY(0); } to { transform: translateY(-10px); } }
+        .welcome-box { background: rgba(0, 128, 128, 0.9); color: white; padding: 10px 20px; border-radius: 50px; margin-top: 15px; font-size: 18px; font-weight: bold; border: 2px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
     </style>
+</head>
+<body onclick="startTalking()">
+
+    <div class="koko-container" id="koko-main">
+        <img id="koko-img" src="https://drive.google.com/uc?export=view&id=17cAxvXGtDISfjQpeThBF3JdhgEulCABr" alt="Ko Ko" class="koko-avatar">
+        <div class="welcome-box">اسلام آباد آن لائن سروسز میں خوش آمدید!</div>
+    </div>
 
     <script>
-        function welcomeSpeech() {
-            const img = document.getElementById('koko-avatar');
+        function startTalking() {
+            const img = document.getElementById('koko-img');
             const synth = window.speechSynthesis;
             if (synth.speaking) return;
 
-            const text = "اسلام آباد آن لائن سروسز میں خوش آمدید! میں کوکو ہوں، آپ کی اسمارٹ اسسٹنٹ۔";
+            const text = "اسلام آباد آن لائن سروسز میں خوش آمدید! میں کوکو ہوں، آپ کی اسمارٹ اسسٹنٹ۔ میں آپ کی کیا مدد کر سکتی ہوں؟";
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'ur-PK';
             utterance.rate = 0.8;
+            utterance.pitch = 1.2;
 
             utterance.onstart = () => { img.classList.add('is-talking'); };
             utterance.onend = () => { img.classList.remove('is-talking'); };
@@ -31,4 +39,5 @@
             synth.speak(utterance);
         }
     </script>
-</div>
+</body>
+</html>
