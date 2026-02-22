@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "MOON AI Master - Voice Edition",
+  "version": "7.1.0",
+  "description": "Voice Command & Auto-Typing System - Developed by Shahzad Hussain Tahir (ISOS)",
+  "permissions": [
+    "storage",
+    "offscreen",
+    "tts",
+    "activeTab",
+    "tabs",
+    "scripting",
+    "alarms"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "icons": { "128": "logo.png" }
+}
