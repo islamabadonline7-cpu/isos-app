@@ -1,78 +1,19 @@
-/* ISOS Smart Assistant Professional Styling */
-body {
-    margin: 0;
-    padding: 0;
-    background: transparent; /* ویب سائٹ کے اوپر شفاف نظر آنے کے لیے */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-.auth-card {
-    background: #ffffff;
-    padding: 25px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    width: 300px;
-    text-align: center;
-    border: 2px solid #008080;
-}
-
-.koko-avatar {
-    width: 150px;
-    height: auto;
-    cursor: pointer;
-    animation: bounce 3s infinite ease-in-out;
-    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
-}
-
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-input {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-sizing: border-box;
-    text-align: right;
-    font-size: 15px;
-}
-
-input:focus {
-    border-color: #008080;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0,128,128,0.3);
-}
-
-.btn-start {
-    background: #008080;
-    color: white;
-    border: none;
-    padding: 12px;
-    width: 100%;
-    border-radius: 10px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
+/* SL-ID-177: Royal Voice Style Sheet */
+#moon-logo-btn:hover {
+    transform: scale(1.1);
     transition: 0.3s;
 }
 
-.btn-start:hover {
-    background: #006666;
+#wave-pulse {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    border-radius: 50%;
+    border: 2px solid gold;
+    display: none;
+    animation: sultan-pulse 1.5s infinite;
 }
 
-.welcome-msg {
-    margin-top: 15px;
-    padding: 10px;
-    background: #e6f2f2;
-    border-radius: 15px;
-    color: #008080;
-    font-weight: bold;
-    display: none; /* شروع میں چھپا رہے گا */
+@keyframes sultan-pulse {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.5); opacity: 0; }
 }
