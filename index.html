@@ -2,134 +2,42 @@
 <html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ISOS Super AI - Master v5.0</title>
-    <link rel="manifest" href="manifest.json">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISOS Koko Live AI</title>
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; font-family: 'Segoe UI', Tahoma, sans-serif; background: #001f3f; }
-        #splash { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #001f3f; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 20000; transition: 0.8s; cursor: pointer; }
-        .logo { width: 140px; height: auto; border-radius: 20px; box-shadow: 0 0 30px rgba(255,215,0,0.4); animation: breathe 2s infinite; }
-        #pc-panel { position: fixed; top: 0; width: 100%; background: #FFD700; display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; box-sizing: border-box; z-index: 15000; height: 55px; box-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-        .btn { background: #ff4444; color: white; border: none; padding: 6px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        .ai-label { color: #001f3f; font-weight: bold; font-size: 14px; border-right: 3px solid #001f3f; padding-right: 10px; }
-        .app-view { width: 100%; height: calc(100vh - 55px); margin-top: 55px; }
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #001f3f; }
+        #app-container { width: 100%; height: 100vh; position: relative; }
         iframe { width: 100%; height: 100%; border: none; }
-        @keyframes breathe { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.05); opacity: 1; } }
+        
+        /* کوکو کا لائیو ببل */
+        #koko-live-window {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid #FFD700;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            z-index: 10000;
+            background: black;
+        }
     </style>
 </head>
-<body onclick="activateSystem()">
+<body>
 
-    <div id="splash">
-        <img src="logo.png" alt="ISOS" class="logo">
-        <h2 style="color: #FFD700; margin-top: 15px;">ISLAMABAD ONLINE SERVICES</h2>
-        <p style="color: white;">سپر AI فعال کرنے کے لیے کلک کریں</p>
-    </div>
-
-    <div id="pc-panel">
-        <span class="ai-label" id="ai-status">سسٹم تیار ہے...</span>
-        <div>
-            <button class="btn" style="background: #28a745; margin-left: 10px;" onclick="location.reload()">ریفریش 🔄</button>
-            <button class="btn" onclick="terminateAI()">بند کریں 🛑</button>
+    <div id="app-container">
+        <iframe src="https://isos.onlinehubs.world/"></iframe>
+        
+        <div id="koko-live-window">
+            <img src="https://drive.google.com/thumbnail?id=1Xz2IKfoCIvqh9DBITi9z6o7CU6lluWDh&sz=w500" style="width:100%; height:100%; object-fit:cover;">
         </div>
     </div>
 
-    <div class="app-view">
-        <iframe id="main-frame" src="https://isos.onlinehubs.world/" allow="microphone; camera; autoplay; clipboard-write"></iframe>
-    </div>
-
     <script>
-        const status = document.getElementById('ai-status');
-        const frame = document.getElementById('main-frame');
-        let recognition;
-        let isRunning = false;
-        let isSpeaking = false;
-
-        // مینیو بار اور سب پیجز کا مکمل نالج بیس
-        const isosKnowledge = [
-            { 
-                keys: ["سروس", "کام", "سہولیات", "کیا کیا"], 
-                msg: "شہزاد صاحب، اسلام آباد آن لائن سروسز میں ہم گلوبل ویزہ، اپائنٹمنٹ، موفہ اٹیسٹیشن، ایجوکیشن ڈگری کی تصدیق، اور فیملی رجسٹریشن کی سہولیات دیتے ہیں۔ آپ مینیو بار میں ان تمام کے بٹن دیکھ سکتے ہیں۔", 
-                url: "https://isos.onlinehubs.world/" 
-            },
-            { 
-                keys: ["ویزہ", "ویزا", "پورٹل"], 
-                msg: "جی، گلوبل ویزہ پورٹل میں سعودی، قطر، اور دبئی کی سروسز شامل ہیں۔ میں متعلقہ پیج کھول رہی ہوں۔", 
-                url: "https://isos.onlinehubs.world/p/global-visa-portal.html" 
-            },
-            { 
-                keys: ["اپائنٹمنٹ", "ٹائم", "سلاٹ"], 
-                msg: "ویزہ اپائنٹمنٹ بک کرنے کے لیے یہ رہا ہمارا مخصوص صفحہ۔", 
-                url: "https://isos.onlinehubs.world/p/visa-appointment.html" 
-            },
-            { 
-                keys: ["تصدیق", "اٹیسٹیشن", "موفہ", "ڈگری"], 
-                msg: "اسناد کی تصدیق کے لیے ہم موفہ، ایچ ای سی اور سفارت خانوں سے سروس فراہم کرتے ہیں۔", 
-                url: "https://isos.onlinehubs.world/p/mofa-and-embassies-attestation.html" 
-            },
-            { 
-                keys: ["رابطہ", "واٹس ایپ", "نمبر", "ایڈریس"], 
-                msg: "آپ مینیو میں رابطہ کے بٹن سے ہمیں واٹس ایپ کر سکتے ہیں یا ہمارا پتہ دیکھ سکتے ہیں۔", 
-                url: "https://isos.onlinehubs.world/p/contact-us.html" 
-            },
-            { 
-                keys: ["اسٹیٹس", "ٹریک", "چیک"], 
-                msg: "آپ اپنا اسٹیٹس یہاں سے چیک کر سکتے ہیں۔", 
-                url: "https://isos.onlinehubs.world/p/status.html" 
-            }
-        ];
-
-        function talk(text) {
-            window.speechSynthesis.cancel();
-            const speech = new SpeechSynthesisUtterance(text);
-            speech.lang = 'ur-PK';
-            speech.onstart = () => { isSpeaking = true; status.innerText = "AI جواب دے رہا ہے..."; };
-            speech.onend = () => { isSpeaking = false; status.innerText = "میں سن رہی ہوں، بولئے..."; };
-            window.speechSynthesis.speak(speech);
-        }
-
-        function activateSystem() {
-            if (isRunning) return;
-            isRunning = true;
-            document.getElementById('splash').style.display = 'none';
-            talk("خوش آمدید! میں اسلام آباد آن لائن سروسز کی اسمارٹ اسسٹنٹ ہوں۔ میں آپ کے مینیو اور تمام سروسز سے واقف ہوں۔ آپ کیا جاننا چاہتے ہیں؟");
-            startListening();
-        }
-
-        function startListening() {
-            recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-            recognition.lang = 'ur-PK';
-            recognition.continuous = true;
-            recognition.onresult = (event) => {
-                const query = event.results[event.results.length - 1][0].transcript.toLowerCase();
-                processIntelligence(query);
-            };
-            recognition.onerror = () => { if(isRunning) recognition.start(); };
-            recognition.onend = () => { if(isRunning && !isSpeaking) recognition.start(); };
-            recognition.start();
-        }
-
-        function processIntelligence(cmd) {
-            let found = false;
-            isosKnowledge.forEach(item => {
-                if (item.keys.some(k => cmd.includes(k))) {
-                    talk(item.msg);
-                    frame.src = item.url;
-                    found = true;
-                }
-            });
-            if (!found) talk("میں آپ کی بات سمجھنے کی کوشش کر رہی ہوں۔ کیا آپ ویزہ، اٹیسٹیشن یا مینیو کے بارے میں پوچھنا چاہتے ہیں؟");
-        }
-
-        function terminateAI() {
-            isRunning = false;
-            window.speechSynthesis.cancel();
-            if (recognition) recognition.stop();
-            status.innerText = "AI بند ہے";
-        }
-
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js');
-        }
+        console.log("Koko System Initialized...");
+        // یہاں ہم اگلی باری میں لائیو ٹاکنگ سکرپٹ ڈالیں گے
     </script>
 </body>
 </html>
