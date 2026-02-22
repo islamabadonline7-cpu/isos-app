@@ -1,15 +1,31 @@
-// آواز کو فعال کرنے کا نیا طریقہ
-document.body.addEventListener('click', function() {
-    const synth = window.speechSynthesis;
-    
-    // اگر پہلے سے کچھ بول رہی ہے تو اسے روک دیں
-    if (synth.speaking) { return; }
+<!DOCTYPE html>
+<html style="background: transparent;">
+<head>
+    <style>
+        body { margin: 0; padding: 0; overflow: hidden; background: transparent !important; cursor: pointer; }
+        #koko-img { width: 300px; height: auto; transition: transform 0.3s; }
+        #koko-img:hover { transform: scale(1.05); }
+    </style>
+</head>
+<body onclick="startTalking()">
+    <img id="koko-img" src="https://drive.google.com/thumbnail?id=1Xz2IKfoCIvqh9DBITi9z6o7CU6lluWDh&sz=w1000">
 
-    const message = new SpeechSynthesisUtterance("اسلام آباد آن لائن سروسز میں خوش آمدید! میں آپ کی کیا مدد کر سکتی ہوں؟");
-    message.lang = 'ur-PK';
-    message.pitch = 1.2; // تھوڑی دوستانہ آواز کے لیے
-    message.rate = 0.9;  // بولنے کی رفتار تھوڑی کم
-    
-    synth.speak(message);
-    console.log("Koko is now speaking after click!");
-}, { once: true }); // یہ صرف پہلے کلک پر چلے گا
+    <script>
+        function startTalking() {
+            const synth = window.speechSynthesis;
+            if (synth.speaking) return;
+
+            const message = new SpeechSynthesisUtterance("اسلام آباد آن لائن سروسز میں خوش آمدید! میں کوکو ہوں، آپ کی اسمارٹ اسسٹنٹ۔");
+            message.lang = 'ur-PK';
+            message.pitch = 1.1;
+            message.rate = 0.9;
+            
+            synth.speak(message);
+            
+            // اینیمیشن کا اثر (تصویر تھوڑا سا ہلے گی جیسے بات کر رہی ہو)
+            document.getElementById('koko-img').style.filter = "brightness(1.2)";
+            message.onend = () => { document.getElementById('koko-img').style.filter = "brightness(1)"; };
+        }
+    </script>
+</body>
+</html>
