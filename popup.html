@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .koko-avatar { width: 120px; height: auto; cursor: pointer; transition: transform 0.2s; margin: 10px auto; display: block; }
+        .koko-avatar:hover { transform: scale(1.1); }
+    </style>
+</head>
+<body class="royal-body">
+    <div class="header-unit">
+        <h2 class="urdu-text">اسلام آباد آن لائن اسسٹنٹ</h2>
+        <div id="live-clock" class="clock-display"></div>
+    </div>
+
+    <img id="koko-trigger" class="koko-avatar" 
+         src="https://drive.google.com/uc?export=view&id=17cAxvXGtDISfjQpeThBF3JdhgEulCABr" 
+         onclick="startTalking()">
+
+    <div class="status-bar">
+        <span>اسٹیٹس:</span>
+        <span id="status-text" class="signal-buy">کوکو آن لائن ہے</span>
+    </div>
+
+    <div class="nav-menu">
+        <button id="voice-trigger" class="sultan-btn" onclick="startTalking()">صوتی گفتگو 🎙️</button>
+    </div>
+
+    <div class="footer-credit urdu-text">ڈویلپر: شہزاد حسین طاہر (ISOS)</div>
+
+    <script>
+        function startTalking() {
+            const synth = window.speechSynthesis;
+            const message = new SpeechSynthesisUtterance("اسلام آباد آن لائن سروسز میں خوش آمدید! میں کوکو ہوں، آپ کی مدد کے لیے تیار ہوں۔");
+            message.lang = 'ur-PK';
+            synth.speak(message);
+        }
+    </script>
+</body>
+</html>
