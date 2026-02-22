@@ -1,43 +1,32 @@
 <!DOCTYPE html>
-<html lang="ur" dir="rtl">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ISOS Koko Live AI</title>
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #001f3f; }
-        #app-container { width: 100%; height: 100vh; position: relative; }
-        iframe { width: 100%; height: 100%; border: none; }
-        
-        /* کوکو کا لائیو ببل */
-        #koko-live-window {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 4px solid #FFD700;
-            overflow: hidden;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            z-index: 10000;
-            background: black;
+        /* پورا صفحہ شفاف کر دیں */
+        body, html { 
+            margin: 0; padding: 0; 
+            background: transparent !important; 
+            overflow: hidden; 
+        }
+        #koko-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: flex-end; /* اسے نیچے کی طرف رکھیں */
+            justify-content: flex-end; /* دائیں کونے میں */
+        }
+        img, video {
+            width: 300px; /* سائز بڑا کریں تاکہ وہ کھڑی نظر آئے */
+            height: auto;
+            /* کوئی بارڈر یا دائرہ نہیں ہونا چاہیے */
+            border: none !important;
+            box-shadow: none !important;
         }
     </style>
 </head>
 <body>
-
-    <div id="app-container">
-        <iframe src="https://isos.onlinehubs.world/"></iframe>
-        
-        <div id="koko-live-window">
-            <img src="https://drive.google.com/thumbnail?id=1Xz2IKfoCIvqh9DBITi9z6o7CU6lluWDh&sz=w500" style="width:100%; height:100%; object-fit:cover;">
-        </div>
+    <div id="koko-container">
+        <img src="https://drive.google.com/thumbnail?id=1Xz2IKfoCIvqh9DBITi9z6o7CU6lluWDh&sz=w1000">
     </div>
-
-    <script>
-        console.log("Koko System Initialized...");
-        // یہاں ہم اگلی باری میں لائیو ٹاکنگ سکرپٹ ڈالیں گے
-    </script>
 </body>
 </html>
