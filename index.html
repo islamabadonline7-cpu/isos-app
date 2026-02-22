@@ -3,38 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ISOS - Ko Ko Smart Assistant</title>
+    <title>ISOS - Ko Ko Assistant</title>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
     <style>
-        body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f4f7f6; font-family: 'Segoe UI', Tahoma, sans-serif; overflow: hidden; }
-        .setup-box { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; width: 320px; }
-        .koko-img { width: 180px; height: auto; cursor: pointer; transition: 0.3s; animation: float 3s infinite ease-in-out; }
+        body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f0f2f5; font-family: 'Segoe UI', Tahoma, sans-serif; overflow: hidden; }
+        .setup-container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; width: 320px; z-index: 10001; }
+        .koko-avatar { width: 180px; height: auto; cursor: pointer; transition: 0.3s; animation: float 3s infinite ease-in-out; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; text-align: right; }
-        .btn-go { background: #008080; color: white; border: none; padding: 12px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 18px; }
-        #koko-ui { display: none; text-align: center; }
-        .is-talking { animation: wave 0.5s infinite alternate; }
-        @keyframes wave { from { transform: scale(1); } to { transform: scale(1.05); } }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; text-align: right; font-size: 16px; }
+        .btn-submit { background: #008080; color: white; border: none; padding: 12px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 18px; font-weight: bold; }
+        #chat-ui { display: none; text-align: center; }
+        .talking-box { background: white; padding: 15px 25px; border-radius: 50px; margin-top: 20px; font-weight: bold; border: 2px solid #008080; color: #008080; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
 
-    <div id="setup-ui" class="setup-box">
-        <img src="https://drive.google.com/uc?export=view&id=17cAxvXGtDISfjQpeThBF3JdhgEulCABr" class="koko-img">
-        <h3 style="color: #008080;">خوش آمدید!</h3>
-        <input type="text" id="u-name" placeholder="آپ کا نام">
-        <input type="number" id="u-whatsapp" placeholder="واٹس ایپ نمبر">
-        <button class="btn-go" onclick="startApp()">کوکو سے بات کریں</button>
+    <div id="registration-screen" class="setup-container">
+        <img src="https://drive.google.com/uc?export=view&id=17cAxvXGtDISfjQpeThBF3JdhgEulCABr" class="koko-avatar">
+        <h2 style="color: #008080; margin-bottom: 5px;">خوش آمدید!</h2>
+        <p style="font-size: 14px; color: #666;">کوکو سے بات کرنے کے لیے اپنی معلومات دیں</p>
+        <input type="text" id="user-name" placeholder="آپ کا نام">
+        <input type="number" id="user-phone" placeholder="واٹس ایپ نمبر">
+        <button class="btn-submit" onclick="handleAuth()">گفتگو شروع کریں</button>
     </div>
 
-    <div id="koko-ui">
-        <img id="koko-avatar" src="https://drive.google.com/uc?export=view&id=17cAxvXGtDISfjQpeThBF3JdhgEulCABr" class="koko-img" onclick="kokoTalk()">
-        <div id="msg-box" style="background: white; padding: 15px; border-radius: 50px; margin-top: 20px; font-weight: bold; border: 2px solid #008080;"></div>
+    <div id="chat-ui">
+        <img id="active-koko" src="https://drive.google.com/uc?export=view&id=17cAxvXGtDISfjQpeThBF3JdhgEulCABr" class="koko-avatar" onclick="speakWelcome()">
+        <div id="welcome-bubble" class="talking-box"></div>
     </div>
 
     <script>
-        // فائر بیس کنفیگریشن جو آپ نے فراہم کی
+        // Your Firebase Configuration from Dashboard
         const firebaseConfig = {
             apiKey: "AIzaSyDYMOlcGw1_YD6XuYxT538CkEb_y9ux65Q",
             authDomain: "isos-f09fb.firebaseapp.com",
@@ -47,43 +47,41 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
-        // چیک کریں کہ کیا یوزر پہلے سے لاگ ان ہے
         window.onload = () => {
-            const saved = localStorage.getItem('koko_user');
-            if (saved) {
-                const user = JSON.parse(saved);
-                loadKoko(user.name);
+            const stored = localStorage.getItem('isos_user');
+            if (stored) {
+                const user = JSON.parse(stored);
+                startAssistant(user.name);
             }
         };
 
-        function startApp() {
-            const name = document.getElementById('u-name').value;
-            const phone = document.getElementById('u-whatsapp').value;
+        function handleAuth() {
+            const name = document.getElementById('user-name').value;
+            const phone = document.getElementById('user-phone').value;
             if (name && phone) {
-                const userData = { name, phone, date: new Date().toISOString() };
-                // ڈیٹا بیس میں محفوظ کریں
-                db.collection("UsersData").add(userData).then(() => {
-                    localStorage.setItem('koko_user', JSON.stringify(userData));
-                    loadKoko(name);
-                });
-            } else { alert("براہ کرم معلومات مکمل کریں"); }
+                const data = { name, phone, joinedAt: new Date() };
+                db.collection("leads").add(data).then(() => {
+                    localStorage.setItem('isos_user', JSON.stringify(data));
+                    startAssistant(name);
+                }).catch(err => alert("ڈیٹا بیس کنکشن میں مسئلہ ہے: " + err.message));
+            } else {
+                alert("براہ کرم نام اور نمبر دونوں لکھیں");
+            }
         }
 
-        function loadKoko(name) {
-            document.getElementById('setup-ui').style.display = 'none';
-            document.getElementById('koko-ui').style.display = 'block';
-            document.getElementById('msg-box').innerText = "خوش آمدید " + name + "!";
-            kokoTalk(name);
+        function startAssistant(name) {
+            document.getElementById('registration-screen').style.display = 'none';
+            document.getElementById('chat-ui').style.display = 'block';
+            document.getElementById('welcome-bubble').innerText = "خوش آمدید " + name + "!";
+            speakWelcome(name);
         }
 
-        function kokoTalk(name = JSON.parse(localStorage.getItem('koko_user')).name) {
-            const img = document.getElementById('koko-avatar');
+        function speakWelcome(name = JSON.parse(localStorage.getItem('isos_user')).name) {
             const synth = window.speechSynthesis;
-            const text = "خوش آمدید " + name + "! میرا نام کوکو ہے اور میں اسلام آباد آن لائن سروسز میں آپ کو ویلکم کرتی ہوں۔ آپ مجھ سے کوئی بھی سوال پوچھ سکتے ہیں۔";
+            const text = "خوش آمدید " + name + "! میرا نام کوکو ہے اور میں اسلام آباد آن لائن سروسز میں آپ کو خوش آمدید کہتی ہوں۔ آپ مجھ سے انٹرنیٹ کا کوئی بھی سوال پوچھ سکتے ہیں۔";
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'ur-PK';
-            utterance.onstart = () => img.classList.add('is-talking');
-            utterance.onend = () => img.classList.remove('is-talking');
+            utterance.rate = 0.9;
             synth.speak(utterance);
         }
     </script>
