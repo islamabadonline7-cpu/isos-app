@@ -3,39 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ISOS - Ko Ko Assistant</title>
+    <title>ISOS - Ko Ko Smart Assistant</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
     <style>
-        body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: transparent; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: hidden; }
-        .koko-container { text-align: center; cursor: pointer; transition: transform 0.3s; }
-        .koko-avatar { width: 250px; height: auto; filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.3)); }
-        .koko-container:hover { transform: scale(1.05); }
+        body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: #f4f7f6; font-family: 'Segoe UI', Tahoma, sans-serif; overflow: hidden; }
+        .setup-box { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; width: 320px; }
+        .koko-img { width: 180px; height: auto; cursor: pointer; transition: 0.3s; animation: float 3s infinite ease-in-out; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; box-sizing: border-box; text-align: right; }
+        .btn-go { background: #008080; color: white; border: none; padding: 12px; width: 100%; border-radius: 10px; cursor: pointer; font-size: 18px; }
+        #koko-ui { display: none; text-align: center; }
         .is-talking { animation: wave 0.5s infinite alternate; }
-        @keyframes wave { from { transform: translateY(0); } to { transform: translateY(-10px); } }
-        .welcome-box { background: rgba(0, 128, 128, 0.9); color: white; padding: 10px 20px; border-radius: 50px; margin-top: 15px; font-size: 18px; font-weight: bold; border: 2px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        @keyframes wave { from { transform: scale(1); } to { transform: scale(1.05); } }
     </style>
 </head>
-<body onclick="startTalking()">
+<body>
 
-    <div class="koko-container" id="koko-main">
-        <img id="koko-img" src="https://drive.google.com/uc?export=view&id=17cAxvXGtDISfjQpeThBF3JdhgEulCABr" alt="Ko Ko" class="koko-avatar">
-        <div class="welcome-box">اسلام آباد آن لائن سروسز میں خوش آمدید!</div>
+    <div id="setup-ui" class="setup-box">
+        <img src="https://drive.google.com/uc?export=view&id=17cAxvXGtDISfjQpeThBF3JdhgEulCABr" class="koko-img">
+        <h3 style="color: #008080;">خوش آمدید!</h3>
+        <input type="text" id="u-name" placeholder="آپ کا نام">
+        <input type="number" id="u-whatsapp" placeholder="واٹس ایپ نمبر">
+        <button class="btn-go" onclick="startApp()">کوکو سے بات کریں</button>
+    </div>
+
+    <div id="koko-ui">
+        <img id="koko-avatar" src="https://drive.google.com/uc?export=view&id=17cAxvXGtDISfjQpeThBF3JdhgEulCABr" class="koko-img" onclick="kokoTalk()">
+        <div id="msg-box" style="background: white; padding: 15px; border-radius: 50px; margin-top: 20px; font-weight: bold; border: 2px solid #008080;"></div>
     </div>
 
     <script>
-        function startTalking() {
-            const img = document.getElementById('koko-img');
-            const synth = window.speechSynthesis;
-            if (synth.speaking) return;
+        // فائر بیس کنفیگریشن جو آپ نے فراہم کی
+        const firebaseConfig = {
+            apiKey: "AIzaSyDYMOlcGw1_YD6XuYxT538CkEb_y9ux65Q",
+            authDomain: "isos-f09fb.firebaseapp.com",
+            projectId: "isos-f09fb",
+            storageBucket: "isos-f09fb.firebasestorage.app",
+            messagingSenderId: "323849274435",
+            appId: "1:323849274435:web:4d41d7b1971d8a3f1cc0f6",
+            measurementId: "G-972ENZBCM4"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
 
-            const text = "اسلام آباد آن لائن سروسز میں خوش آمدید! میں کوکو ہوں، آپ کی اسمارٹ اسسٹنٹ۔ میں آپ کی کیا مدد کر سکتی ہوں؟";
+        // چیک کریں کہ کیا یوزر پہلے سے لاگ ان ہے
+        window.onload = () => {
+            const saved = localStorage.getItem('koko_user');
+            if (saved) {
+                const user = JSON.parse(saved);
+                loadKoko(user.name);
+            }
+        };
+
+        function startApp() {
+            const name = document.getElementById('u-name').value;
+            const phone = document.getElementById('u-whatsapp').value;
+            if (name && phone) {
+                const userData = { name, phone, date: new Date().toISOString() };
+                // ڈیٹا بیس میں محفوظ کریں
+                db.collection("UsersData").add(userData).then(() => {
+                    localStorage.setItem('koko_user', JSON.stringify(userData));
+                    loadKoko(name);
+                });
+            } else { alert("براہ کرم معلومات مکمل کریں"); }
+        }
+
+        function loadKoko(name) {
+            document.getElementById('setup-ui').style.display = 'none';
+            document.getElementById('koko-ui').style.display = 'block';
+            document.getElementById('msg-box').innerText = "خوش آمدید " + name + "!";
+            kokoTalk(name);
+        }
+
+        function kokoTalk(name = JSON.parse(localStorage.getItem('koko_user')).name) {
+            const img = document.getElementById('koko-avatar');
+            const synth = window.speechSynthesis;
+            const text = "خوش آمدید " + name + "! میرا نام کوکو ہے اور میں اسلام آباد آن لائن سروسز میں آپ کو ویلکم کرتی ہوں۔ آپ مجھ سے کوئی بھی سوال پوچھ سکتے ہیں۔";
             const utterance = new SpeechSynthesisUtterance(text);
             utterance.lang = 'ur-PK';
-            utterance.rate = 0.8;
-            utterance.pitch = 1.2;
-
-            utterance.onstart = () => { img.classList.add('is-talking'); };
-            utterance.onend = () => { img.classList.remove('is-talking'); };
-
+            utterance.onstart = () => img.classList.add('is-talking');
+            utterance.onend = () => img.classList.remove('is-talking');
             synth.speak(utterance);
         }
     </script>
