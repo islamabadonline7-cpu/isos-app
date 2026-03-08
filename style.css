@@ -1,5 +1,4 @@
-/* SL-ID: ISOS-STYLE-115.1 */
-/* شہزاد صاحب، یہ کوڈ ویب سائٹ کو فل سکرین دکھانے کے لیے فائنل ہے */
+/* SL-ID: ISOS-STYLE-116.1 */
 body, html {
     margin: 0;
     padding: 0;
@@ -8,12 +7,24 @@ body, html {
     overflow: hidden;
     background-color: #000;
 }
+
 #web-frame {
     width: 100%;
     height: 100vh;
     border: none;
-    display: block;
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 1; /* ویب سائٹ سب سے نیچے */
+}
+
+/* کوکو کا کنٹینر اب صرف اتنی جگہ گھیرے گا جتنا بٹن ہے */
+#coco-btn-container {
+    position: fixed;
+    bottom: 25px;
+    left: 15px;
+    z-index: 999999;
+    pointer-events: auto; /* صرف بٹن پر کلک کام کرے گا */
+    width: 80px; 
+    text-align: center;
 }
