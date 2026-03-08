@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISOS COCO Master App</title>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #000; }
+        
+        /* آپ کی اصل ویب سائٹ پیچھے چلے گی */
+        #web-frame { width: 100%; height: 100vh; border: none; }
+
+        /* کوکو کا فلوٹنگ بٹن (کونے میں) */
+        #coco-btn-container {
+            position: fixed; bottom: 30px; left: 30px;
+            z-index: 99999; cursor: pointer; text-align: center;
+        }
+        .logo-btn {
+            width: 80px; height: 80px; border-radius: 50%;
+            border: 3px solid #FFD700; box-shadow: 0 0 20px rgba(255,215,0,0.5);
+            background: #001f3f; transition: 0.3s;
+        }
+        .wave-box { display: flex; justify-content: center; gap: 3px; margin-top: 5px; opacity: 0; }
+        .active .wave-box { opacity: 1; }
+        .bar { width: 3px; height: 10px; background: #FFD700; border-radius: 5px; }
+        .active .bar { animation: wave-anim 0.5s infinite alternate; }
+        @keyframes wave-anim { from { height: 5px; } to { height: 25px; } }
+        
+        #status-txt { color: #FFD700; font-size: 12px; font-weight: bold; margin-top: 5px; text-shadow: 1px 1px 5px #000; }
+    </style>
+</head>
+<body>
+
+    <iframe id="web-frame" src="https://isos.onlinehubs.world/"></iframe>
+
+    <div id="coco-btn-container" onclick="toggleCOCO()">
+        <img src="logo.png" class="logo-btn" id="coco-img">
+        <div class="wave-box" id="waves">
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        </div>
+        <div id="status-txt">COCO LIVE</div>
+    </div>
+
+    <script src="isos-brain.js"></script>
+    <script>
+        let isActive = false;
+        function toggleCOCO() {
+            const container = document.getElementById('coco-btn-container');
+            const status = document.getElementById('status-txt');
+            
+            if (!isActive) {
+                isActive = true;
+                container.classList.add('active');
+                status.innerText = "میں سن رہی ہوں...";
+                if(typeof startLiveListening === "function") startLiveListening();
+            } else {
+                isActive = false;
+                container.classList.remove('active');
+                status.innerText = "COCO LIVE";
+                window.speechSynthesis.cancel();
+            }
+        }
+    </script>
+</body>
+</html>
