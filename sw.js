@@ -1,55 +1,18 @@
-/* ==========================================================
-   ISOS COCO Super App - Service Worker v11.0 (Live Voice)
-   DEVELOPER: SHAHZAD HUSSAIN TAHIR (ISOS)
-   ========================================================== */
+/* SL-ID: ISOS-SW-115.3 */
+const CACHE_NAME = 'coco-v13-final-update';
+const urlsToCache = ['./', 'index.html', 'style.css', 'isos-brain.js', 'logo.png', 'manifest.json'];
 
-const CACHE_NAME = 'coco-live-cache-v11';
-const urlsToCache = [
-  './',
-  'index.html',
-  'style.css',
-  'isos-brain.js',
-  'isos-menu.js',
-  'logo.png',
-  'manifest.json'
-];
-
-// 1. ایپ کی انسٹالیشن اور فائلیں محفوظ کرنا
 self.addEventListener('install', event => {
-  console.log('کوکو لائیو انجن انسٹال ہو رہا ہے...');
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(urlsToCache);
-    })
-  );
   self.skipWaiting();
+  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(urlsToCache)));
 });
 
-// 2. پرانے ڈیٹا کی صفائی اور اپ ڈیٹ
 self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cache => {
-          if (cache !== CACHE_NAME) {
-            console.log('پرانا ورژن صاف کیا جا رہا ہے...');
-            return caches.delete(cache);
-          }
-        })
-      );
-    })
-  );
+  event.waitUntil(caches.keys().then(keys => Promise.all(
+    keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
+  )));
 });
 
-// 3. اسمارٹ فیچنگ (نیٹ ورک اور آف لائن توازن)
 self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request).catch(() => {
-        if (event.request.mode === 'navigate') {
-          return caches.match('index.html');
-        }
-      });
-    })
-  );
+  event.respondWith(fetch(event.request).catch(() => caches.match(event.request)));
 });
