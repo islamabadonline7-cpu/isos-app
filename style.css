@@ -1,12 +1,12 @@
-/* SL-ID: ISOS-STYLE-113.1 */
-/* شہزاد صاحب، یہ کوڈ ویب سائٹ کو فل سکرین دکھانے کے لیے ہے */
+/* SL-ID: ISOS-STYLE-115.1 */
+/* شہزاد صاحب، یہ کوڈ ویب سائٹ کو فل سکرین دکھانے کے لیے فائنل ہے */
 body, html {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background-color: #000; /* کالا رنگ، تاکہ لوڈنگ کے دوران برا نہ لگے */
+    background-color: #000;
 }
 #web-frame {
     width: 100%;
