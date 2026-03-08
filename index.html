@@ -5,20 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ISOS COCO Master App</title>
     <style>
-        /* موبائل سکرین کو مکمل فٹ کرنے کے لیے */
+        /* شہزاد صاحب، ویب سائٹ کو فل سکرین کرنے کے لیے */
         body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background: #000; }
-        #web-frame { width: 100%; height: 100vh; border: none; display: block; }
+        
+        /* آئی فریم اب بالکل اوپر سے شروع ہوگا */
+        #web-frame { 
+            width: 100%; 
+            height: 100vh; 
+            border: none; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+        }
 
         /* کوکو بٹن کی پوزیشن */
         #coco-btn-container {
-            position: fixed; bottom: 20px; left: 20px;
-            z-index: 999999; cursor: pointer; text-align: center;
+            position: fixed; 
+            bottom: 30px; 
+            left: 20px;
+            z-index: 999999; 
+            cursor: pointer; 
+            text-align: center;
         }
         .logo-btn {
-            width: 70px; height: 70px; border-radius: 50%;
-            border: 3px solid #FFD700; background: #001f3f;
+            width: 80px; 
+            height: 80px; 
+            border-radius: 50%;
+            border: 4px solid #FFD700; 
+            background: #001f3f;
+            box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.5);
         }
-        #status-txt { color: #FFD700; font-size: 11px; font-weight: bold; margin-top: 5px; }
+        #status-txt { 
+            color: #FFD700; 
+            font-size: 12px; 
+            font-weight: bold; 
+            margin-top: 8px;
+            text-shadow: 1px 1px 2px #000;
+        }
     </style>
 </head>
 <body>
@@ -26,7 +49,7 @@
     <iframe id="web-frame" src="https://isos.onlinehubs.world/"></iframe>
 
     <div id="coco-btn-container" onclick="toggleCOCO()">
-        <img src="logo.png" class="logo-btn" onerror="this.src='https://via.placeholder.com/70/001f3f/FFD700?text=ISOS'">
+        <img src="logo.png" class="logo-btn" onerror="this.src='https://via.placeholder.com/80/001f3f/FFD700?text=COCO'">
         <div id="status-txt">COCO LIVE</div>
     </div>
 
@@ -35,7 +58,7 @@
         let isActive = false;
         function toggleCOCO() {
             const status = document.getElementById('status-txt');
-            // آڈیو کانٹیکسٹ کو موبائل پر بیدار کرنا
+            // آڈیو کانٹیکسٹ کو بیدار کرنا
             if (window.speechSynthesis.paused) window.speechSynthesis.resume();
             
             if (!isActive) {
