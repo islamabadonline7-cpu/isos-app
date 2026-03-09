@@ -2,24 +2,80 @@
 <html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="style.css">
+    
     <title>ISOS COCO AI</title>
+    
+    <style>
+        /* ویب سائٹ کو موبائل پر فل سکرین دکھانے کے لیے */
+        body, html { 
+            margin: 0; padding: 0; height: 100%; width: 100%; 
+            overflow: hidden; background: #000; 
+        }
+        
+        /* آئی فریم سیٹنگ - بلاگ کا ڈائریکٹ لنک */
+        #web-frame { 
+            width: 100%; height: 100vh; border: none; 
+            position: absolute; top: 0; left: 0; z-index: 1;
+        }
+
+        /* کوکو لائیو بٹن - صرف ایک بٹن، بائیں طرف */
+        #coco-btn-container {
+            position: fixed; bottom: 25px; left: 15px; 
+            z-index: 999999; cursor: pointer; text-align: center;
+        }
+        .logo-btn {
+            width: 75px; height: 75px; border-radius: 50%; 
+            border: 3px solid #FFD700; box-shadow: 0 4px 15px rgba(0,0,0,0.8);
+        }
+        #status-txt {
+            color: #FFD700; font-size: 10px; font-weight: bold; 
+            margin-top: 5px; text-shadow: 1px 1px 2px #000;
+        }
+    </style>
 </head>
 <body>
-    <script src="isos-menu.js"></script>
     <iframe id="web-frame" src="https://isos.onlinehubs.world/"></iframe>
 
-    <div id="coco-btn-container" style="position: fixed; bottom: 20px; left: 20px; z-index: 999999;" onclick="handleCOCO()">
-        <img src="logo.png" style="width: 75px; height: 75px; border-radius: 50%; border: 3px solid #FFD700; box-shadow: 0 4px 15px rgba(0,0,0,0.5);" alt="COCO">
-        <div style="color: #FFD700; font-size: 11px; font-weight: bold; text-align: center; margin-top: 5px; text-shadow: 1px 1px 2px #000;">COCO LIVE</div>
+    <div id="coco-btn-container" onclick="handleInteraction()">
+        <img src="logo.png" class="logo-btn" alt="COCO" onerror="this.src='https://via.placeholder.com/75/001f3f/FFD700?text=ISOS'">
+        <div id="status-txt">COCO LIVE</div>
     </div>
 
     <script src="isos-brain.js"></script>
     <script>
-        function handleCOCO() {
+        // سروس ورکر کی رجسٹریشن (انسٹالیشن آپشن کے لیے)
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+            .then(() => console.log("ISOS App: Ready to Install"));
+        }
+
+        let isActive = false;
+        function handleInteraction() {
             if (window.speechSynthesis.paused) window.speechSynthesis.resume();
-            if (typeof welcomePublic === "function") welcomePublic();
+            toggleCOCO();
+        }
+
+        function toggleCOCO() {
+            const status = document.getElementById('status-txt');
+            if (!isActive) {
+                isActive = true;
+                status.innerText = "میں سن رہی ہوں...";
+                status.style.color = "#00FF00";
+                if(typeof welcomePublic === "function") welcomePublic();
+                if(typeof startListening === "function") startListening();
+            } else {
+                isActive = false;
+                status.innerText = "COCO LIVE";
+                status.style.color = "#FFD700";
+                if(typeof stopListening === "function") stopListening();
+            }
         }
     </script>
 </body>
