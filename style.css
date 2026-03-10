@@ -1,4 +1,8 @@
-/* SL-ID: ISOS-STYLE-116.1 */
+/* ==========================================================
+   ISOS COCO Super App - Professional Style v15.1
+   OFFICIAL STYLE FOR ISLAMABAD ONLINE SERVICES
+   ========================================================== */
+
 body, html {
     margin: 0;
     padding: 0;
@@ -8,6 +12,7 @@ body, html {
     background-color: #000;
 }
 
+/* ویب سائٹ کا آئی فریم - مکمل بیک گراؤنڈ */
 #web-frame {
     width: 100%;
     height: 100vh;
@@ -15,16 +20,48 @@ body, html {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1; /* ویب سائٹ سب سے نیچے */
+    z-index: 1;
 }
 
-/* کوکو کا کنٹینر اب صرف اتنی جگہ گھیرے گا جتنا بٹن ہے */
+/* کوکو بٹن کا مخصوص کنٹینر - بائیں کونے میں */
 #coco-btn-container {
     position: fixed;
-    bottom: 25px;
-    left: 15px;
+    bottom: 30px;
+    left: 20px;
     z-index: 999999;
-    pointer-events: auto; /* صرف بٹن پر کلک کام کرے گا */
-    width: 80px; 
+    width: 80px;
     text-align: center;
+    cursor: pointer;
+    background: rgba(0, 31, 63, 0.5); /* گہرا نیلا شفاف بیک گراؤنڈ */
+    border-radius: 15px;
+    padding: 10px 5px;
+    backdrop-filter: blur(8px); /* شیشے جیسا اثر */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+#coco-btn-container:active {
+    transform: scale(0.9); /* دبانے پر چھوٹا ہوگا */
+}
+
+/* کوکو لوگو ڈیزائن */
+.logo-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #FFD700;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    object-fit: cover;
+}
+
+/* اسٹیٹس ٹیکسٹ اسٹائل */
+#status-txt {
+    color: #FFD700;
+    font-size: 10px;
+    font-weight: bold;
+    margin-top: 6px;
+    text-shadow: 1px 1px 2px #000;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 0.5px;
 }
