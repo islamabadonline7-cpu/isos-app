@@ -1,24 +1,21 @@
-# SL-ID: ISOS-SYNC-83.1
+# SL-ID: ISOS-SYNC-137.1
 name: ISOS Master Auto-Sync
 
 on:
   schedule:
-    - cron: '*/30 * * * *' # ہر 30 منٹ بعد خودکار چیک
-  workflow_dispatch: # مینوئل بٹن کے لیے
-    inputs:
-      reason:
-        description: 'Manual Sync Start'
-        required: false
-        default: 'شہزاد صاحب کی ہدایت پر سنک شروع'
+    - cron: '*/30 * * * *' 
+  workflow_dispatch: 
 
 jobs:
   drive_sync:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # فائلیں لکھنے کی اجازت
+      contents: write # یہ لائن سب سے اہم ہے
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }} # خودکار ٹوکن کا استعمال
 
       - name: Sync from Google Drive
         uses: jm-duarte/google-drive-sync-action@v1.0.1
@@ -33,4 +30,4 @@ jobs:
           git config --global user.email "isos@onlineservices.com"
           git add .
           git commit -m "Auto-sync from Google Drive: $(date)" || echo "No changes to commit"
-          git push
+          git push origin main
