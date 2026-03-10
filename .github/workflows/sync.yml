@@ -1,10 +1,11 @@
-# SL-ID: ISOS-SYNC-143.1
+# SL-ID: ISOS-SYNC-146.1
+# شہزاد حسین طاہر صاحب کی ویب سائٹ کے لیے خودکار سنک انجن
 name: ISOS Master Auto-Sync
 
 on:
   schedule:
-    - cron: '*/30 * * * *' 
-  workflow_dispatch: 
+    - cron: '*/30 * * * *' # ہر 30 منٹ بعد خودکار چلے گا
+  workflow_dispatch: # مینوئل بٹن کے لیے
 
 jobs:
   drive_sync:
@@ -14,11 +15,15 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Sync from Google Drive
         uses: jm-duarte/google-drive-sync-action@v1.0.1
         with:
+          # یہ نام آپ کے GitHub Secrets میں موجود نام سے مماثل ہونا چاہیے
           sk_file: ${{ secrets.GDRIVE_CREDENTIALS }}
+          # آپ کے گوگل ڈرائیو فولڈر کی ID
           folder_id: '1Rl8h0nWh8MwCpOfRcxXibnJC7-sU1al1'
           destination: .
           
@@ -27,5 +32,6 @@ jobs:
           git config --global user.name "ISOS-COCO-BOT"
           git config --global user.email "isos@onlineservices.com"
           git add --all
-          git commit -m "Auto-sync from Google Drive: $(date)" || echo "No changes to commit"
-          git push origin HEAD:main
+          # اگر کوئی تبدیلی نہ ہو تو ایرر نہ دے بلکہ خاموشی سے ختم ہو جائے
+          git commit -m "Auto-sync update: $(date)" || echo "No changes to sync today"
+          git push origin main
