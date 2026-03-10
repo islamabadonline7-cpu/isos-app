@@ -1,10 +1,10 @@
 /* ==========================================================
-   ISOS COCO Super App - Service Worker v15.0 (Final Sync)
-   DEVELOPER: SHAHZAD HUSSAIN TAHIR (ISOS)
+   ISOS COCO Super App - Service Worker v15.1
+   MAINTENANCE: SHAHZAD HUSSAIN TAHIR (ISOS)
    ========================================================== */
 
-const CACHE_NAME = 'coco-isos-cache-v15'; // نیا ورژن تاکہ پرانی فائلیں صاف ہوں
-const urlsToCache = [
+const CACHE_NAME = 'isos-coco-v15-1'; // نیا ورژن تاکہ پرانی فائلیں ختم ہوں
+const assets = [
   './',
   'index.html',
   'style.css',
@@ -13,38 +13,34 @@ const urlsToCache = [
   'manifest.json'
 ];
 
-// 1. انسٹالیشن (تمام فائلوں کو کیشے میں محفوظ کرنا)
+// 1. انسٹالیشن (فائلوں کو موبائل میموری میں محفوظ کرنا)
 self.addEventListener('install', event => {
   self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
-      console.log('COCO v15: سسٹم فائلیں محفوظ ہو رہی ہیں...');
-      return cache.addAll(urlsToCache);
+      console.log('ISOS: Files caching for offline/app mode...');
+      return cache.addAll(assets);
     })
   );
 });
 
-// 2. ایکٹیویشن (پرانے ورژن v11، v14 وغیرہ کو ختم کرنا)
+// 2. ایکٹیویشن (پرانے ورژن v15.0 یا v14 کو ڈیلیٹ کرنا)
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(cacheNames => {
+    caches.keys().then(keys => {
       return Promise.all(
-        cacheNames.map(cache => {
-          if (cache !== CACHE_NAME) {
-            console.log('پرانا ورژن صاف کر دیا گیا ہے۔');
-            return caches.delete(cache);
-          }
-        })
+        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
       );
     })
   );
+  console.log('ISOS: System Cleaned & Updated to v15.1');
 });
 
-// 3. فیچ لاجک (پہلے نیٹ ورک سے چیک کرے گا تاکہ تازہ ترین ڈیٹا ملے)
+// 3. فیچ ریکوسٹ (ایپ کی رفتار تیز کرنا)
 self.addEventListener('fetch', event => {
   event.respondWith(
-    fetch(event.request).catch(() => {
-      return caches.match(event.request);
+    caches.match(event.request).then(response => {
+      return response || fetch(event.request);
     })
   );
 });
