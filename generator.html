@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ur-PK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISOS AI Page Generator Tool</title>
+    <style>
+        :root { --primary: #16a34a; --dark: #0f172a; --card: #1e293b; --text: #f8fafc; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: var(--dark); color: var(--text); margin: 0; padding: 20px; direction: rtl; }
+        .container { max-width: 1000px; margin: 0 auto; background: #131c2e; padding: 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05); }
+        h1 { text-align: center; color: var(--primary); font-size: 28px; margin-bottom: 5px; }
+        .subtitle { text-align: center; color: #94a3b8; font-size: 14px; margin-bottom: 30px; direction: ltr; }
+        .input-group { display: flex; gap: 10px; margin-bottom: 25px; direction: ltr; }
+        input[type="text"] { flex: 1; padding: 15px; border-radius: 8px; border: 1px solid #334155; background: var(--dark); color: white; font-size: 16px; text-align: left; }
+        button { background: var(--primary); color: white; border: none; padding: 15px 30px; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; font-family: 'Segoe UI', Arial, sans-serif; }
+        button:hover { background: #15803d; transform: translateY(-2px); }
+        .output-area { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
+        .box { background: var(--dark); border-radius: 8px; padding: 20px; border: 1px solid #334155; height: 550px; overflow-y: auto; text-align: right; }
+        .box.code-box { direction: ltr; text-align: left; }
+        h3 { margin-top: 0; color: var(--primary); border-bottom: 1px solid #334155; padding-bottom: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 18px; }
+        textarea { width: 100%; height: 470px; background: transparent; color: #a7f3d0; border: none; resize: none; font-family: 'Courier New', Courier, monospace; font-size: 14px; outline: none; direction: ltr; text-align: left; }
+        .preview-content { color: #cbd5e1; font-size: 14px; line-height: 1.6; direction: ltr; text-align: left; }
+        .copy-btn { background: #334155; color: white; padding: 5px 10px; font-size: 12px; border-radius: 4px; border: none; cursor: pointer; font-family: 'Segoe UI', Arial, sans-serif; }
+        .copy-btn:hover { background: var(--primary); }
+        @media (max-width: 768px) { .output-area { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🚀 ائی ایس او ایس (ISOS) اے آئی پیج جینیریٹر</h1>
+    <div class="subtitle">Islamabad Online Services ® — Premium Automation Core</div>
+    
+    <div class="input-group">
+        <input type="text" id="pageTitle" placeholder="Enter service title, e.g., Saudi Embassy Attestation Islamabad">
+        <button onclick="generateIsosPage()">پیج کوڈ بنائیں</button>
+    </div>
+
+    <div class="output-area">
+        <div class="box code-box">
+            <h3>📋 بلاگر ایچ ٹی ایم ایل کوڈ (HTML Output) <button class="copy-btn" onclick="copyIsosCode()">کوڈ کاپی کریں</button></h3>
+            <textarea id="htmlOutput" readonly placeholder="آپ کا تیار شدہ بلاگر کوڈ یہاں مینوئلی ڈسپلے ہوگا..."></textarea>
+        </div>
+        
+        <div class="box">
+            <h3>👁️ لائیو ڈیزائن پریویو (Live Preview)</h3>
+            <div id="previewOutput" class="preview-content">آپ کے تیار شدہ پیج کا لائیو ڈیزائن ڈھانچہ یہاں نظر آئے گا۔</div>
+        </div>
+    </div>
+</div>
+
+<script>
+function generateIsosPage() {
+    var title = document.getElementById('pageTitle').value.trim();
+    if(title === "") { alert("Please enter a service title first!"); return; }
+
+    var cleanTitle = title.replace("Islamabad", "").trim();
+
+    var htmlCode = `\n` +
+        `<div class="isos-premium-article" style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #334155; line-height: 1.8; font-size: 16px; text-align: left; direction: ltr;">\n\n` +
+        `  \n` +
+        `  <div class="isos-article-hero" style="background: #0f172a; padding: 35px; border-radius: 12px; margin-bottom: 30px; border-left: 6px solid #16a34a;">\n` +
+        `    <span style="color: #22c55e; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-bottom: 5px;">Official Platform Guide</span>\n` +
+        `    <h1 style="color: #ffffff; font-size: 28px; margin: 0 0 10px 0; font-weight: 700;">${title}</h1>\n` +
+        `    <p style="color: #94a3b8; font-size: 14px; margin: 0; line-height: 1.5;">Complete, step-by-step facilitation, required documentation verification roadmap, and official embassy standard timelines.</p>\n` +
+        `  </div>\n\n` +
+        `  \n` +
+        `  <div class="isos-article-body" style="margin-bottom: 30px;">\n` +
+        `    <p style="margin-bottom: 20px;"><strong>Islamabad Online Services (ISOS)</strong> is a complete and trustworthy platform for all your legal, government, and diplomatic matters. Our aim is to simplify official tasks for global applicants, corporate clients, and overseas expats. When dealing with critical document frameworks like <strong>${cleanTitle}</strong>, navigating structural departments, foreign ministries, and administrative desks can become immensely time-consuming. Our professional setup optimizes your documentation files to match processing rules perfectly.</p>\n` +
+        `    <p style="margin-bottom: 20px;">By establishing direct procedural coordination within administrative offices in the capital city, Islamabad Online Services streamlines verification tracks, saves you from unexpected processing delays, and secures swift authentication processing milestones for your critical applications.</p>\n` +
+        `  </div>\n\n` +
+        `  \n` +
+        `  <div class="isos-requirements-block" style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 25px; border-radius: 12px; margin-bottom: 30px;">\n` +
+        `    <h3 style="color: #0f172a; margin-top: 0; font-size: 20px; font-weight: 700; margin-bottom: 15px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">📋 Required Documents &amp; Pre-Requisites</h3>\n` +
+        `    <p style="font-size: 15px; color: #475569; margin-bottom: 15px;">To ensure smooth processing for ${cleanTitle}, the applicant must provide the following standard credentials:</p>\n` +
+        `    <ul style="padding-left: 20px; color: #334155; font-size: 15px; line-height: 2.2;">\n` +
+        `      <li><strong>Original Certificate / Degree:</strong> Properly verified by the initial issuing authority (HEC, IBCC, MOFA, or relevant native boards).</li>\n` +
+        `      <li><strong>CNIC / NICOP Copy:</strong> Valid identity card framework of the primary applicant.</li>\n` +
+        `      <li><strong>Passport Copy:</strong> Clear visible tracking page containing validity exceeding at least 6 months.</li>\n` +
+        `      <li><strong>Authority Letter (If Required):</strong> Duly signed drafting allowing ISOS staff to process documents remotely on your behalf.</li>\n` +
+        `    </ul>\n` +
+        `  </div>\n\n` +
+        `  \n` +
+        `  <div class="isos-workflow-section" style="margin-bottom: 30px;">\n` +
+        `    <h3 style="color: #0f172a; font-size: 20px; font-weight: 700; margin-bottom: 15px;">⚡ Step-by-Step Processing Timeline &amp; Blueprint</h3>\n` +
+        `    <p style="font-size: 15px; color: #475569; margin-bottom: 15px;">Our physical department interaction operates under a secure 3-stage filtration layout:</p>\n` +
+        `    <ol style="padding-left: 20px; color: #334155; font-size: 15px; line-height: 2;">\n` +
+        `      <li><strong>Document Verification &amp; Audit:</strong> Our internal legal experts evaluate the text parameters, verification stamps, and seals to ensure everything matches embassy standards perfectly.</li>\n` +
+        `      <li><strong>Departmental Submission:</strong> The file is securely presented to the specific desks, ministry counters, or authorized external channels in Islamabad.</li>\n` +
+        `      <li><strong>Final Delivery &amp; Tracking:</strong> Once stamped successfully, the secure dossier is packed and provided to the applicant alongside tracking IDs.</li>\n` +
+        `    </ol>\n` +
+        `  </div>\n\n` +
+        `  \n` +
+        `  <div class="isos-faq-section" style="border-top: 1px solid #e2e8f0; padding-top: 25px; margin-bottom: 30px;">\n` +
+        `    <h3 style="color: #0f172a; font-size: 20px; font-weight: 700; margin-bottom: 20px;">💡 Frequently Asked Questions</h3>\n` +
+        `    <div style="margin-bottom: 20px;">\n` +
+        `      <strong style="color: #0f172a; display: block; font-size: 15px; margin-bottom: 5px;">Q1: How much time does it take for ${cleanTitle}?</strong>\n` +
+        `      <span style="color: #475569; font-size: 15px; display: block; line-height: 1.6;">A: The general standard processing window ranges from 3 to 7 working days, subject to department schedules.</span>\n` +
+        `    </div>\n` +
+        `    <div style="margin-bottom: 20px;">\n` +
+        `      <strong style="color: #0f172a; display: block; font-size: 15px; margin-bottom: 5px;">Q2: Do I need to visit your Islamabad office physically?</strong>\n` +
+        `      <span style="color: #475569; font-size: 15px; display: block; line-height: 1.6;">A: No physical appearance is needed. Overseas expats and local applicants can courier documents safely to our official hub.</span>\n` +
+        `    </div>\n` +
+        `  </div>\n\n` +
+        `  \n` +
+        `  <div class="isos-seo-cta-box" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border-left: 5px solid #22c55e; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.02);">\n` +
+        `    <span style="font-size: 11px; font-weight: 700; color: #22c55e; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px;">Get Instant Assistance Today</span>\n` +
+        `    <h4 style="color: #0f172a; font-size: 20px; margin: 0 0 10px 0; font-weight: 700;">Need Urgent Processing for ${cleanTitle}?</h4>\n` +
+        `    <p style="color: #475569; font-size: 14px; line-height: 1.6; margin-bottom: 20px;">Skip the long queues and avoid costly documentation errors. Get in touch with our active support desk in Islamabad for secure remote handling and guaranteed standard processing timelines.</p>\n` +
+        `    <a href="https://wa.me/923044841012" target="_blank" style="display: block; background: #22c55e; color: white; text-decoration: none; text-align: center; padding: 14px; border-radius: 8px; font-weight: 700; font-size: 16px; box-shadow: 0 4px 12px rgba(34,197,94,0.3); transition: 0.3s;">\n` +
+        `      💬 Connect via WhatsApp for Free Consultation\n` +
+        `    </a>\n` +
+        `  </div>\n\n` +
+        `</div>`;
+
+    document.getElementById('htmlOutput').value = htmlCode;
+    document.getElementById('previewOutput').innerHTML = htmlCode;
+}
+
+function copyIsosCode() {
+    var copyText = document.getElementById("htmlOutput");
+    if(copyText.value === "") { alert("پہلے کوڈ جنریٹ کریں شاہزاد بھائی!"); return; }
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+    alert("📋 کوڈ کامیابی سے کاپی ہو گیا ہے! اب آپ اسے بلاگر پیج کے ایچ ٹی ایم ایل ویو میں پیسٹ کر سکتے ہیں۔");
+}
+</script>
+
+</body>
+</html>
