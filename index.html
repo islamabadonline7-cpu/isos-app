@@ -1,63 +1,31 @@
 <!DOCTYPE html>
-<html lang="ur" dir="rtl">
+<html lang="ur-PK">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#001f3f">
-    
-    <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="style.css">
-    
-    <title>ISOS COCO AI Master</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Islamabad Online Services (ISOS) | ہوم پیج</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #0f172a; color: white; margin: 0; padding: 0; direction: rtl; text-align: center; }
+        .navbar { background: #131c2e; padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .navbar a { color: #22c55e; text-decoration: none; margin: 0 15px; font-weight: bold; font-size: 18px; }
+        .hero { padding: 100px 20px; }
+        .hero h1 { font-size: 40px; color: #22c55e; }
+        .hero p { font-size: 18px; color: #94a3b8; max-width: 600px; margin: 20px auto; }
+        .btn { background: #22c55e; color: white; padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 20px; }
+    </style>
 </head>
 <body>
-    <iframe id="web-frame" src="https://isos.onlinehubs.world/"></iframe>
 
-    <div id="coco-btn-container" onclick="handleInteraction()">
-        <img src="logo.png" class="logo-btn" alt="COCO" onerror="this.src='https://via.placeholder.com/75/001f3f/FFD700?text=ISOS'">
-        <div id="status-txt">COCO LIVE</div>
+    <div class="navbar">
+        <a href="index.html">ہوم پیج</a>
+        <a href="generator.html">اے آئی پیج جینیریٹر</a>
     </div>
 
-    <script src="isos-brain.js"></script>
-    <script>
-        // سروس ورکر کی رجسٹریشن (ایپ انسٹال کرنے کے لیے)
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
-                .then(reg => console.log("ISOS App: Engine Ready", reg))
-                .catch(err => console.log("System Error:", err));
-            });
-        }
+    <div class="hero">
+        <h1>🚀 اسلام آباد آن لائن سروسز (ISOS) میں خوش آمدید</h1>
+        <p>یہ آپ کا آفیشل ڈیجیٹل آٹومیشن پورٹل ہے۔ یہاں سے آپ پریمیسیونیٹڈ مینوئل گائیڈز اور سروس پیجز منٹوں میں تیار کر سکتے ہیں۔</p>
+        <a href="generator.html" class="btn">پیج جینیریٹر ٹول کھولیں</a>
+    </div>
 
-        let isActive = false;
-        
-        function handleInteraction() {
-            if (window.speechSynthesis.paused) {
-                window.speechSynthesis.resume();
-            }
-            toggleCOCO();
-        }
-
-        function toggleCOCO() {
-            const status = document.getElementById('status-txt');
-            if (!isActive) {
-                isActive = true;
-                status.innerText = "میں سن رہی ہوں...";
-                status.style.color = "#00FF00";
-                
-                if(typeof welcomePublic === "function") welcomePublic();
-                if(typeof startListening === "function") startListening();
-            } else {
-                isActive = false;
-                status.innerText = "COCO LIVE";
-                status.style.color = "#FFD700";
-                window.speechSynthesis.cancel();
-            }
-        }
-    </script>
 </body>
 </html>
