@@ -1,7 +1,38 @@
-/* SL-ID: ISOS-MENU-96.1 */
-/* شہزاد صاحب، آپ کی ہدایت کے مطابق اوپر والا مینیو اور اضافی پٹی مکمل ختم کر دی گئی ہے */
+/* ==========================================================
+   ISOS SMART NAVIGATION SYSTEM v2026
+   Islamabad Online Services
+   ========================================================== */
+
 function loadISOSMenu() {
-    // مینیو اب لوڈ نہیں ہوگا تاکہ بلاگ اور ویب سائٹ کے اوپر والی جگہ خالی نہ رہے
-    console.log("ISOS Navigation Menu Disabled for Full Screen View");
+
+const menuHTML = `
+<div id="isos-menu">
+
+<a href="index.html">🏠 Home</a>
+
+<a href="visa.html">🛂 Visa Services</a>
+
+<a href="attestation.html">📜 Attestation</a>
+
+<a href="mofa.html">🏛 MOFA</a>
+
+<a href="embassies.html">🌍 Embassies</a>
+
+<a href="countries.html">✈ Countries</a>
+
+<a href="jobs.html">💼 Overseas Jobs</a>
+
+<a href="tools.html">🧰 Tools</a>
+
+<a href="blog.html">📰 Blog</a>
+
+<a href="contact.html">📞 Contact</a>
+
+</div>
+`;
+
+document.body.insertAdjacentHTML("afterbegin", menuHTML);
+
 }
+
 loadISOSMenu();
