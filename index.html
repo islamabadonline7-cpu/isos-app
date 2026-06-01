@@ -1,31 +1,673 @@
 <!DOCTYPE html>
-<html lang="ur-PK">
+<html lang="ur" dir="rtl">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Islamabad Online Services (ISOS) | ہوم پیج</title>
-    <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #0f172a; color: white; margin: 0; padding: 0; direction: rtl; text-align: center; }
-        .navbar { background: #131c2e; padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .navbar a { color: #22c55e; text-decoration: none; margin: 0 15px; font-weight: bold; font-size: 18px; }
-        .hero { padding: 100px 20px; }
-        .hero h1 { font-size: 40px; color: #22c55e; }
-        .hero p { font-size: 18px; color: #94a3b8; max-width: 600px; margin: 20px auto; }
-        .btn { background: #22c55e; color: white; padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block; margin-top: 20px; }
-    </style>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+Islamabad Online Services (ISOS)
+</title>
+
+<meta name="description"
+content="Islamabad Online Services Official Automation Portal">
+
+<meta name="keywords"
+content="ISOS, Documentation, Embassy, MOFA, Visa, Attestation, Pakistan">
+
+<meta name="theme-color"
+content="#0a58ca">
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap"
+rel="stylesheet">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+rel="stylesheet">
+
+<style>
+
+:root{
+
+--primary:#0a58ca;
+--secondary:#ffd700;
+--dark:#111827;
+--light:#f8fafc;
+--success:#25d366;
+--white:#ffffff;
+
+}
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+
+}
+
+body{
+
+font-family:'Noto Nastaliq Urdu', serif;
+background:#f5f7fb;
+color:#1f2937;
+line-height:2.2;
+
+}
+
+.header{
+
+background:linear-gradient(135deg,#0a58ca,#003d91);
+padding:60px 20px;
+text-align:center;
+color:white;
+
+}
+
+.logo{
+
+width:110px;
+height:110px;
+background:white;
+border-radius:50%;
+padding:10px;
+margin:auto auto 20px;
+
+}
+
+.header h1{
+
+font-size:42px;
+margin-bottom:20px;
+
+}
+
+.header p{
+
+max-width:900px;
+margin:auto;
+
+}
+
+.navbar{
+
+background:white;
+padding:15px;
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+box-shadow:0 2px 15px rgba(0,0,0,.08);
+
+}
+
+.navbar a{
+
+text-decoration:none;
+color:var(--primary);
+font-weight:700;
+
+}
+
+.hero{
+
+max-width:1200px;
+margin:auto;
+padding:80px 20px;
+text-align:center;
+
+}
+
+.hero-title{
+
+font-size:40px;
+color:var(--primary);
+margin-bottom:25px;
+
+}
+
+.hero-text{
+
+max-width:900px;
+margin:auto;
+font-size:18px;
+
+}
+
+.btn{
+
+display:inline-block;
+margin-top:30px;
+padding:15px 35px;
+border-radius:10px;
+text-decoration:none;
+font-weight:bold;
+transition:.3s;
+
+}
+
+.btn-primary{
+
+background:var(--primary);
+color:white;
+
+}
+
+.btn-success{
+
+background:var(--success);
+color:white;
+
+}
+
+.cards{
+
+max-width:1200px;
+margin:auto;
+padding:40px 20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:25px;
+
+}
+
+.card{
+
+background:white;
+padding:25px;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,.07);
+
+}
+
+.card h3{
+
+color:var(--primary);
+margin-bottom:15px;
+
+}
+
+</style>
+
 </head>
+
 <body>
 
-    <div class="navbar">
-        <a href="index.html">ہوم پیج</a>
-        <a href="generator.html">اے آئی پیج جینیریٹر</a>
+
+<!-- HEADER -->
+
+<header class="header">
+
+    <img
+        src="logo.png"
+        alt="ISOS Logo"
+        class="logo">
+
+    <h1>
+        Islamabad Online Services (ISOS)
+    </h1>
+
+    <p>
+        پاکستان کی معروف ڈاکومنٹیشن، اٹیسٹیشن،
+        ایمبیسی، موفا، پراپرٹی، ٹیکس اور قانونی
+        خدمات کا ڈیجیٹل پورٹل
+    </p>
+
+</header>
+
+<!-- NAVIGATION -->
+
+<nav class="navbar">
+
+    <a href="index.html">
+        ہوم
+    </a>
+
+    <a href="generator.html">
+        AI جنریٹر
+    </a>
+
+    <a href="blog.html">
+        بلاگ
+    </a>
+
+    <a href="services.html">
+        سروسز
+    </a>
+
+    <a href="contact.html">
+        رابطہ
+    </a>
+
+</nav>
+
+<!-- HERO SECTION -->
+
+<section class="hero">
+
+    <h2 class="hero-title">
+
+        🚀 اسلام آباد آن لائن سروسز میں خوش آمدید
+
+    </h2>
+
+    <p class="hero-text">
+
+        یہ پورٹل آپ کو ویزا، ایمبیسی،
+        MOFA Attestation، پراپرٹی،
+        ایف بی آر، این ٹی این، کمپنی رجسٹریشن،
+        پاور آف اٹارنی، حلف نامہ اور دیگر
+        قانونی خدمات کے بارے میں رہنمائی فراہم کرتا ہے۔
+
+    </p>
+
+    <a
+        href="generator.html"
+        class="btn btn-primary">
+
+        AI Content Generator
+
+    </a>
+
+    &nbsp;
+
+    <a
+        href="https://wa.me/923044841012"
+        target="_blank"
+        class="btn btn-success">
+
+        WhatsApp Support
+
+    </a>
+
+</section>
+
+<!-- SERVICES CARDS START -->
+
+<section class="cards">
+
+
+    <div class="card">
+
+        <h3>
+            📑 MOFA Attestation
+        </h3>
+
+        <p>
+            وزارت خارجہ پاکستان سے
+            دستاویزات کی اٹیسٹیشن
+            کے مکمل مراحل اور رہنمائی۔
+        </p>
+
     </div>
 
-    <div class="hero">
-        <h1>🚀 اسلام آباد آن لائن سروسز (ISOS) میں خوش آمدید</h1>
-        <p>یہ آپ کا آفیشل ڈیجیٹل آٹومیشن پورٹل ہے۔ یہاں سے آپ پریمیسیونیٹڈ مینوئل گائیڈز اور سروس پیجز منٹوں میں تیار کر سکتے ہیں۔</p>
-        <a href="generator.html" class="btn">پیج جینیریٹر ٹول کھولیں</a>
+    <div class="card">
+
+        <h3>
+            🏛 Embassy Services
+        </h3>
+
+        <p>
+            مختلف سفارت خانوں کے
+            ویزا، اٹیسٹیشن اور
+            اپائنٹمنٹ سروسز۔
+        </p>
+
     </div>
+
+    <div class="card">
+
+        <h3>
+            ✈ Visa Guidance
+        </h3>
+
+        <p>
+            ورک ویزا، وزٹ ویزا،
+            اسٹڈی ویزا اور
+            امیگریشن رہنمائی۔
+        </p>
+
+    </div>
+
+    <div class="card">
+
+        <h3>
+            📜 Legal Documentation
+        </h3>
+
+        <p>
+            پاور آف اٹارنی،
+            حلف نامے، قانونی
+            دستاویزات اور تصدیق۔
+        </p>
+
+    </div>
+
+    <div class="card">
+
+        <h3>
+            🏢 Company Registration
+        </h3>
+
+        <p>
+            SECP کمپنی رجسٹریشن،
+            NTN، سیلز ٹیکس اور
+            کاروباری خدمات۔
+        </p>
+
+    </div>
+
+    <div class="card">
+
+        <h3>
+            🏠 Property Services
+        </h3>
+
+        <p>
+            پراپرٹی ٹرانسفر،
+            فرد، رجسٹری اور
+            بورڈ آف ریونیو معاملات۔
+        </p>
+
+    </div>
+
+</section>
+
+<!-- FEATURES SECTION -->
+
+<section
+style="
+max-width:1200px;
+margin:auto;
+padding:40px 20px;
+">
+
+    <div class="card">
+
+        <h3>
+            ⭐ ISOS کی خصوصیات
+        </h3>
+
+        <ul style="padding-right:25px;">
+
+            <li>
+                AI Content Generator
+            </li>
+
+            <li>
+                Smart COCO Assistant
+            </li>
+
+            <li>
+                Documentation Portal
+            </li>
+
+            <li>
+                Embassy Information Hub
+            </li>
+
+            <li>
+                SEO Optimized Articles
+            </li>
+
+            <li>
+                Mobile Friendly System
+            </li>
+
+            <li>
+                WhatsApp Integration
+            </li>
+
+            <li>
+                Future Automation Ready
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+<!-- STATISTICS SECTION -->
+
+<section
+style="
+max-width:1200px;
+margin:auto;
+padding:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+">
+
+    <div class="card" style="text-align:center;">
+
+        <h2 style="color:#0a58ca;">
+            50+
+        </h2>
+
+        <p>
+            Documentation Services
+        </p>
+
+    </div>
+
+    <div class="card" style="text-align:center;">
+
+        <h2 style="color:#0a58ca;">
+            100+
+        </h2>
+
+        <p>
+            Embassy Guides
+        </p>
+
+    </div>
+
+    <div class="card" style="text-align:center;">
+
+        <h2 style="color:#0a58ca;">
+            1000+
+        </h2>
+
+        <p>
+            Content Pages Planned
+        </p>
+
+    </div>
+
+    <div class="card" style="text-align:center;">
+
+        <h2 style="color:#0a58ca;">
+            24/7
+        </h2>
+
+        <p>
+            Online Support
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- CONTACT SECTION -->
+
+<section
+style="
+max-width:1200px;
+margin:auto;
+padding:40px 20px;
+">
+
+    <div class="card">
+
+        <h3>
+            📞 رابطہ معلومات
+        </h3>
+
+        <p>
+            WhatsApp:
+            +92 304 484 1012
+        </p>
+
+        <p>
+            Email:
+            islamabadonline7@gmail.com
+        </p>
+
+        <p>
+            Office:
+            G-9 Markaz Islamabad
+        </p>
+
+        <a
+            href="https://wa.me/923044841012"
+            target="_blank"
+            class="btn btn-success">
+
+            WhatsApp پر رابطہ کریں
+
+        </a>
+
+    </div>
+
+</section>
+
+<!-- FLOATING WHATSAPP -->
+
+<a
+href="https://wa.me/923044841012"
+target="_blank"
+style="
+position:fixed;
+bottom:25px;
+left:25px;
+width:65px;
+height:65px;
+background:#25d366;
+color:white;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:32px;
+text-decoration:none;
+box-shadow:0 8px 25px rgba(0,0,0,.25);
+z-index:9999;
+">
+
+<i class="fab fa-whatsapp"></i>
+
+</a>
+
+<!-- FOOTER -->
+
+<footer
+style="
+background:#111827;
+color:white;
+padding:50px 20px;
+text-align:center;
+margin-top:50px;
+">
+
+    <h3>
+        Islamabad Online Services (ISOS)
+    </h3>
+
+    <p>
+        Documentation • Attestation • Embassy • Visa • Property • Tax Services
+    </p>
+
+    <p>
+        WhatsApp:
+        +92 304 484 1012
+    </p>
+
+    <p>
+        Email:
+        islamabadonline7@gmail.com
+    </p>
+
+    <p>
+        G-9 Markaz Islamabad Pakistan
+    </p>
+
+    <br>
+
+    <p>
+        © 2026 Islamabad Online Services ®
+        All Rights Reserved
+    </p>
+
+</footer>
+
+<!-- COCO AI BRAIN -->
+
+<script src="isos-brain.js"></script>
+
+<script>
+
+window.addEventListener(
+    "load",
+    function(){
+
+        console.log(
+            "ISOS Home Page Loaded"
+        );
+
+        if(
+            typeof welcomePublic ===
+            "function"
+        ){
+
+            setTimeout(
+                welcomePublic,
+                2000
+            );
+
+        }
+
+    }
+);
+
+</script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
