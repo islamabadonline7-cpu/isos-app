@@ -1,67 +1,1266 @@
 /* ==========================================================
-   ISOS COCO Super App - Professional Style v15.1
-   OFFICIAL STYLE FOR ISLAMABAD ONLINE SERVICES
+   ISOS SUPER APP STYLE SYSTEM v20
+   Islamabad Online Services
+   PART 1
    ========================================================== */
 
-body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-color: #000;
+:root{
+
+--primary:#0A58CA;
+--secondary:#FFD700;
+
+--success:#25D366;
+--danger:#DC3545;
+
+--dark:#111827;
+--dark2:#1F2937;
+
+--light:#F8FAFC;
+--white:#FFFFFF;
+
+--border:#E5E7EB;
+
+--shadow:
+0 10px 30px rgba(0,0,0,.08);
+
 }
 
-/* ویب سائٹ کا آئی فریم - مکمل بیک گراؤنڈ */
-#web-frame {
-    width: 100%;
-    height: 100vh;
-    border: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
+/* ==========================================================
+   RESET
+   ========================================================== */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
-/* کوکو بٹن کا مخصوص کنٹینر - بائیں کونے میں */
-#coco-btn-container {
-    position: fixed;
-    bottom: 30px;
-    left: 20px;
-    z-index: 999999;
-    width: 80px;
-    text-align: center;
-    cursor: pointer;
-    background: rgba(0, 31, 63, 0.5); /* گہرا نیلا شفاف بیک گراؤنڈ */
-    border-radius: 15px;
-    padding: 10px 5px;
-    backdrop-filter: blur(8px); /* شیشے جیسا اثر */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    transition: all 0.3s ease;
+html{
+scroll-behavior:smooth;
 }
 
-#coco-btn-container:active {
-    transform: scale(0.9); /* دبانے پر چھوٹا ہوگا */
+body{
+
+font-family:
+"Segoe UI",
+Tahoma,
+sans-serif;
+
+background:
+var(--light);
+
+color:
+var(--dark);
+
+line-height:1.7;
+
+overflow-x:hidden;
+
 }
 
-/* کوکو لوگو ڈیزائن */
-.logo-btn {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: 2px solid #FFD700;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-    object-fit: cover;
+/* ==========================================================
+   CONTAINER
+   ========================================================== */
+
+.container{
+
+max-width:1400px;
+
+margin:auto;
+
+padding:20px;
+
 }
 
-/* اسٹیٹس ٹیکسٹ اسٹائل */
-#status-txt {
-    color: #FFD700;
-    font-size: 10px;
-    font-weight: bold;
-    margin-top: 6px;
-    text-shadow: 1px 1px 2px #000;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    letter-spacing: 0.5px;
+/* ==========================================================
+   LINKS
+   ========================================================== */
+
+a{
+
+text-decoration:none;
+
+color:var(--primary);
+
+transition:.3s;
+
 }
+
+a:hover{
+
+opacity:.85;
+
+}
+
+/* ==========================================================
+   IMAGES
+   ========================================================== */
+
+img{
+
+max-width:100%;
+
+display:block;
+
+}
+
+/* ==========================================================
+   SECTIONS
+   ========================================================== */
+
+.section{
+
+background:white;
+
+padding:30px;
+
+border-radius:20px;
+
+margin-bottom:25px;
+
+box-shadow:var(--shadow);
+
+}
+
+/* ==========================================================
+   HEADER
+   ========================================================== */
+
+.header{
+
+background:
+linear-gradient(
+135deg,
+#0A58CA,
+#003B8E
+);
+
+color:white;
+
+padding:25px 20px;
+
+text-align:center;
+
+box-shadow:
+0 5px 25px rgba(0,0,0,.15);
+
+}
+
+.header-logo{
+
+width:90px;
+
+height:90px;
+
+margin:auto;
+
+margin-bottom:15px;
+
+border-radius:50%;
+
+background:white;
+
+padding:10px;
+
+}
+
+.header-title{
+
+font-size:38px;
+
+font-weight:700;
+
+margin-bottom:10px;
+
+}
+
+.header-subtitle{
+
+font-size:18px;
+
+opacity:.95;
+
+max-width:900px;
+
+margin:auto;
+
+}
+
+/* ==========================================================
+   NAVIGATION
+   ========================================================== */
+
+.navbar{
+
+background:white;
+
+box-shadow:
+0 4px 20px rgba(0,0,0,.08);
+
+position:sticky;
+
+top:0;
+
+z-index:1000;
+
+}
+
+.nav-container{
+
+max-width:1400px;
+
+margin:auto;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:15px 20px;
+
+}
+
+.nav-logo{
+
+font-size:22px;
+
+font-weight:700;
+
+color:var(--primary);
+
+}
+
+.nav-menu{
+
+display:flex;
+
+gap:20px;
+
+align-items:center;
+
+}
+
+.nav-link{
+
+font-weight:600;
+
+color:var(--dark);
+
+padding:8px 12px;
+
+border-radius:8px;
+
+}
+
+.nav-link:hover{
+
+background:#EEF4FF;
+
+color:var(--primary);
+
+}
+
+/* ==========================================================
+   HERO SECTION
+   ========================================================== */
+
+.hero{
+
+padding:80px 20px;
+
+text-align:center;
+
+background:
+linear-gradient(
+135deg,
+#F8FAFC,
+#EEF4FF
+);
+
+}
+
+.hero-title{
+
+font-size:52px;
+
+font-weight:800;
+
+color:var(--primary);
+
+margin-bottom:20px;
+
+}
+
+.hero-text{
+
+font-size:20px;
+
+max-width:900px;
+
+margin:auto;
+
+color:#555;
+
+margin-bottom:30px;
+
+}
+
+.hero-buttons{
+
+display:flex;
+
+justify-content:center;
+
+gap:15px;
+
+flex-wrap:wrap;
+
+}
+
+/* ==========================================================
+   BUTTONS
+   ========================================================== */
+
+.btn{
+
+display:inline-block;
+
+padding:14px 28px;
+
+border-radius:12px;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.3s;
+
+border:none;
+
+}
+
+.btn-primary{
+
+background:var(--primary);
+
+color:white;
+
+}
+
+.btn-success{
+
+background:var(--success);
+
+color:white;
+
+}
+
+.btn-warning{
+
+background:var(--secondary);
+
+color:black;
+
+}
+
+.btn-danger{
+
+background:var(--danger);
+
+color:white;
+
+}
+
+.btn:hover{
+
+transform:translateY(-3px);
+
+box-shadow:
+0 8px 20px rgba(0,0,0,.12);
+
+}
+
+/* ==========================================================
+   CARD SYSTEM
+   ========================================================== */
+
+.card{
+
+background:white;
+
+border-radius:18px;
+
+padding:25px;
+
+box-shadow:var(--shadow);
+
+transition:.3s;
+
+height:100%;
+
+}
+
+.card:hover{
+
+transform:translateY(-5px);
+
+}
+
+.card-icon{
+
+font-size:40px;
+
+color:var(--primary);
+
+margin-bottom:15px;
+
+}
+
+.card-title{
+
+font-size:24px;
+
+font-weight:700;
+
+margin-bottom:12px;
+
+}
+
+.card-text{
+
+color:#666;
+
+}
+
+/* ==========================================================
+   GRID SYSTEM
+   ========================================================== */
+
+.grid{
+
+display:grid;
+
+gap:25px;
+
+}
+
+.grid-2{
+
+grid-template-columns:
+repeat(2,1fr);
+
+}
+
+.grid-3{
+
+grid-template-columns:
+repeat(3,1fr);
+
+}
+
+.grid-4{
+
+grid-template-columns:
+repeat(4,1fr);
+
+}
+
+/* ==========================================================
+   SERVICE SECTION
+   ========================================================== */
+
+.services{
+
+padding:50px 0;
+
+}
+
+.section-title{
+
+font-size:36px;
+
+font-weight:700;
+
+text-align:center;
+
+margin-bottom:15px;
+
+color:var(--primary);
+
+}
+
+.section-subtitle{
+
+text-align:center;
+
+max-width:800px;
+
+margin:auto;
+
+margin-bottom:40px;
+
+color:#666;
+
+}
+
+/* ==========================================================
+   GENERATOR DASHBOARD
+   ========================================================== */
+
+.dashboard{
+
+display:grid;
+
+grid-template-columns:
+380px 1fr;
+
+gap:25px;
+
+padding:25px 0;
+
+}
+
+/* ==========================================================
+   CONTROL PANEL
+   ========================================================== */
+
+.control-panel{
+
+background:white;
+
+padding:25px;
+
+border-radius:20px;
+
+box-shadow:var(--shadow);
+
+position:sticky;
+
+top:90px;
+
+height:fit-content;
+
+}
+
+.panel-title{
+
+font-size:26px;
+
+font-weight:700;
+
+color:var(--primary);
+
+margin-bottom:20px;
+
+padding-bottom:10px;
+
+border-bottom:
+3px solid var(--secondary);
+
+}
+
+/* ==========================================================
+   FORM ELEMENTS
+   ========================================================== */
+
+.form-group{
+
+margin-bottom:20px;
+
+}
+
+.form-group label{
+
+display:block;
+
+font-weight:600;
+
+margin-bottom:8px;
+
+color:var(--dark);
+
+}
+
+input,
+select,
+textarea{
+
+width:100%;
+
+padding:14px;
+
+border:
+1px solid var(--border);
+
+border-radius:12px;
+
+font-size:15px;
+
+background:white;
+
+transition:.3s;
+
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+
+outline:none;
+
+border-color:var(--primary);
+
+box-shadow:
+0 0 0 3px rgba(10,88,202,.15);
+
+}
+
+textarea{
+
+min-height:140px;
+
+resize:vertical;
+
+}
+
+/* ==========================================================
+   PREVIEW PANEL
+   ========================================================== */
+
+.preview-panel{
+
+background:white;
+
+padding:30px;
+
+border-radius:20px;
+
+box-shadow:var(--shadow);
+
+}
+
+.preview-header{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+flex-wrap:wrap;
+
+gap:15px;
+
+margin-bottom:20px;
+
+}
+
+.preview-title{
+
+font-size:28px;
+
+font-weight:700;
+
+color:var(--primary);
+
+}
+
+.preview-content{
+
+min-height:700px;
+
+padding:30px;
+
+border:
+2px dashed #D9D9D9;
+
+border-radius:15px;
+
+background:#FCFCFC;
+
+overflow:auto;
+
+}
+
+/* ==========================================================
+   STATISTICS BOXES
+   ========================================================== */
+
+.stats-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:15px;
+
+margin-top:25px;
+
+}
+
+.stat-box{
+
+background:#F8FAFC;
+
+padding:18px;
+
+text-align:center;
+
+border-radius:15px;
+
+border:
+1px solid #EEF2F7;
+
+}
+
+.stat-box h3{
+
+font-size:28px;
+
+color:var(--primary);
+
+margin-bottom:5px;
+
+}
+
+.stat-box p{
+
+font-size:14px;
+
+color:#666;
+
+}
+
+/* ==========================================================
+   SEO SCORE BOX
+   ========================================================== */
+
+.seo-box{
+
+margin-top:25px;
+
+padding:20px;
+
+background:#EEF6FF;
+
+border-radius:15px;
+
+}
+
+.seo-title{
+
+font-weight:700;
+
+margin-bottom:12px;
+
+}
+
+.score-bar{
+
+height:14px;
+
+background:#D8DDE6;
+
+border-radius:20px;
+
+overflow:hidden;
+
+}
+
+.score-fill{
+
+height:100%;
+
+width:95%;
+
+background:
+linear-gradient(
+90deg,
+#25D366,
+#0A58CA
+);
+
+}
+
+/* ==========================================================
+   ALERT BOXES
+   ========================================================== */
+
+.alert{
+
+padding:20px;
+
+border-radius:12px;
+
+margin:20px 0;
+
+}
+
+.alert-success{
+
+background:#EAFBF0;
+
+border-left:
+5px solid #25D366;
+
+}
+
+.alert-warning{
+
+background:#FFF8E6;
+
+border-left:
+5px solid #FFC107;
+
+}
+
+.alert-danger{
+
+background:#FFF0F0;
+
+border-left:
+5px solid #DC3545;
+
+}
+
+.alert-info{
+
+background:#EEF6FF;
+
+border-left:
+5px solid #0A58CA;
+
+}
+
+/* ==========================================================
+   TABLES
+   ========================================================== */
+
+.table-wrapper{
+
+overflow-x:auto;
+
+margin:20px 0;
+
+}
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+background:white;
+
+}
+
+table th{
+
+background:var(--primary);
+
+color:white;
+
+padding:15px;
+
+text-align:left;
+
+}
+
+table td{
+
+padding:15px;
+
+border:
+1px solid #E5E7EB;
+
+}
+
+table tr:nth-child(even){
+
+background:#FAFAFA;
+
+}
+
+/* ==========================================================
+   FAQ STYLING
+   ========================================================== */
+
+.faq-item{
+
+background:white;
+
+padding:20px;
+
+margin-bottom:15px;
+
+border-radius:12px;
+
+border:
+1px solid #E5E7EB;
+
+}
+
+.faq-question{
+
+font-size:18px;
+
+font-weight:700;
+
+color:var(--primary);
+
+margin-bottom:10px;
+
+}
+
+.faq-answer{
+
+color:#555;
+
+}
+
+/* ==========================================================
+   ARTICLE CONTENT
+   ========================================================== */
+
+.article-content h1{
+
+font-size:42px;
+
+margin-bottom:20px;
+
+color:var(--primary);
+
+}
+
+.article-content h2{
+
+font-size:32px;
+
+margin-top:35px;
+
+margin-bottom:15px;
+
+color:var(--primary);
+
+}
+
+.article-content h3{
+
+font-size:24px;
+
+margin-top:25px;
+
+margin-bottom:10px;
+
+}
+
+.article-content p{
+
+margin-bottom:15px;
+
+}
+
+.article-content ul,
+.article-content ol{
+
+padding-left:25px;
+
+margin-bottom:20px;
+
+}
+
+.article-content li{
+
+margin-bottom:8px;
+
+}
+
+/* ==========================================================
+   FEATURE BOX
+   ========================================================== */
+
+.feature-box{
+
+background:#F8FBFF;
+
+padding:25px;
+
+margin:20px 0;
+
+border-radius:15px;
+
+border-left:
+5px solid var(--primary);
+
+}
+
+/* ==========================================================
+   COCO AI VOICE PANEL
+   ========================================================== */
+
+#coco-panel{
+
+position:fixed;
+bottom:120px;
+left:20px;
+width:320px;
+
+background:rgba(10,88,202,.95);
+
+backdrop-filter:blur(15px);
+
+border-radius:20px;
+
+padding:20px;
+
+z-index:999999;
+
+display:none;
+
+box-shadow:
+0 15px 40px rgba(0,0,0,.35);
+
+border:
+1px solid rgba(255,255,255,.15);
+
+}
+
+#coco-panel.active{
+
+display:block;
+
+animation:fadeIn .4s ease;
+
+}
+
+#coco-title{
+
+font-size:18px;
+
+font-weight:700;
+
+color:#fff;
+
+margin-bottom:10px;
+
+}
+
+#coco-message{
+
+font-size:14px;
+
+color:#fff;
+
+line-height:1.7;
+
+}
+
+.coco-buttons{
+
+margin-top:15px;
+
+display:flex;
+
+gap:10px;
+
+flex-wrap:wrap;
+
+}
+
+.coco-action{
+
+padding:10px 15px;
+
+border:none;
+
+border-radius:10px;
+
+cursor:pointer;
+
+font-size:13px;
+
+font-weight:600;
+
+}
+
+.coco-green{
+
+background:#25D366;
+
+color:white;
+
+}
+
+.coco-yellow{
+
+background:#FFD700;
+
+color:#000;
+
+}
+
+.coco-white{
+
+background:white;
+
+color:#0A58CA;
+
+}
+
+/* ==========================================================
+   LOADING ANIMATION
+   ========================================================== */
+
+.loader{
+
+width:50px;
+
+height:50px;
+
+border-radius:50%;
+
+border:5px solid rgba(255,255,255,.2);
+
+border-top-color:#FFD700;
+
+animation:spin 1s linear infinite;
+
+margin:auto;
+
+}
+
+@keyframes spin{
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+/* ==========================================================
+   FADE EFFECTS
+   ========================================================== */
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+}
+
+@keyframes pulse{
+
+0%{
+
+transform:scale(1);
+
+}
+
+50%{
+
+transform:scale(1.05);
+
+}
+
+100%{
+
+transform:scale(1);
+
+}
+
+}
+
+/* ==========================================================
+   BUTTON EFFECTS
+   ========================================================== */
+
+.btn,
+.coco-action,
+#coco-btn-container{
+
+transition:all .3s ease;
+
+}
+
+.btn:hover,
+.coco-action:hover{
+
+transform:translateY(-3px);
+
+}
+
+#coco-btn-container:hover{
+
+animation:pulse 1.5s infinite;
+
+}
+
+/* ==========================================================
+   MOBILE OPTIMIZATION
+   ========================================================== */
+
+@media(max-width:768px){
+
+#coco-panel{
+
+width:90%;
+left:5%;
+
+}
+
+#coco-btn-container{
+
+left:15px;
+bottom:15px;
+
+}
+
+.logo-btn{
+
+width:55px;
+height:55px;
+
+}
+
+}
+
+/* ==========================================================
+   PRINT MODE
+   ========================================================== */
+
+@media print{
+
+#coco-btn-container,
+#coco-panel{
+
+display:none !important;
+
+}
+
+body{
+
+background:white !important;
+
+}
+
+}
+
+/* ==========================================================
+   END OF STYLE.CSS
+   ISOS PROFESSIONAL UI SYSTEM
+   ========================================================== */
