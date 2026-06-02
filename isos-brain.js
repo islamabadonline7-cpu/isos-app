@@ -1,11 +1,18 @@
 /* ==========================================================
    ISOS COCO AI MASTER BRAIN v20.0
    Islamabad Online Services Official Assistant
+   PART 1 — CORE BRAIN ENGINE
+   ========================================================== */
+
+/* ==========================================================
+   MAIN CONFIGURATION
    ========================================================== */
 
 const ISOS_CONFIG = {
 
     company: "Islamabad Online Services",
+
+    shortName: "ISOS",
 
     whatsapp: "923044841012",
 
@@ -15,7 +22,26 @@ const ISOS_CONFIG = {
 
     website: "https://onlinehubs.world/isos/",
 
-    office: "G-9 Markaz Islamabad"
+    office: "Office #5, 1st Floor, Chand Plaza, G-9 Markaz Islamabad",
+
+    mapLocation:
+        "https://maps.google.com/?q=G-9+Markaz+Islamabad"
+
+};
+
+/* ==========================================================
+   GLOBAL STATE
+   ========================================================== */
+
+const ISOS_STATE = {
+
+    listening: false,
+
+    speaking: false,
+
+    initialized: false,
+
+    currentUserIntent: null
 
 };
 
@@ -23,23 +49,28 @@ const ISOS_CONFIG = {
    SPEECH ENGINE
    ========================================================== */
 
-function talk(text, callback = null) {
+function talk(text, callback = null){
 
-    try {
+    try{
 
-        speechSynthesis.cancel();
+        window.speechSynthesis.cancel();
 
-        const utter = new SpeechSynthesisUtterance(text);
+        const utter =
+            new SpeechSynthesisUtterance(text);
 
         utter.lang = "ur-PK";
 
         utter.rate = 0.9;
 
-        utter.pitch = 1;
+        utter.pitch = 1.0;
 
         utter.volume = 1;
 
+        ISOS_STATE.speaking = true;
+
         utter.onend = () => {
+
+            ISOS_STATE.speaking = false;
 
             if(callback){
 
@@ -55,19 +86,22 @@ function talk(text, callback = null) {
 
     catch(error){
 
-        console.log(error);
+        console.error(
+            "Speech Engine Error:",
+            error
+        );
 
     }
 
 }
 
 /* ==========================================================
-   SPEECH RECOGNITION
+   SPEECH RECOGNITION SETUP
    ========================================================== */
 
 const SpeechRecognition =
-window.SpeechRecognition ||
-window.webkitSpeechRecognition;
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
 
 let recognition = null;
 
@@ -93,277 +127,538 @@ function startListening(){
 
     if(!recognition){
 
-        alert("Speech Recognition Not Supported");
+        alert(
+            "Speech Recognition Not Supported"
+        );
 
         return;
-
     }
 
     try{
 
         recognition.start();
 
-        console.log("COCO Listening...");
+        ISOS_STATE.listening = true;
+
+        console.log(
+            "COCO AI Listening..."
+        );
 
     }
 
-    catch(e){
+    catch(error){
 
-        console.log(e);
+        console.error(
+            "Listening Error:",
+            error
+        );
 
     }
 
 }
 
 /* ==========================================================
-   AI KNOWLEDGE ENGINE
+   STOP LISTENING
+   ========================================================== */
+
+function stopListening(){
+
+    if(!recognition){
+
+        return;
+    }
+
+    try{
+
+        recognition.stop();
+
+        ISOS_STATE.listening = false;
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Stop Listening Error:",
+            error
+        );
+
+    }
+
+}
+
+/* ==========================================================
+   BASIC KNOWLEDGE BASE
    ========================================================== */
 
 const knowledgeBase = {
 
     greeting: [
+
         "السلام علیکم، اسلام آباد آن لائن سروسز میں خوش آمدید۔",
-        "جی فرمائیے، میں آپ کی کیا مدد کر سکتی ہوں؟",
-        "وعلیکم السلام، آپ کس سروس کے بارے میں معلومات چاہتے ہیں؟"
+
+        "وعلیکم السلام، میں کوکو ہوں، آپ کی کیا مدد کر سکتی ہوں؟",
+
+        "خوش آمدید، براہ کرم اپنا سوال پوچھیں۔"
+
     ],
 
-    services: `
-        اسلام آباد آن لائن سروسز درج ذیل خدمات فراہم کرتی ہے:
+    about: `
 
-        پراپرٹی ٹرانسفر
-        فرد و رجسٹری خدمات
-        ایف بی آر ٹیکس فائلنگ
-        این ٹی این رجسٹریشن
-        سیلز ٹیکس رجسٹریشن
-        کمپنی رجسٹریشن
-        پاور آف اٹارنی
-        حلف نامے
-        ایمبیسی اٹیسٹیشن
-        موفا اٹیسٹیشن
-        ویزا رہنمائی
-        اوورسیز ڈاکومنٹیشن
-        پولیس کریکٹر سرٹیفکیٹ
-        ڈومیسائل اور دیگر قانونی خدمات
-    `,
+میں کوکو ہوں۔
+
+اسلام آباد آن لائن سروسز کی آفیشل ڈیجیٹل اسسٹنٹ۔
+
+میں ویزا، اٹیسٹیشن، ٹیکس، پراپرٹی، قانونی دستاویزات اور دیگر خدمات کے بارے میں رہنمائی فراہم کرتی ہوں۔
+
+`,
+
+    services: `
+
+اسلام آباد آن لائن سروسز درج ذیل خدمات فراہم کرتی ہے:
+
+• MOFA Attestation
+
+• Embassy Attestation
+
+• Visa Guidance
+
+• Property Transfer
+
+• FBR Tax Filing
+
+• NTN Registration
+
+• Company Registration
+
+• Power of Attorney
+
+• Affidavits
+
+• Police Character Certificate
+
+• Overseas Documentation
+
+• Document Verification
+
+`,
 
     contact: `
-        رابطہ معلومات:
 
-        فون:
-        0304-4841012
+رابطہ معلومات:
 
-        واٹس ایپ:
-        0304-4841012
+فون:
+0304-4841012
 
-        ای میل:
-        islamabadonline7@gmail.com
+واٹس ایپ:
+0304-4841012
 
-        دفتر:
-        جی نائن مرکز اسلام آباد
+ای میل:
+islamabadonline7@gmail.com
+
+دفتر:
+G-9 Markaz Islamabad
+
+`
+
+};
+
+/* ==========================================================
+   END OF PART 1
+   NEXT:
+   ISOS-BRAIN.JS PART 2 — AI KNOWLEDGE ENGINE
+   ========================================================== */
+
+/* ==========================================================
+   ISOS ADVANCED KNOWLEDGE DATABASE
+   ========================================================== */
+
+const ISOS_SERVICES = {
+
+    property: `
+    پراپرٹی سروسز:
+
+    انتقال
+    رجسٹری
+    فرد
+    ای اسٹیمپ
+    پراپرٹی ویریفیکیشن
+    ٹرانسفر آف پراپرٹی
     `,
 
-    about: `
-        میں کوکو ہوں۔
+    tax: `
+    ایف بی آر سروسز:
 
-        اسلام آباد آن لائن سروسز کی آفیشل ڈیجیٹل اسسٹنٹ۔
+    NTN Registration
+    Income Tax Return
+    Sales Tax Registration
+    ATL Status
+    Tax Compliance
+    `,
 
-        میرا مقصد صارفین کو معلومات فراہم کرنا،
-        سروسز کی رہنمائی کرنا
-        اور رابطے میں مدد دینا ہے۔
+    company: `
+    SECP سروسز:
+
+    کمپنی رجسٹریشن
+    پرائیویٹ لمیٹڈ کمپنی
+    سنگل ممبر کمپنی
+    پارٹنرشپ رجسٹریشن
+    کمپلائنس فائلنگ
+    `,
+
+    visa: `
+    ویزا رہنمائی:
+
+    ورک ویزا
+    وزٹ ویزا
+    اسٹڈی ویزا
+    فیملی ویزا
+    بزنس ویزا
+    جاب سیکر ویزا
+    `,
+
+    attestation: `
+    اٹیسٹیشن سروسز:
+
+    MOFA Attestation
+    Embassy Attestation
+    Degree Attestation
+    Marriage Certificate Attestation
+    Birth Certificate Attestation
     `
 
 };
 
 /* ==========================================================
-   INTENT DETECTION
+   ISB SERVICES DATABASE
    ========================================================== */
 
-function detectIntent(query){
+const ISB_SERVICES = {
+
+    mofa: "وزارت خارجہ پاکستان دستاویزات کی اٹیسٹیشن کے لیے ذمہ دار ادارہ ہے۔",
+
+    fbr: "ایف بی آر پاکستان کا قومی ٹیکس ادارہ ہے۔",
+
+    secp: "SECP کمپنی رجسٹریشن اور کارپوریٹ معاملات کا ادارہ ہے۔",
+
+    ict: "اسلام آباد کیپیٹل ٹیریٹری انتظامیہ مقامی سرکاری معاملات دیکھتی ہے۔",
+
+    police: "اسلام آباد پولیس پولیس کریکٹر سرٹیفکیٹ اور ویریفیکیشن فراہم کرتی ہے۔"
+
+};
+
+/* ==========================================================
+   SERVICE SEARCH ENGINE
+   ========================================================== */
+
+function searchService(query){
 
     query = query.toLowerCase();
 
     if(
-        query.includes("سلام") ||
-        query.includes("ہیلو") ||
-        query.includes("السلام")
+        query.includes("پراپرٹی") ||
+        query.includes("رجسٹری") ||
+        query.includes("فرد")
     ){
-        return "greeting";
+        return ISOS_SERVICES.property;
     }
 
     if(
-        query.includes("کون ہو") ||
-        query.includes("تعارف") ||
-        query.includes("نام")
+        query.includes("ٹیکس") ||
+        query.includes("fbr") ||
+        query.includes("ntn")
     ){
-        return "about";
+        return ISOS_SERVICES.tax;
     }
 
     if(
-        query.includes("سروس") ||
-        query.includes("خدمات") ||
-        query.includes("کام")
+        query.includes("کمپنی") ||
+        query.includes("secp")
     ){
-        return "services";
+        return ISOS_SERVICES.company;
     }
 
     if(
-        query.includes("رابطہ") ||
-        query.includes("فون") ||
-        query.includes("واٹس ایپ") ||
-        query.includes("ای میل")
+        query.includes("ویزا")
     ){
-        return "contact";
+        return ISOS_SERVICES.visa;
     }
 
-    return "unknown";
-}
-
-/* ==========================================================
-   GENERATE RESPONSE
-   ========================================================== */
-
-function generateResponse(userInput){
-
-    const intent = detectIntent(userInput);
-
-    switch(intent){
-
-        case "greeting":
-
-            return knowledgeBase.greeting[0];
-
-        case "about":
-
-            return knowledgeBase.about;
-
-        case "services":
-
-            return knowledgeBase.services;
-
-        case "contact":
-
-            return knowledgeBase.contact;
-
-        default:
-
-            return `
-            آپ کے سوال کا شکریہ۔
-
-            مزید رہنمائی کے لیے
-            براہِ راست واٹس ایپ پر رابطہ کریں۔
-
-            نمبر:
-            0304-4841012
-            `;
+    if(
+        query.includes("اٹیسٹیشن") ||
+        query.includes("mofa")
+    ){
+        return ISOS_SERVICES.attestation;
     }
 
+    return null;
 }
 
 /* ==========================================================
-   VOICE ASSISTANT + SMART COMMANDS ENGINE
+   EMBASSY KNOWLEDGE DATABASE
    ========================================================== */
 
-function openWhatsApp(){
+const EMBASSY_DATABASE = {
 
-    window.open(
-        `https://wa.me/${ISOS_CONFIG.whatsapp}`,
-        "_blank"
-    );
+    usa: `
+    United States Embassy Islamabad
 
-}
+    خدمات:
 
-function callOffice(){
+    Visit Visa
+    Study Visa
+    Immigration
+    Business Visa
+    Consular Services
+    `,
 
-    window.location.href =
-    `tel:${ISOS_CONFIG.phone}`;
+    uk: `
+    British High Commission Islamabad
 
-}
+    خدمات:
 
-function openWebsite(){
+    UK Visit Visa
+    UK Study Visa
+    UK Work Visa
+    Family Visa
+    `,
 
-    window.open(
-        ISOS_CONFIG.website,
-        "_blank"
-    );
+    canada: `
+    Canadian High Commission
 
-}
+    خدمات:
 
-function openLocation(){
+    Visitor Visa
+    Study Permit
+    Work Permit
+    Permanent Residence
+    `,
 
-    window.open(
-        "https://maps.google.com/?q=G-9+Markaz+Islamabad",
-        "_blank"
-    );
+    saudi: `
+    Saudi Embassy Islamabad
 
-}
+    خدمات:
+
+    Family Visa
+    Work Visa
+    Visit Visa
+    Document Attestation
+    `,
+
+    uae: `
+    UAE Embassy Islamabad
+
+    خدمات:
+
+    Visit Visa
+    Employment Visa
+    Family Visa
+    Attestation Services
+    `
+
+};
 
 /* ==========================================================
-   SMART COMMAND PROCESSOR
+   MOFA DATABASE
    ========================================================== */
 
-function processSmartCommands(query){
+const MOFA_DATABASE = {
+
+    description: `
+    وزارت خارجہ پاکستان (MOFA)
+
+    دستاویزات کی تصدیق
+    اٹیسٹیشن
+    بین الاقوامی استعمال کے لیے
+    قانونی دستاویزات کی توثیق
+    `,
+
+    documents: `
+    عام طور پر:
+
+    Degree
+    Marriage Certificate
+    Birth Certificate
+    Affidavit
+    Power Of Attorney
+
+    MOFA Attestation کے لیے پیش کیے جاتے ہیں۔
+    `
+
+};
+
+/* ==========================================================
+   OEC DATABASE
+   ========================================================== */
+
+const OEC_DATABASE = {
+
+    description: `
+    Overseas Employment Corporation
+
+    پاکستانی افرادی قوت کو
+    بیرون ملک روزگار کے مواقع
+    فراہم کرنے والا ادارہ۔
+    `,
+
+    countries: `
+    عام ممالک:
+
+    Saudi Arabia
+    UAE
+    Qatar
+    Oman
+    Bahrain
+    South Korea
+    Japan
+    Italy
+    Germany
+    Romania
+    `
+
+};
+
+/* ==========================================================
+   POLICE CHARACTER CERTIFICATE DATABASE
+   ========================================================== */
+
+const PCC_DATABASE = {
+
+    description: `
+    Police Character Certificate
+
+    بیرون ملک ویزا،
+    امیگریشن،
+    ملازمت
+    اور دیگر قانونی مقاصد کے لیے
+    جاری کیا جاتا ہے۔
+    `
+
+};
+
+/* ==========================================================
+   SMART KNOWLEDGE SEARCH
+   ========================================================== */
+
+function smartKnowledgeSearch(query){
 
     query = query.toLowerCase();
 
-    /* WhatsApp */
+    /* Embassies */
 
     if(
-        query.includes("واٹس ایپ") ||
-        query.includes("whatsapp")
+        query.includes("امریکہ") ||
+        query.includes("usa") ||
+        query.includes("us embassy")
     ){
-
-        talk(
-            "میں واٹس ایپ کھول رہی ہوں۔",
-            openWhatsApp
-        );
-
-        return true;
+        return EMBASSY_DATABASE.usa;
     }
 
-    /* Call */
-
     if(
-        query.includes("فون") ||
-        query.includes("کال") ||
-        query.includes("call")
+        query.includes("برطانیہ") ||
+        query.includes("uk") ||
+        query.includes("british")
     ){
-
-        talk(
-            "میں کال سکرین کھول رہی ہوں۔",
-            callOffice
-        );
-
-        return true;
+        return EMBASSY_DATABASE.uk;
     }
 
-    /* Website */
-
     if(
-        query.includes("ویب سائٹ") ||
-        query.includes("website")
+        query.includes("کینیڈا") ||
+        query.includes("canada")
     ){
-
-        talk(
-            "ویب سائٹ کھولی جا رہی ہے۔",
-            openWebsite
-        );
-
-        return true;
+        return EMBASSY_DATABASE.canada;
     }
 
-    /* Office */
+    if(
+        query.includes("سعودی") ||
+        query.includes("saudi")
+    ){
+        return EMBASSY_DATABASE.saudi;
+    }
 
     if(
-        query.includes("دفتر") ||
-        query.includes("لوکیشن") ||
-        query.includes("پتہ") ||
-        query.includes("address")
+        query.includes("uae") ||
+        query.includes("dubai") ||
+        query.includes("emirates")
     ){
+        return EMBASSY_DATABASE.uae;
+    }
 
-        talk(
-            "دفتر کی لوکیشن کھولی جا رہی ہے۔",
-            openLocation
-        );
+    /* MOFA */
+
+    if(
+        query.includes("mofa") ||
+        query.includes("موفا") ||
+        query.includes("وزارت خارجہ")
+    ){
+        return `
+        ${MOFA_DATABASE.description}
+
+        ${MOFA_DATABASE.documents}
+        `;
+    }
+
+    /* OEC */
+
+    if(
+        query.includes("oec") ||
+        query.includes("او ای سی")
+    ){
+        return `
+        ${OEC_DATABASE.description}
+
+        ${OEC_DATABASE.countries}
+        `;
+    }
+
+    /* PCC */
+
+    if(
+        query.includes("pcc") ||
+        query.includes("پولیس کریکٹر") ||
+        query.includes("character certificate")
+    ){
+        return PCC_DATABASE.description;
+    }
+
+    return null;
+}
+
+/* ==========================================================
+   ADVANCED RESPONSE ENGINE
+   ========================================================== */
+
+function getAdvancedResponse(query){
+
+    let result =
+    searchService(query);
+
+    if(result){
+        return result;
+    }
+
+    result =
+    smartKnowledgeSearch(query);
+
+    if(result){
+        return result;
+    }
+
+    return null;
+}
+
+/* ==========================================================
+   ENHANCED AI PROCESSOR
+   ========================================================== */
+
+function processKnowledgeQuery(query){
+
+    const answer =
+    getAdvancedResponse(query);
+
+    if(answer){
+
+        talk(answer);
 
         return true;
     }
@@ -372,312 +667,330 @@ function processSmartCommands(query){
 }
 
 /* ==========================================================
-   MAIN AI PROCESSOR
+   FAQ ENGINE
    ========================================================== */
 
-function processProQuery(userInput){
+const FAQ_DATABASE = {
 
-    console.log(
-        "Client Asked:",
+    visa: `
+    ویزا کے لیے عام طور پر
+    پاسپورٹ،
+    تصاویر،
+    شناختی کارڈ،
+    بینک اسٹیٹمنٹ
+    اور متعلقہ دستاویزات درکار ہوتی ہیں۔
+    `,
+
+    mofa: `
+    MOFA Attestation کے لیے
+    اصل دستاویزات اور
+    متعلقہ تصدیق شدہ ریکارڈ
+    درکار ہو سکتا ہے۔
+    `,
+
+    pcc: `
+    پولیس کریکٹر سرٹیفکیٹ
+    عام طور پر شناختی دستاویزات
+    اور رہائشی معلومات کی بنیاد پر جاری کیا جاتا ہے۔
+    `
+
+};
+
+/* ==========================================================
+   CONVERSATION MEMORY
+   ========================================================== */
+
+let conversationHistory =
+JSON.parse(
+    localStorage.getItem(
+        "isos_conversation_history"
+    ) || "[]"
+);
+
+function saveConversation(question, answer){
+
+    conversationHistory.push({
+
+        question,
+
+        answer,
+
+        timestamp:
+        new Date().toISOString()
+
+    });
+
+    if(
+        conversationHistory.length > 50
+    ){
+        conversationHistory.shift();
+    }
+
+    localStorage.setItem(
+        "isos_conversation_history",
+        JSON.stringify(
+            conversationHistory
+        )
+    );
+
+}
+
+function getConversationHistory(){
+
+    return conversationHistory;
+
+}
+
+/* ==========================================================
+   VISITOR MEMORY
+   ========================================================== */
+
+const VISITOR_MEMORY = {
+
+    preferredService:
+    localStorage.getItem(
+        "isos_preferred_service"
+    ) || "",
+
+    lastQuestion:
+    localStorage.getItem(
+        "isos_last_question"
+    ) || ""
+
+};
+
+function rememberUserInterest(service){
+
+    localStorage.setItem(
+        "isos_preferred_service",
+        service
+    );
+
+}
+
+function rememberQuestion(question){
+
+    localStorage.setItem(
+        "isos_last_question",
+        question
+    );
+
+}
+
+/* ==========================================================
+   LEAD SCORING ENGINE
+   ========================================================== */
+
+let leadScore =
+Number(
+    localStorage.getItem(
+        "isos_lead_score"
+    )
+) || 0;
+
+function increaseLeadScore(points = 1){
+
+    leadScore += points;
+
+    localStorage.setItem(
+        "isos_lead_score",
+        leadScore
+    );
+
+}
+
+function getLeadScore(){
+
+    return leadScore;
+
+}
+
+/* ==========================================================
+   AUTO SUGGESTIONS ENGINE
+   ========================================================== */
+
+function getSuggestions(query){
+
+    query = query.toLowerCase();
+
+    if(query.includes("ویزا")){
+
+        return [
+            "ورک ویزا",
+            "وزٹ ویزا",
+            "اسٹڈی ویزا",
+            "فیملی ویزا"
+        ];
+
+    }
+
+    if(query.includes("اٹیسٹیشن")){
+
+        return [
+            "MOFA Attestation",
+            "Embassy Attestation",
+            "Degree Attestation"
+        ];
+
+    }
+
+    if(query.includes("کمپنی")){
+
+        return [
+            "SECP Registration",
+            "Private Limited",
+            "SMC Registration"
+        ];
+
+    }
+
+    return [];
+}
+
+/* ==========================================================
+   AI DASHBOARD FUNCTIONS
+   ========================================================== */
+
+function getISOSDashboard(){
+
+    return {
+
+        visits:
+        ISOS_ANALYTICS.visits,
+
+        leads:
+        ISOS_ANALYTICS.leads,
+
+        leadScore:
+        getLeadScore(),
+
+        conversations:
+        conversationHistory.length,
+
+        lastVisit:
+        localStorage.getItem(
+            "isos_last_visit"
+        )
+
+    };
+
+}
+
+/* ==========================================================
+   FULL PROCESSOR OVERRIDE
+   ========================================================== */
+
+const originalProcessProQuery =
+processProQuery;
+
+processProQuery = function(userInput){
+
+    rememberQuestion(
         userInput
     );
 
-    const smartAction =
-    processSmartCommands(userInput);
+    increaseLeadScore(1);
 
-    if(smartAction){
+    const advanced =
+    getAdvancedResponse(
+        userInput
+    );
+
+    if(advanced){
+
+        saveConversation(
+            userInput,
+            advanced
+        );
+
+        talk(advanced);
 
         return;
     }
 
-    const response =
-    generateResponse(userInput);
+    const standard =
+    generateResponse(
+        userInput
+    );
 
-    talk(response);
+    saveConversation(
+        userInput,
+        standard
+    );
 
-}
-
-/* ==========================================================
-   SPEECH RECOGNITION EVENTS
-   ========================================================== */
-
-if(recognition){
-
-    recognition.onresult = (event)=>{
-
-        const userText =
-        event.results[0][0].transcript;
-
-        processProQuery(userText);
-
-    };
-
-    recognition.onerror = ()=>{
-
-        console.log(
-            "Recognition Error"
-        );
-
-    };
-
-    recognition.onend = ()=>{
-
-        console.log(
-            "Listening Finished"
-        );
-
-    };
-
-}
-
-/* ==========================================================
-   ADVANCED BUSINESS INTELLIGENCE ENGINE
-   ========================================================== */
-
-const ISOS_ANALYTICS = {
-
-    visits: Number(
-        localStorage.getItem("isos_visits")
-    ) || 0,
-
-    leads: Number(
-        localStorage.getItem("isos_leads")
-    ) || 0,
-
-    lastVisit:
-        localStorage.getItem("isos_last_visit")
-        || null
+    talk(standard);
 
 };
 
 /* ==========================================================
-   VISITOR TRACKING
+   SMART VISITOR INSIGHT
    ========================================================== */
 
-function trackVisit(){
-
-    ISOS_ANALYTICS.visits++;
-
-    localStorage.setItem(
-        "isos_visits",
-        ISOS_ANALYTICS.visits
-    );
-
-    localStorage.setItem(
-        "isos_last_visit",
-        new Date().toISOString()
-    );
-
-    console.log(
-        "Total Visits:",
-        ISOS_ANALYTICS.visits
-    );
-
-}
-
-/* ==========================================================
-   LEAD TRACKING
-   ========================================================== */
-
-function registerLead(){
-
-    ISOS_ANALYTICS.leads++;
-
-    localStorage.setItem(
-        "isos_leads",
-        ISOS_ANALYTICS.leads
-    );
-
-    console.log(
-        "Total Leads:",
-        ISOS_ANALYTICS.leads
-    );
-
-}
-
-/* ==========================================================
-   VISITOR TYPE
-   ========================================================== */
-
-function isReturningVisitor(){
-
-    return localStorage.getItem(
-        "isos_returning_user"
-    ) !== null;
-
-}
-
-function markReturningVisitor(){
-
-    localStorage.setItem(
-        "isos_returning_user",
-        "yes"
-    );
-
-}
-
-/* ==========================================================
-   AUTO WELCOME SYSTEM
-   ========================================================== */
-
-function welcomePublic(){
-
-    let message = "";
-
-    if(isReturningVisitor()){
-
-        message =
-        "واپس خوش آمدید۔ اسلام آباد آن لائن سروسز میں آپ کو دوبارہ دیکھ کر خوشی ہوئی۔";
-
-    }
-
-    else{
-
-        message =
-        "اسلام آباد آن لائن سروسز میں خوش آمدید۔ میں کوکو ہوں۔ کیا میں آپ کی کوئی مدد کر سکتی ہوں؟";
-
-        markReturningVisitor();
-
-    }
-
-    setTimeout(()=>{
-
-        talk(message);
-
-    },1500);
-
-}
-
-/* ==========================================================
-   BUSINESS REPORT
-   ========================================================== */
-
-function getBusinessReport(){
+function getVisitorProfile(){
 
     return {
 
-        totalVisits:
-            ISOS_ANALYTICS.visits,
+        preferredService:
+        localStorage.getItem(
+            "isos_preferred_service"
+        ),
 
-        totalLeads:
-            ISOS_ANALYTICS.leads,
+        lastQuestion:
+        localStorage.getItem(
+            "isos_last_question"
+        ),
 
-        lastVisit:
-            localStorage.getItem(
-                "isos_last_visit"
-            )
+        leadScore:
+        getLeadScore()
 
     };
 
 }
 
 /* ==========================================================
-   USER ACTIVITY LOGGER
+   ADMIN REPORT
    ========================================================== */
 
-function logActivity(action){
+function exportAdminReport(){
 
-    const history =
-        JSON.parse(
-            localStorage.getItem(
-                "isos_activity"
-            ) || "[]"
-        );
+    return {
 
-    history.push({
+        dashboard:
+        getISOSDashboard(),
 
-        action: action,
+        visitor:
+        getVisitorProfile(),
 
-        date:
-            new Date()
-            .toLocaleString()
+        business:
+        getBusinessReport(),
 
-    });
+        conversations:
+        getConversationHistory()
 
-    localStorage.setItem(
-        "isos_activity",
-        JSON.stringify(history)
-    );
+    };
 
 }
 
 /* ==========================================================
-   BUTTON ACTION TRACKING
+   GLOBAL ADMIN API
    ========================================================== */
 
-document.addEventListener(
-    "click",
-    function(e){
+window.ISOS_ADMIN = {
 
-        const target =
-        e.target.innerText || "";
+    dashboard:
+    getISOSDashboard,
 
-        if(
-            target.includes("WhatsApp") ||
-            target.includes("واٹس ایپ")
-        ){
+    report:
+    exportAdminReport,
 
-            registerLead();
+    visitor:
+    getVisitorProfile,
 
-            logActivity(
-                "WhatsApp Click"
-            );
-
-        }
-
-    }
-);
-
-/* ==========================================================
-   STARTUP ENGINE
-   ========================================================== */
-
-window.addEventListener(
-    "load",
-    function(){
-
-        trackVisit();
-
-        console.log(
-            "ISOS COCO AI MASTER v20 LOADED"
-        );
-
-        console.log(
-            getBusinessReport()
-        );
-
-        welcomePublic();
-
-    }
-);
-
-/* ==========================================================
-   GLOBAL FUNCTIONS
-   ========================================================== */
-
-window.ISOS = {
-
-    talk,
-
-    startListening,
-
-    processProQuery,
-
-    getBusinessReport,
-
-    registerLead,
-
-    openWhatsApp,
-
-    callOffice,
-
-    openWebsite,
-
-    openLocation
+    conversations:
+    getConversationHistory
 
 };
 
 /* ==========================================================
-   END OF FILE
+   PART 4 END
    ========================================================== */
-
