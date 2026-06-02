@@ -1,596 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>{{PAGE_TITLE}} | Islamabad Online Services</title>
-
-<meta name="description" content="{{PAGE_DESCRIPTION}}">
-<meta name="keywords" content="{{SEO_KEYWORDS}}">
-<meta name="author" content="Islamabad Online Services">
-<meta name="robots" content="index,follow,max-image-preview:large">
-
-<link rel="canonical" href="{{CANONICAL_URL}}">
-
-<!-- Open Graph -->
-
-<meta property="og:type" content="article">
-<meta property="og:title" content="{{PAGE_TITLE}}">
-<meta property="og:description" content="{{PAGE_DESCRIPTION}}">
-<meta property="og:image" content="{{AI_IMAGE_URL}}">
-<meta property="og:url" content="{{CANONICAL_URL}}">
-<meta property="og:site_name" content="Islamabad Online Services">
-
-<!-- Twitter -->
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{PAGE_TITLE}}">
-<meta name="twitter:description" content="{{PAGE_DESCRIPTION}}">
-<meta name="twitter:image" content="{{AI_IMAGE_URL}}">
-
-<!-- Favicon -->
-
-<link rel="icon" href="logo.png">
-
-<!-- Fonts -->
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
-
-<!-- Font Awesome -->
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-<!-- Organization Schema -->
-
-<script type="application/ld+json">
-{
-"@context":"https://schema.org",
-"@type":"Organization",
-"name":"Islamabad Online Services",
-"url":"https://onlinehubs.world/isos/",
-"logo":"{{LOGO_URL}}",
-"telephone":"+923044841012",
-"address":{
-"@type":"PostalAddress",
-"streetAddress":"Office #5, 1st Floor, Chand Plaza, G-9 Markaz",
-"addressLocality":"Islamabad",
-"addressCountry":"PK"
-},
-"sameAs":[
-"https://www.facebook.com/Islamabadonlineltd",
-"https://www.linkedin.com/in/islamabadonlineltd/",
-"https://www.tiktok.com/@islamabadonlineltd",
-"https://x.com/isbonlineltd"
-]
-}
-</script>
-
-<!-- Article Schema Placeholder -->
-
-{{ARTICLE_SCHEMA}}
-
-<!-- FAQ Schema Placeholder -->
-
-{{FAQ_SCHEMA}}
-
-<style>
-
-:root{
-
---primary:#0A58CA;
---secondary:#FFD700;
---dark:#212529;
---light:#F8FAFC;
---white:#FFFFFF;
---success:#25D366;
-
-}
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-html{
-scroll-behavior:smooth;
-}
-
-body{
-
-font-family:'Poppins',sans-serif;
-background:var(--light);
-color:var(--dark);
-
-}
-
-.container{
-
-max-width:1200px;
-margin:auto;
-padding:20px;
-
-}
-
-.hero{
-
-background:white;
-padding:30px;
-border-radius:20px;
-box-shadow:0 10px 40px rgba(0,0,0,.08);
-
-}
-
-.hero-image{
-
-width:100%;
-height:auto;
-border-radius:15px;
-margin-bottom:25px;
-
-}
-
-.hero-title{
-
-font-size:40px;
-font-weight:700;
-color:var(--primary);
-text-align:center;
-margin-bottom:15px;
-
-}
-
-.hero-desc{
-
-font-size:18px;
-line-height:1.9;
-text-align:center;
-max-width:900px;
-margin:auto;
-
-}
-
-.section{
-
-background:white;
-padding:35px;
-margin-top:25px;
-border-radius:20px;
-box-shadow:0 5px 20px rgba(0,0,0,.05);
-
-}
-
-.section h2{
-
-color:var(--primary);
-margin-bottom:20px;
-font-size:30px;
-
-}
-
-.english-content{
-
-direction:ltr;
-text-align:left;
-
-}
-
-.urdu-content{
-
-direction:rtl;
-text-align:right;
-font-family:'Noto Nastaliq Urdu',serif;
-
-}
-
-.table-wrapper{
-
-overflow-x:auto;
-
-}
-
-table{
-
-width:100%;
-border-collapse:collapse;
-
-}
-
-table th{
-
-background:var(--primary);
-color:white;
-padding:15px;
-
-}
-
-table td{
-
-padding:15px;
-border:1px solid #ddd;
-
-}
-
-.checklist li{
-
-margin-bottom:10px;
-
-}
-
-.checklist li::marker{
-
-color:green;
-
-}
-
-.warning-box{
-
-background:#FFF3CD;
-border-right:6px solid #FFC107;
-padding:20px;
-border-radius:10px;
-
-}
-
-.success-box{
-
-background:#E9FBEF;
-border-right:6px solid #25D366;
-padding:20px;
-border-radius:10px;
-
-}
-
-.related-grid{
-
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-
-}
-
-.related-card{
-
-background:#fff;
-padding:20px;
-border:1px solid #eee;
-border-radius:12px;
-text-decoration:none;
-color:#0A58CA;
-font-weight:600;
-
-}
-
-.related-card:hover{
-
-transform:translateY(-4px);
-
-}
-
-.cta-box{
-
-background:linear-gradient(
-135deg,
-#0A58CA,
-#003C9E
-);
-
-color:white;
-padding:35px;
-text-align:center;
-border-radius:20px;
-
-}
-
-.cta-button{
-
-display:inline-block;
-margin-top:15px;
-padding:15px 30px;
-background:#25D366;
-color:white;
-text-decoration:none;
-border-radius:50px;
-font-weight:700;
-
-}
-
-.whatsapp-float{
-
-position:fixed;
-left:20px;
-bottom:20px;
-width:70px;
-height:70px;
-background:#25D366;
-color:white;
-font-size:35px;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:50%;
-text-decoration:none;
-z-index:999;
-
-}
-
-@media(max-width:768px){
-
-.hero-title{
-
-font-size:28px;
-
-}
-
-.section{
-
-padding:20px;
-
-}
-
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="container">
-
-<!-- HERO SECTION -->
-
-<section class="hero">
-
-    <img
-        src="{{AI_IMAGE_URL}}"
-        alt="{{PAGE_TITLE}}"
-        class="hero-image">
-
-    <h1 class="hero-title">
-        {{PAGE_TITLE}}
-    </h1>
-
-    <p class="hero-desc">
-        {{PAGE_DESCRIPTION}}
-    </p>
-
-</section>
-
-<!-- QUICK CTA -->
-
-<section class="section">
-
-<div class="cta-box">
-
-<h2>
-Need Professional Assistance?
-</h2>
-
-<p>
-Contact Islamabad Online Services for documentation,
-attestation, visa guidance and embassy related support.
-</p>
-
-<a
-href="https://wa.me/923044841012"
-target="_blank"
-class="cta-button">
-
-WhatsApp Now
-
-</a>
-
-</div>
-
-</section>
-
-<!-- ENGLISH ARTICLE -->
-
-<section class="section english-content">
-
-<h2>
-Complete Guide
-</h2>
-
-{{ENGLISH_CONTENT}}
-
-</section>
-
-<!-- ENGLISH FAQ -->
-
-<section class="section english-content">
-
-<h2>
-Frequently Asked Questions (FAQs)
-</h2>
-
-{{ENGLISH_FAQ}}
-
-</section>
-
-<!-- DOCUMENT CHECKLIST -->
-
-<section class="section">
-
-<h2>
-Required Documents Checklist
-</h2>
-
-<div class="checklist">
-
-{{DOCUMENT_CHECKLIST}}
-
-</div>
-
-</section>
-
-<!-- PROCESSING TIME -->
-
-<section class="section">
-
-<h2>
-Processing Time
-</h2>
-
-<div class="table-wrapper">
-
-{{PROCESSING_TIME}}
-
-</div>
-
-</section>
-
-<!-- FEES TABLE -->
-
-<section class="section">
-
-<h2>
-Fee Structure
-</h2>
-
-<div class="table-wrapper">
-
-{{FEE_TABLE}}
-
-</div>
-
-</section>
-
-<!-- IMPORTANT NOTICE -->
-
-<section class="section">
-
-<div class="warning-box">
-
-<h2>
-Important Notice
-</h2>
-
-<p>
-
-Visa policies,
-embassy requirements,
-attestation procedures
-and government regulations
-can change without prior notice.
-
-Always verify information from official sources
-before submitting documents.
-
-</p>
-
-</div>
-
-</section>
-
-<!-- SCAM ALERT -->
-
-<section class="section">
-
-<div class="warning-box">
-
-<h2>
-Scam Alert
-</h2>
-
-{{SCAM_ALERT}}
-
-</div>
-
-</section>
-
-<!-- COUNTRY COMPARISON -->
-
-<section class="section">
-
-<h2>
-Country Comparison
-</h2>
-
-{{COUNTRY_COMPARISON}}
-
-</section>
-
-<!-- ELIGIBILITY SECTION -->
-
-<section class="section">
-
-<h2>
-Eligibility Requirements
-</h2>
-
-{{ELIGIBILITY_REQUIREMENTS}}
-
-</section>
-
-<!-- BENEFITS SECTION -->
-
-<section class="section">
-
-<h2>
-Benefits & Opportunities
-</h2>
-
-{{BENEFITS_SECTION}}
-
-</section>
-
-<!-- COMMON MISTAKES -->
-
-<section class="section">
-
-<h2>
-Common Mistakes to Avoid
-</h2>
-
-{{COMMON_MISTAKES}}
-
-</section>
-
-<!-- URDU CONTENT -->
-
-<section
-class="section urdu-content"
-lang="ur"
-dir="rtl">
-
-<h2>
-
-اردو رہنمائی
-
-</h2>
-
-{{URDU_CONTENT}}
-
-</section>
-
-<!-- URDU FAQ -->
-
-<section
-class="section urdu-content"
-lang="ur"
-dir="rtl">
-
-<h2>
-
-اکثر پوچھے جانے والے سوالات
-
-</h2>
-
-{{URDU_FAQ}}
-
-</section>
-
 <!-- RELATED SERVICES -->
 
 <section class="section">
 
-<h2>
+<h2 class="section-title">
 
 Related Services
 
@@ -608,7 +20,7 @@ Related Services
 
 <section class="section">
 
-<h2>
+<h2 class="section-title">
 
 Related Countries
 
@@ -626,7 +38,7 @@ Related Countries
 
 <section class="section">
 
-<h2>
+<h2 class="section-title">
 
 Related Embassies
 
@@ -640,11 +52,11 @@ Related Embassies
 
 </section>
 
-<!-- DOWNLOADS -->
+<!-- FREE RESOURCES -->
 
 <section class="section">
 
-<h2>
+<h2 class="section-title">
 
 Free Resources
 
@@ -654,499 +66,196 @@ Free Resources
 
 </section>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!-- WHY CHOOSE ISOS -->
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<section class="section">
 
-<title>{{PAGE_TITLE}} | Islamabad Online Services</title>
+<h2 class="section-title">
 
-<meta name="description" content="{{PAGE_DESCRIPTION}}">
-<meta name="keywords" content="{{SEO_KEYWORDS}}">
-<meta name="author" content="Islamabad Online Services">
-<meta name="robots" content="index, follow, max-image-preview:large">
-<meta name="googlebot" content="index, follow">
+Why Choose Islamabad Online Services?
 
-<link rel="canonical" href="{{CANONICAL_URL}}">
+</h2>
 
-<!-- Open Graph -->
-<meta property="og:type" content="article">
-<meta property="og:title" content="{{PAGE_TITLE}}">
-<meta property="og:description" content="{{PAGE_DESCRIPTION}}">
-<meta property="og:image" content="{{AI_IMAGE_URL}}">
-<meta property="og:url" content="{{CANONICAL_URL}}">
-<meta property="og:site_name" content="Islamabad Online Services">
+<div class="feature-box">
 
-<!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{PAGE_TITLE}}">
-<meta name="twitter:description" content="{{PAGE_DESCRIPTION}}">
-<meta name="twitter:image" content="{{AI_IMAGE_URL}}">
+<ul>
 
-<!-- Favicon -->
-<link rel="icon" href="logo.png">
+<li>Visa Documentation Support</li>
 
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;700&display=swap" rel="stylesheet">
+<li>MOFA Attestation Guidance</li>
 
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<li>Embassy Documentation Assistance</li>
 
-<!-- Schema -->
-<script type="application/ld+json">
-{
- "@context":"https://schema.org",
- "@type":"Article",
- "headline":"{{PAGE_TITLE}}",
- "description":"{{PAGE_DESCRIPTION}}",
- "image":"{{AI_IMAGE_URL}}",
- "author":{
-   "@type":"Organization",
-   "name":"Islamabad Online Services"
- },
- "publisher":{
-   "@type":"Organization",
-   "name":"Islamabad Online Services",
-   "logo":{
-      "@type":"ImageObject",
-      "url":"logo.png"
-   }
- }
-}
-</script>
+<li>Power of Attorney Support</li>
 
-<style>
+<li>Affidavit Documentation Guidance</li>
 
-:root{
---primary:#0A58CA;
---secondary:#FFD700;
---dark:#1B1B1B;
---light:#F8FAFC;
---white:#FFFFFF;
---success:#25D366;
-}
+<li>Business Registration Assistance</li>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+<li>Overseas Employment Documentation</li>
 
-html{
-scroll-behavior:smooth;
-}
+<li>Family Registration Guidance</li>
 
-body{
-font-family:'Inter',sans-serif;
-background:var(--light);
-color:#333;
-line-height:1.8;
-}
+<li>NICOP Documentation Support</li>
 
-.container{
-max-width:1200px;
-margin:auto;
-background:#fff;
-padding:40px;
-box-shadow:0 10px 40px rgba(0,0,0,.08);
-}
+<li>Professional Consultation Services</li>
 
-.hero{
-margin-bottom:40px;
-}
+</ul>
 
-.hero img{
-width:100%;
-border-radius:16px;
-display:block;
-}
+</div>
 
-.en-section{
-direction:ltr;
-text-align:left;
-font-family:'Inter',sans-serif;
-margin-top:40px;
-}
-
-.ur-section{
-direction:rtl;
-text-align:right;
-font-family:'Noto Nastaliq Urdu',serif;
-margin-top:60px;
-}
-
-.page-title{
-font-size:42px;
-font-weight:800;
-color:var(--primary);
-margin-bottom:20px;
-text-align:center;
-}
-
-.section-title{
-font-size:28px;
-font-weight:700;
-margin-top:40px;
-margin-bottom:20px;
-padding-bottom:10px;
-border-bottom:3px solid var(--secondary);
-}
-
-.feature-box{
-background:#F8FBFF;
-border-left:5px solid var(--primary);
-padding:25px;
-margin:25px 0;
-border-radius:10px;
-}
-
-.checklist{
-list-style:none;
-padding:0;
-}
-
-.checklist li{
-padding:10px 0;
-border-bottom:1px solid #eee;
-}
-
-.checklist li i{
-color:var(--success);
-margin-right:10px;
-}
-
-.data-table{
-width:100%;
-border-collapse:collapse;
-margin:30px 0;
-}
-
-.data-table th{
-background:var(--primary);
-color:#fff;
-padding:14px;
-}
-
-.data-table td{
-padding:14px;
-border:1px solid #ddd;
-}
-
-.data-table tr:nth-child(even){
-background:#fafafa;
-}
-
-.faq-box{
-background:#fff;
-border:1px solid #ddd;
-padding:20px;
-margin-bottom:15px;
-border-radius:10px;
-}
-
-.faq-box h3{
-color:var(--primary);
-margin-bottom:10px;
-}
-
-.cta-box{
-background:linear-gradient(135deg,#0A58CA,#06357D);
-padding:35px;
-color:white;
-border-radius:15px;
-text-align:center;
-margin:50px 0;
-}
-
-.cta-btn{
-display:inline-block;
-background:#25D366;
-color:white;
-padding:15px 30px;
-text-decoration:none;
-border-radius:8px;
-font-weight:700;
-margin-top:15px;
-}
-
-.related-posts{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-margin-top:30px;
-}
-
-.related-card{
-background:#fff;
-border:1px solid #ddd;
-padding:20px;
-border-radius:12px;
-text-decoration:none;
-color:#333;
-transition:.3s;
-}
-
-.related-card:hover{
-transform:translateY(-5px);
-}
-
-.contact-section{
-margin-top:50px;
-padding:40px;
-background:#F8FBFF;
-border-radius:15px;
-}
-
-.contact-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-}
-
-.contact-card{
-background:white;
-padding:20px;
-text-align:center;
-border-radius:12px;
-}
-
-.contact-card i{
-font-size:30px;
-color:var(--primary);
-margin-bottom:10px;
-}
-
-.social-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(90px,1fr));
-gap:15px;
-margin-top:20px;
-}
-
-.social-icon{
-display:flex;
-align-items:center;
-justify-content:center;
-height:70px;
-background:white;
-border-radius:12px;
-font-size:24px;
-text-decoration:none;
-color:#333;
-}
-
-.footer{
-background:#111;
-color:white;
-text-align:center;
-padding:40px 20px;
-margin-top:50px;
-}
-
-.whatsapp-float{
-position:fixed;
-left:25px;
-bottom:25px;
-width:70px;
-height:70px;
-background:#25D366;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:36px;
-color:white;
-text-decoration:none;
-z-index:999;
-}
-
-@media(max-width:768px){
-
-.container{
-padding:20px;
-}
-
-.page-title{
-font-size:30px;
-}
-
-.section-title{
-font-size:22px;
-}
-
-}
-
-</style>
-
-</head>
-
-<!-- =========================
-ISOS TRUST & CTA SECTION
-========================= -->
-
-<section class="feature-box">
-    <h2>Why Choose Islamabad Online Services?</h2>
-
-    <div class="checklist">
-        <ul>
-            <li>Visa Documentation Support</li>
-            <li>MOFA Attestation Guidance</li>
-            <li>Embassy Documentation Assistance</li>
-            <li>Overseas Employment Documentation</li>
-            <li>Business Documentation Support</li>
-            <li>Power of Attorney Assistance</li>
-            <li>Affidavit Documentation Guidance</li>
-            <li>NICOP & Family Registration Guidance</li>
-            <li>Travel Documentation Assistance</li>
-            <li>Professional Consultation Support</li>
-        </ul>
-    </div>
 </section>
 
-<section class="contact-section">
+<!-- CONTACT SECTION -->
 
-<h2>Contact Islamabad Online Services</h2>
+<section class="section">
 
-<div class="contact-grid">
+<h2 class="section-title">
 
-<div class="contact-card">
-<i class="fab fa-whatsapp"></i>
-<h3>WhatsApp</h3>
+Contact Islamabad Online Services
+
+</h2>
+
+<div class="feature-box">
+
 <p>
-<a href="https://wa.me/923044841012" target="_blank">
+
+<strong>WhatsApp:</strong>
 +92 304 484 1012
-</a>
-</p>
-</div>
 
-<div class="contact-card">
-<i class="fas fa-phone"></i>
-<h3>Call Us</h3>
+</p>
+
 <p>
-<a href="tel:+923044841012">
-+92 304 484 1012
-</a>
-</p>
-</div>
 
-<div class="contact-card">
-<i class="fas fa-map-marker-alt"></i>
-<h3>Office Address</h3>
+<strong>Office:</strong>
+Office #5, 1st Floor,
+Chand Plaza,
+G-9 Markaz,
+Islamabad
+
+</p>
+
 <p>
-Office #5, 1st Floor,<br>
-Chand Plaza, G-9 Markaz,<br>
-Islamabad, Pakistan
-</p>
-</div>
 
-<div class="contact-card">
-<i class="fas fa-globe"></i>
-<h3>Website</h3>
-<p>
-<a href="https://onlinehubs.world/isos/" target="_blank">
-onlinehubs.world/isos
-</a>
+<strong>Website:</strong>
+
+https://onlinehubs.world/isos/
+
 </p>
-</div>
 
 </div>
+
 </section>
 
-<section class="social-section">
+<!-- SOCIAL MEDIA -->
 
-<h2>Follow Islamabad Online Services</h2>
+<section class="section">
 
-<div class="social-grid">
+<h2 class="section-title">
 
-<a class="social-icon"
-href="https://www.facebook.com/Islamabadonlineltd"
-target="_blank">
-<i class="fab fa-facebook-f"></i>
-</a>
+Follow Us
 
-<a class="social-icon"
-href="https://www.linkedin.com/in/islamabadonlineltd/"
-target="_blank">
-<i class="fab fa-linkedin-in"></i>
-</a>
+</h2>
 
-<a class="social-icon"
-href="https://www.tiktok.com/@islamabadonlineltd"
-target="_blank">
-<i class="fab fa-tiktok"></i>
-</a>
+<div class="feature-box">
 
-<a class="social-icon"
-href="https://x.com/isbonlineltd"
-target="_blank">
-<i class="fab fa-x-twitter"></i>
-</a>
+<p>
 
-<a class="social-icon"
-href="https://www.instagram.com/islamabadonlineofficials/"
-target="_blank">
-<i class="fab fa-instagram"></i>
-</a>
+Facebook |
+LinkedIn |
+TikTok |
+Instagram |
+X (Twitter)
 
-<a class="social-icon"
+</p>
+
+</div>
+
+</section>
+
+<!-- FINAL CTA -->
+
+<section class="section">
+
+<div class="cta-box">
+
+<h2>
+
+Need Professional Assistance?
+
+</h2>
+
+<p>
+
+Contact Islamabad Online Services for
+Visa Guidance,
+Documentation Support,
+Embassy Procedures,
+MOFA Attestation,
+Immigration Information
+and Professional Assistance.
+
+</p>
+
+<a
 href="https://wa.me/923044841012"
-target="_blank">
-<i class="fab fa-whatsapp"></i>
+target="_blank"
+class="cta-button">
+
+WhatsApp Now
+
 </a>
 
 </div>
 
 </section>
 
-<footer class="footer">
+<!-- FOOTER -->
 
-<h3>Islamabad Online Services ®</h3>
+<footer
+style="
+margin-top:40px;
+text-align:center;
+padding:30px;
+background:#111827;
+color:white;
+border-radius:20px;
+">
+
+<h3>
+
+Islamabad Online Services ®
+
+</h3>
 
 <p>
-Providing Reliable Documentation & Visa Support
+
+Documentation • Immigration • Embassy Support
+
 </p>
 
 <p>
-NTN: F928736
-</p>
 
-<p>
-SECP: 0281352
-</p>
-
-<p>
-Website:
-<a href="https://onlinehubs.world/isos/"
-style="color:#fff;">
-onlinehubs.world/isos
-</a>
-</p>
-
-<p>
 WhatsApp:
-<a href="https://wa.me/923044841012"
-style="color:#fff;">
 +92 304 484 1012
-</a>
+
 </p>
 
 <p>
-© 2026 Islamabad Online Services ®
-All Rights Reserved
+
+Website:
+https://onlinehubs.world/isos/
+
+</p>
+
+<p>
+
+© 2026 Islamabad Online Services
+
 </p>
 
 </footer>
 
 </div>
 
-<a class="whatsapp-float"
-href="https://wa.me/923044841012"
-target="_blank">
-<i class="fab fa-whatsapp"></i>
-</a>
-
-</body>
-</html>
+<!-- WHATSAPP FLOAT
