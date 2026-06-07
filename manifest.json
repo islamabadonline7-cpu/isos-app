@@ -1,27 +1,123 @@
 {
-  "short_name": "ISOS COCO",
-  "name": "ISOS COCO AI Master - Islamabad Online Services",
-  "description": "شہزاد حسین طاہر صاحب کی آفیشل وائس اسسٹنٹ اور سروسز ایپ",
-  "id": "/index.html",
+  "id": "/",
+
+  "name": "Islamabad Online Services Super App",
+
+  "short_name": "ISOS",
+
+  "description": "Islamabad Online Services Super App with COCO AI Assistant, Documentation Services, Embassy Guides, MOFA Attestation, Immigration Resources and Smart Content Generator.",
+
+  "start_url": "/index.html",
+
+  "scope": "/",
+
+  "display": "standalone",
+
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+
+  "orientation": "portrait-primary",
+
+  "theme_color": "#0A58CA",
+
+  "background_color": "#FFFFFF",
+
+  "lang": "en",
+
+  "dir": "ltr",
+
+  "categories": [
+    "business",
+    "productivity",
+    "utilities",
+    "education"
+  ],
+
   "icons": [
+
+    {
+      "src": "logo.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+
+    {
+      "src": "logo.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+
+    {
+      "src": "logo.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+
+    {
+      "src": "logo.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+
+    {
+      "src": "logo.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+
     {
       "src": "logo.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
+
+    {
+      "src": "logo.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+
     {
       "src": "logo.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     }
+
   ],
-  "start_url": "./index.html",
-  "display": "standalone",
-  "theme_color": "#001f3f",
-  "background_color": "#001f3f",
-  "orientation": "portrait",
-  "scope": "/",
-  "lang": "ur"
+
+  "shortcuts": [
+
+    {
+      "name": "AI Generator",
+      "short_name": "Generator",
+      "description": "Open ISOS Smart Content Generator",
+      "url": "/generator.html",
+      "icons": [
+        {
+          "src": "logo.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+
+    {
+      "name": "WhatsApp",
+      "short_name": "WhatsApp",
+      "description": "Contact Islamabad Online Services",
+      "url": "https://wa.me/923044841012",
+      "icons": [
+        {
+          "src": "logo.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+
+  ],
+
+  "prefer_related_applications": false
 }
