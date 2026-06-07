@@ -1,46 +1,193 @@
 /* ==========================================================
-   ISOS COCO Super App - Service Worker v15.1
-   MAINTENANCE: SHAHZAD HUSSAIN TAHIR (ISOS)
+   ISOS SUPER APP SERVICE WORKER v20.0
+   Islamabad Online Services
+   Offline + PWA + Performance Engine
    ========================================================== */
 
-const CACHE_NAME = 'isos-coco-v15-1'; // نیا ورژن تاکہ پرانی فائلیں ختم ہوں
-const assets = [
-  './',
-  'index.html',
-  'style.css',
-  'isos-brain.js',
-  'logo.png',
-  'manifest.json'
+const CACHE_NAME = "isos-superapp-v20";
+
+const STATIC_ASSETS = [
+
+    "./",
+
+    "index.html",
+
+    "generator.html",
+
+    "template.html",
+
+    "style.css",
+
+    "isos-brain.js",
+
+    "isos-menu.js",
+
+    "manifest.json",
+
+    "logo.png"
+
 ];
 
-// 1. انسٹالیشن (فائلوں کو موبائل میموری میں محفوظ کرنا)
-self.addEventListener('install', event => {
-  self.skipWaiting();
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      console.log('ISOS: Files caching for offline/app mode...');
-      return cache.addAll(assets);
-    })
-  );
-});
+/* ==========================================================
+   INSTALL
+   ========================================================== */
 
-// 2. ایکٹیویشن (پرانے ورژن v15.0 یا v14 کو ڈیلیٹ کرنا)
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(keys => {
-      return Promise.all(
-        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
-      );
-    })
-  );
-  console.log('ISOS: System Cleaned & Updated to v15.1');
-});
+self.addEventListener(
+    "install",
+    event => {
 
-// 3. فیچ ریکوسٹ (ایپ کی رفتار تیز کرنا)
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request).then(response => {
-      return response || fetch(event.request);
-    })
-  );
-});
+        console.log(
+            "ISOS SW Installing..."
+        );
+
+        self.skipWaiting();
+
+        event.waitUntil(
+
+            caches.open(
+                CACHE_NAME
+            ).then(cache => {
+
+                return cache.addAll(
+                    STATIC_ASSETS
+                );
+
+            })
+
+        );
+
+    }
+);
+
+/* ==========================================================
+   ACTIVATE
+   ========================================================== */
+
+self.addEventListener(
+    "activate",
+    event => {
+
+        console.log(
+            "ISOS SW Activated"
+        );
+
+        event.waitUntil(
+
+            caches.keys().then(keys => {
+
+                return Promise.all(
+
+                    keys.map(key => {
+
+                        if(
+                            key !== CACHE_NAME
+                        ){
+
+                            return caches.delete(
+                                key
+                            );
+
+                        }
+
+                    })
+
+                );
+
+            })
+
+        );
+
+        return self.clients.claim();
+
+    }
+);
+
+/* ==========================================================
+   FETCH STRATEGY
+   Cache First + Network Fallback
+   ========================================================== */
+
+self.addEventListener(
+    "fetch",
+    event => {
+
+        if(
+            event.request.method !== "GET"
+        ){
+            return;
+        }
+
+        event.respondWith(
+
+            caches.match(
+                event.request
+            ).then(cached => {
+
+                if(cached){
+
+                    return cached;
+
+                }
+
+                return fetch(
+                    event.request
+                )
+                .then(response => {
+
+                    const clone =
+                        response.clone();
+
+                    caches.open(
+                        CACHE_NAME
+                    ).then(cache => {
+
+                        cache.put(
+                            event.request,
+                            clone
+                        );
+
+                    });
+
+                    return response;
+
+                })
+                .catch(() => {
+
+                    return caches.match(
+                        "index.html"
+                    );
+
+                });
+
+            })
+
+        );
+
+    }
+);
+
+/* ==========================================================
+   BACKGROUND UPDATE
+   ========================================================== */
+
+self.addEventListener(
+    "message",
+    event => {
+
+        if(
+            event.data &&
+            event.data.type ===
+            "SKIP_WAITING"
+        ){
+
+            self.skipWaiting();
+
+        }
+
+    }
+);
+
+/* ==========================================================
+   END OF FILE
+   ISOS SUPER APP SERVICE WORKER v20
+   ========================================================== */
