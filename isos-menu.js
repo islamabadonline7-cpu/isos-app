@@ -1,10 +1,10 @@
 /* ==========================================================
-   ISOS MENU SYSTEM v20.0
+   ISOS MENU SYSTEM v21 ENTERPRISE
    Islamabad Online Services
    Professional Navigation Engine
    ========================================================== */
 
-const ISOS_MENU = {
+const ISOS_MENU_CONFIG = {
 
     company: "Islamabad Online Services",
 
@@ -12,12 +12,20 @@ const ISOS_MENU = {
 
     whatsapp: "https://wa.me/923044841012",
 
-    items: [
+    logo: "logo.png",
+
+    menuItems: [
 
         {
             title: "Home",
             url: "index.html",
             icon: "🏠"
+        },
+
+        {
+            title: "Generator",
+            url: "generator.html",
+            icon: "⚡"
         },
 
         {
@@ -55,76 +63,87 @@ const ISOS_MENU = {
 };
 
 /* ==========================================================
-   CREATE MENU
+   BUILD NAVIGATION
    ========================================================== */
 
-function createISOSMenu(){
+function buildISOSNavigation(){
 
-    const nav = document.createElement("nav");
+    const navbar =
+        document.createElement("header");
 
-    nav.id = "isos-navbar";
+    navbar.id = "isos-navbar";
 
-    nav.innerHTML = `
+    let menuHTML = "";
 
-        <div class="isos-nav-wrapper">
+    ISOS_MENU_CONFIG.menuItems.forEach(item => {
 
-            <div class="isos-logo">
+        menuHTML += `
 
-                ISOS
+        <a href="${item.url}"
+           class="isos-link">
 
-            </div>
+           ${item.icon}
+           ${item.title}
 
-            <ul class="isos-menu-list">
-
-            </ul>
-
-            <a
-                class="isos-whatsapp-btn"
-                href="${ISOS_MENU.whatsapp}"
-                target="_blank">
-
-                WhatsApp
-
-            </a>
-
-        </div>
-
-    `;
-
-    document.body.prepend(nav);
-
-    const menuList =
-        nav.querySelector(".isos-menu-list");
-
-    ISOS_MENU.items.forEach(item => {
-
-        const li =
-            document.createElement("li");
-
-        li.innerHTML = `
-
-            <a href="${item.url}">
-
-                ${item.icon}
-                ${item.title}
-
-            </a>
+        </a>
 
         `;
 
-        menuList.appendChild(li);
-
     });
+
+    navbar.innerHTML = `
+
+    <div class="isos-nav-container">
+
+        <a href="index.html"
+           id="isos-logo">
+
+            <img
+            src="${ISOS_MENU_CONFIG.logo}"
+            alt="ISOS Logo">
+
+            <span>
+
+            ISOS
+
+            </span>
+
+        </a>
+
+        <div id="isos-mobile-btn">
+
+            ☰
+
+        </div>
+
+        <nav id="isos-menu">
+
+            ${menuHTML}
+
+            <a
+            href="${ISOS_MENU_CONFIG.whatsapp}"
+            target="_blank"
+            id="isos-whatsapp">
+
+            WhatsApp
+
+            </a>
+
+        </nav>
+
+    </div>
+
+    `;
+
+    document.body.prepend(navbar);
 
 }
 
 /* ==========================================================
-   ISOS MENU ENGINE v20.0
-   PART 2
-   Professional Styling + Mobile Menu Engine
+   PROFESSIONAL MENU STYLES
    ========================================================== */
 
-function injectMenuStyles(){
+function injectISOSMenuStyles(){
 
 const css = `
 
@@ -135,7 +154,7 @@ top:0;
 left:0;
 right:0;
 
-height:70px;
+height:72px;
 
 background:linear-gradient(
 135deg,
@@ -143,19 +162,31 @@ background:linear-gradient(
 #06357D
 );
 
+z-index:99999;
+
+box-shadow:
+0 6px 25px rgba(0,0,0,.18);
+
+}
+
+.isos-nav-container{
+
+height:100%;
+
+max-width:1400px;
+
+margin:auto;
+
 display:flex;
+
 align-items:center;
+
 justify-content:space-between;
 
 padding:0 20px;
 
-z-index:99999;
-
-box-shadow:
-0 5px 25px rgba(0,0,0,.15);
-
 font-family:
-'Segoe UI',
+Segoe UI,
 sans-serif;
 
 }
@@ -163,14 +194,18 @@ sans-serif;
 #isos-logo{
 
 display:flex;
+
 align-items:center;
+
 gap:12px;
 
-font-size:20px;
-font-weight:700;
+text-decoration:none;
+
 color:white;
 
-text-decoration:none;
+font-size:20px;
+
+font-weight:700;
 
 }
 
@@ -181,37 +216,43 @@ height:42px;
 
 border-radius:50%;
 
-object-fit:cover;
-
 background:white;
+
 padding:3px;
+
+object-fit:cover;
 
 }
 
 #isos-menu{
 
 display:flex;
+
 align-items:center;
-gap:18px;
+
+gap:12px;
 
 }
 
-#isos-menu a{
+.isos-link{
 
 color:white;
+
 text-decoration:none;
 
 font-size:15px;
+
 font-weight:600;
+
+padding:10px 14px;
+
+border-radius:8px;
 
 transition:.3s;
 
-padding:10px 12px;
-border-radius:8px;
-
 }
 
-#isos-menu a:hover{
+.isos-link:hover{
 
 background:
 rgba(255,255,255,.15);
@@ -222,13 +263,23 @@ rgba(255,255,255,.15);
 
 background:#25D366;
 
+color:white;
+
+text-decoration:none;
+
 padding:10px 16px;
 
 border-radius:8px;
 
-color:white !important;
-
 font-weight:700;
+
+transition:.3s;
+
+}
+
+#isos-whatsapp:hover{
+
+transform:translateY(-2px);
 
 }
 
@@ -236,17 +287,23 @@ font-weight:700;
 
 display:none;
 
-font-size:26px;
-
-color:white;
+font-size:28px;
 
 cursor:pointer;
 
+color:white;
+
 }
 
-/* =========================
-   MOBILE MENU
-========================= */
+/* BODY OFFSET */
+
+body{
+
+padding-top:72px;
+
+}
+
+/* MOBILE */
 
 @media(max-width:992px){
 
@@ -260,10 +317,10 @@ display:block;
 
 position:fixed;
 
-top:70px;
+top:72px;
 right:-100%;
 
-width:280px;
+width:300px;
 height:100vh;
 
 background:#06357D;
@@ -274,11 +331,11 @@ align-items:flex-start;
 
 padding:25px;
 
-gap:12px;
+gap:10px;
 
 transition:.35s;
 
-overflow:auto;
+overflow-y:auto;
 
 }
 
@@ -288,13 +345,21 @@ right:0;
 
 }
 
-#isos-menu a{
+.isos-link{
 
 width:100%;
 
-padding:12px 15px;
+padding:12px 14px;
 
-border-radius:10px;
+}
+
+#isos-whatsapp{
+
+width:100%;
+
+text-align:center;
+
+margin-top:10px;
 
 }
 
@@ -312,155 +377,72 @@ document.head.appendChild(style);
 }
 
 /* ==========================================================
-   MOBILE TOGGLE
+   MOBILE MENU ENGINE
    ========================================================== */
 
 function setupMobileMenu(){
 
-const btn =
-document.getElementById(
-"isos-mobile-btn"
-);
+    const btn =
+        document.getElementById(
+            "isos-mobile-btn"
+        );
 
-const menu =
-document.getElementById(
-"isos-menu"
-);
+    const menu =
+        document.getElementById(
+            "isos-menu"
+        );
 
-if(!btn || !menu){
-return;
-}
+    if(!btn || !menu){
+        return;
+    }
 
-btn.addEventListener(
-"click",
-function(){
+    btn.addEventListener(
+        "click",
+        function(){
 
-menu.classList.toggle(
-"active"
-);
+            menu.classList.toggle(
+                "active"
+            );
 
-}
-);
-
-}
-
-/* ==========================================================
-   CLOSE MENU ON LINK CLICK
-   ========================================================== */
-
-function closeMenuOnClick(){
-
-const links =
-document.querySelectorAll(
-"#isos-menu a"
-);
-
-links.forEach(link=>{
-
-link.addEventListener(
-"click",
-function(){
-
-const menu =
-document.getElementById(
-"isos-menu"
-);
-
-if(menu){
-
-menu.classList.remove(
-"active"
-);
-
-}
-
-}
-);
-
-});
+        }
+    );
 
 }
 
 /* ==========================================================
-   ISOS MENU ENGINE v20.0
-   PART 3
-   Dynamic Navigation + Active Page Detection
+   CLOSE MENU AFTER CLICK
    ========================================================== */
 
-/* ==========================================================
-   BUILD PROFESSIONAL NAVIGATION
-   ========================================================== */
+function closeMenuAfterClick(){
 
-function buildNavigation(){
+    const links =
+        document.querySelectorAll(
+            "#isos-menu a"
+        );
 
-    const navbar = document.createElement("div");
+    links.forEach(link=>{
 
-    navbar.id = "isos-navbar";
+        link.addEventListener(
+            "click",
+            function(){
 
-    navbar.innerHTML = `
+                const menu =
+                    document.getElementById(
+                        "isos-menu"
+                    );
 
-        <a href="index.html" id="isos-logo">
+                if(menu){
 
-            <img src="logo.png" alt="ISOS">
+                    menu.classList.remove(
+                        "active"
+                    );
 
-            <span>ISOS</span>
+                }
 
-        </a>
+            }
+        );
 
-        <div id="isos-mobile-btn">
-
-            ☰
-
-        </div>
-
-        <div id="isos-menu">
-
-            <a href="index.html">
-                Home
-            </a>
-
-            <a href="generator.html">
-                Generator
-            </a>
-
-            <a href="#services">
-                Services
-            </a>
-
-            <a href="#embassies">
-                Embassies
-            </a>
-
-            <a href="#ministries">
-                Ministries
-            </a>
-
-            <a href="#mofa">
-                MOFA
-            </a>
-
-            <a href="#blog">
-                Blog
-            </a>
-
-            <a href="#contact">
-                Contact
-            </a>
-
-            <a
-                href="https://wa.me/923044841012"
-                target="_blank"
-                id="isos-whatsapp">
-
-                WhatsApp
-
-            </a>
-
-        </div>
-
-    `;
-
-    document.body.prepend(navbar);
+    });
 
 }
 
@@ -476,23 +458,22 @@ function activateCurrentPage(){
         .pop()
         .toLowerCase();
 
-    const menuLinks =
+    const links =
         document.querySelectorAll(
             "#isos-menu a"
         );
 
-    menuLinks.forEach(link => {
+    links.forEach(link=>{
 
         const href =
             link.getAttribute("href");
 
-        if(!href) return;
-
-        const cleanHref =
-            href.toLowerCase();
+        if(!href){
+            return;
+        }
 
         if(
-            cleanHref === currentPage
+            href.toLowerCase() === currentPage
         ){
 
             link.style.background =
@@ -511,72 +492,7 @@ function activateCurrentPage(){
 }
 
 /* ==========================================================
-   SCROLL ACTIVE SECTION
-   ========================================================== */
-
-function activateSectionLinks(){
-
-    const sections =
-        document.querySelectorAll(
-            "section[id]"
-        );
-
-    const navLinks =
-        document.querySelectorAll(
-            '#isos-menu a[href^="#"]'
-        );
-
-    window.addEventListener(
-        "scroll",
-        function(){
-
-            let current = "";
-
-            sections.forEach(section => {
-
-                const sectionTop =
-                    section.offsetTop - 120;
-
-                if(
-                    window.scrollY >= sectionTop
-                ){
-
-                    current =
-                        section.getAttribute("id");
-
-                }
-
-            });
-
-            navLinks.forEach(link => {
-
-                link.style.background =
-                    "";
-
-                link.style.color =
-                    "white";
-
-                const href =
-                    link.getAttribute("href");
-
-                if(
-                    href === "#" + current
-                ){
-
-                    link.style.background =
-                        "rgba(255,255,255,.20)";
-
-                }
-
-            });
-
-        }
-    );
-
-}
-
-/* ==========================================================
-   SMOOTH SCROLL
+   SMOOTH SCROLL ENGINE
    ========================================================== */
 
 function enableSmoothScroll(){
@@ -586,14 +502,16 @@ function enableSmoothScroll(){
             '#isos-menu a[href^="#"]'
         );
 
-    links.forEach(link => {
+    links.forEach(link=>{
 
         link.addEventListener(
             "click",
             function(e){
 
                 const targetId =
-                    this.getAttribute("href");
+                    this.getAttribute(
+                        "href"
+                    );
 
                 const target =
                     document.querySelector(
@@ -621,13 +539,71 @@ function enableSmoothScroll(){
 }
 
 /* ==========================================================
-   ISOS MENU ENGINE v20.0
-   PART 4 FINAL
-   Auto Initialize + Analytics + COCO Integration
+   ACTIVE SECTION HIGHLIGHT
    ========================================================== */
 
+function activateSectionLinks(){
+
+    const sections =
+        document.querySelectorAll(
+            "section[id]"
+        );
+
+    const navLinks =
+        document.querySelectorAll(
+            '#isos-menu a[href^="#"]'
+        );
+
+    window.addEventListener(
+        "scroll",
+        function(){
+
+            let current = "";
+
+            sections.forEach(section=>{
+
+                const top =
+                    section.offsetTop - 120;
+
+                if(
+                    window.scrollY >= top
+                ){
+
+                    current =
+                        section.id;
+
+                }
+
+            });
+
+            navLinks.forEach(link=>{
+
+                link.style.background = "";
+                link.style.color = "white";
+
+                const href =
+                    link.getAttribute(
+                        "href"
+                    );
+
+                if(
+                    href === "#" + current
+                ){
+
+                    link.style.background =
+                        "rgba(255,255,255,.18)";
+
+                }
+
+            });
+
+        }
+    );
+
+}
+
 /* ==========================================================
-   NAVBAR SCROLL EFFECT
+   NAVBAR EFFECTS
    ========================================================== */
 
 function setupNavbarEffects(){
@@ -648,7 +624,7 @@ function setupNavbarEffects(){
             if(window.scrollY > 50){
 
                 navbar.style.boxShadow =
-                    "0 10px 35px rgba(0,0,0,.25)";
+                    "0 12px 35px rgba(0,0,0,.25)";
 
                 navbar.style.backdropFilter =
                     "blur(12px)";
@@ -658,7 +634,7 @@ function setupNavbarEffects(){
             else{
 
                 navbar.style.boxShadow =
-                    "0 5px 25px rgba(0,0,0,.15)";
+                    "0 6px 25px rgba(0,0,0,.18)";
 
             }
 
@@ -671,18 +647,18 @@ function setupNavbarEffects(){
    MENU ANALYTICS
    ========================================================== */
 
-function trackMenuClick(name){
+function trackMenuClick(menuName){
 
-    const clicks =
+    const history =
         JSON.parse(
             localStorage.getItem(
                 "isos_menu_clicks"
             ) || "[]"
         );
 
-    clicks.push({
+    history.push({
 
-        menu:name,
+        menu: menuName,
 
         date:
             new Date()
@@ -692,13 +668,13 @@ function trackMenuClick(name){
 
     localStorage.setItem(
         "isos_menu_clicks",
-        JSON.stringify(clicks)
+        JSON.stringify(history)
     );
 
 }
 
 /* ==========================================================
-   REGISTER MENU EVENTS
+   REGISTER EVENTS
    ========================================================== */
 
 function registerMenuEvents(){
@@ -766,7 +742,7 @@ function setupWhatsAppTracking(){
 }
 
 /* ==========================================================
-   COCO AI SHORTCUT
+   COCO AI BUTTON
    ========================================================== */
 
 function createCocoShortcut(){
@@ -784,6 +760,9 @@ function createCocoShortcut(){
         document.createElement("a");
 
     coco.href = "#";
+
+    coco.className =
+        "isos-link";
 
     coco.innerHTML =
         "🤖 COCO AI";
@@ -806,7 +785,7 @@ function createCocoShortcut(){
             else{
 
                 alert(
-                    "COCO AI Not Loaded"
+                    "COCO AI Engine Not Loaded"
                 );
 
             }
@@ -819,7 +798,7 @@ function createCocoShortcut(){
 }
 
 /* ==========================================================
-   MENU REPORT
+   REPORTING ENGINE
    ========================================================== */
 
 function getMenuReport(){
@@ -840,31 +819,36 @@ function getMenuReport(){
                 localStorage.getItem(
                     "isos_whatsapp_leads"
                 )
-            ) || 0
+            ) || 0,
+
+        generatedAt:
+
+            new Date()
+            .toLocaleString()
 
     };
 
 }
 
 /* ==========================================================
-   AUTO INITIALIZATION
+   INITIALIZATION
    ========================================================== */
 
 function initializeISOSMenu(){
 
-    injectMenuStyles();
+    buildISOSNavigation();
 
-    buildNavigation();
+    injectISOSMenuStyles();
 
     setupMobileMenu();
 
-    closeMenuOnClick();
+    closeMenuAfterClick();
 
     activateCurrentPage();
 
-    activateSectionLinks();
-
     enableSmoothScroll();
+
+    activateSectionLinks();
 
     setupNavbarEffects();
 
@@ -875,17 +859,17 @@ function initializeISOSMenu(){
     createCocoShortcut();
 
     console.log(
-        "ISOS MENU v20 LOADED"
+        "ISOS MENU SYSTEM v21 LOADED"
     );
 
-    console.log(
+    console.table(
         getMenuReport()
     );
 
 }
 
 /* ==========================================================
-   START ENGINE
+   AUTO START
    ========================================================== */
 
 document.addEventListener(
@@ -913,5 +897,5 @@ window.ISOS_MENU_ENGINE = {
 
 /* ==========================================================
    END OF FILE
-   ISOS MENU SYSTEM v20
+   ISOS MENU SYSTEM v21 ENTERPRISE
    ========================================================== */
