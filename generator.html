@@ -1,170 +1,118 @@
 <!DOCTYPE html>
-<html lang="ur" dir="rtl">
+<html lang="en">
 
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
 
 <title>
-ISOS AI Smart Content Generator
+ISOS Enterprise Content Generator v21
 </title>
 
-<meta name="description"
-content="Professional AI Content Generator for Islamabad Online Services">
-
-<meta name="robots"
-content="index,follow">
-
-<meta name="author"
-content="Islamabad Online Services">
-
 <meta name="theme-color"
-content="#0a58ca">
+content="#0A58CA">
 
-<link rel="icon" href="logo.png">
+<meta name="description"
+content="ISOS Enterprise AI Content Generator">
 
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
+<link rel="icon"
+href="logo.png">
 
-<link rel="preconnect"
-href="https://fonts.gstatic.com"
-crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
-rel="stylesheet">
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-<meta property="og:type"
-content="website">
-
-<meta property="og:title"
-content="ISOS Smart Generator">
-
-<meta property="og:description"
-content="Generate Professional Embassy, MOFA, Visa and Documentation Articles">
-
-<meta property="og:image"
-content="logo.png">
-
-<meta property="og:url"
-content="https://onlinehubs.world/isos/">
-
-<script type="application/ld+json">
-{
- "@context":"https://schema.org",
- "@type":"Organization",
- "name":"Islamabad Online Services",
- "url":"https://onlinehubs.world/isos/",
- "logo":"logo.png",
- "telephone":"+923044841012"
-}
-</script>
+<link rel="manifest"
+href="manifest.json">
 
 <style>
 
 :root{
 
---primary:#0a58ca;
---secondary:#ffd700;
---success:#25d366;
---danger:#dc3545;
+--primary:#0A58CA;
+--secondary:#FFD700;
+--success:#25D366;
 
 --dark:#111827;
---light:#f8fafc;
---border:#e5e7eb;
-
---white:#ffffff;
+--light:#F8FAFC;
+--white:#FFFFFF;
 
 }
 
 *{
-
 margin:0;
 padding:0;
 box-sizing:border-box;
-
 }
 
 body{
 
-font-family:'Poppins',sans-serif;
+font-family:
+Segoe UI,
+Tahoma,
+sans-serif;
 
-background:#f4f7fb;
+background:
+var(--light);
 
-color:#1f2937;
-
-min-height:100vh;
-
-}
-
-::-webkit-scrollbar{
-
-width:10px;
-
-}
-
-::-webkit-scrollbar-thumb{
-
-background:var(--primary);
-
-border-radius:20px;
+color:
+var(--dark);
 
 }
 
 .header{
 
-background:linear-gradient(
+background:
+linear-gradient(
 135deg,
-#0a58ca,
-#003b8e
+#0A58CA,
+#003B8E
 );
 
 color:white;
 
-padding:25px;
-
 text-align:center;
 
-box-shadow:0 10px 30px rgba(0,0,0,.15);
+padding:30px 20px;
+
+box-shadow:
+0 10px 25px
+rgba(0,0,0,.15);
 
 }
 
 .header img{
 
 width:90px;
-
 height:90px;
 
 border-radius:50%;
 
 background:white;
 
-padding:10px;
+padding:8px;
 
+margin:auto;
 margin-bottom:15px;
 
 }
 
 .header h1{
 
-font-size:34px;
-
-margin-bottom:10px;
+font-size:32px;
+font-weight:700;
 
 }
 
 .header p{
 
-opacity:.9;
+opacity:.95;
+
+margin-top:10px;
 
 }
 
-.main-wrapper{
+.container{
 
-max-width:1600px;
+max-width:1400px;
 
 margin:auto;
 
@@ -172,226 +120,117 @@ padding:25px;
 
 }
 
-.dashboard{
-
-display:grid;
-
-grid-template-columns:
-420px 1fr;
-
-gap:25px;
-
-}
-
-.control-panel{
+.generator-box{
 
 background:white;
 
-border-radius:25px;
-
 padding:25px;
 
+border-radius:20px;
+
 box-shadow:
-0 15px 35px rgba(0,0,0,.08);
+0 10px 30px
+rgba(0,0,0,.08);
 
-position:sticky;
-
-top:20px;
-
-height:fit-content;
+margin-bottom:25px;
 
 }
 
-.panel-title{
+.generator-box h2{
 
-font-size:24px;
+color:#0A58CA;
 
-margin-bottom:20px;
-
-color:var(--primary);
-
-border-bottom:
-3px solid var(--secondary);
-
-padding-bottom:10px;
+margin-bottom:15px;
 
 }
 
-.form-group{
-
-margin-bottom:18px;
-
-}
-
-.form-group label{
-
-display:block;
-
-margin-bottom:8px;
-
-font-weight:600;
-
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea{
+input{
 
 width:100%;
 
-padding:12px;
+padding:15px;
+
+font-size:16px;
 
 border:
-1px solid var(--border);
+1px solid #ddd;
 
-border-radius:10px;
+border-radius:12px;
 
-font-size:15px;
-
-}
-
-.form-group textarea{
-
-height:120px;
-
-resize:vertical;
-
-}
-
-.preview-panel{
-
-background:white;
-
-border-radius:25px;
-
-padding:30px;
-
-box-shadow:
-0 15px 35px rgba(0,0,0,.08);
-
-}
-
-.preview-title{
-
-font-size:28px;
-
-color:var(--primary);
-
-margin-bottom:20px;
-
-}
-
-.preview-content{
-
-min-height:800px;
-
-border:
-2px dashed #d6d6d6;
-
-border-radius:15px;
-
-padding:25px;
-
-background:#fafafa;
+margin-bottom:15px;
 
 }
 
 .btn{
 
-width:100%;
-
-padding:14px;
+padding:14px 25px;
 
 border:none;
 
-border-radius:10px;
+border-radius:12px;
 
 cursor:pointer;
 
 font-weight:700;
 
-margin-top:10px;
+margin-right:10px;
 
-transition:.3s;
-
-}
-
-.btn:hover{
-
-transform:translateY(-2px);
+margin-bottom:10px;
 
 }
 
 .btn-primary{
 
-background:var(--primary);
-
+background:#0A58CA;
 color:white;
 
 }
 
 .btn-success{
 
-background:var(--success);
-
+background:#25D366;
 color:white;
 
 }
 
 .btn-warning{
 
-background:var(--secondary);
-
+background:#FFD700;
 color:black;
 
 }
 
-.stats-grid{
+.output{
 
-display:grid;
+background:white;
 
-grid-template-columns:
-repeat(2,1fr);
+padding:30px;
 
-gap:15px;
+border-radius:20px;
 
-margin-top:20px;
+box-shadow:
+0 10px 30px
+rgba(0,0,0,.08);
 
-}
-
-.stat-box{
-
-background:#f8fafc;
-
-padding:15px;
-
-border-radius:12px;
-
-text-align:center;
+min-height:600px;
 
 }
 
-.stat-box h3{
+.output img{
 
-font-size:24px;
+max-width:120px;
 
-color:var(--primary);
-
-}
-
-@media(max-width:992px){
-
-.dashboard{
-
-grid-template-columns:1fr;
+margin-bottom:20px;
 
 }
 
-.control-panel{
+.article-title{
 
-position:relative;
+color:#0A58CA;
 
-}
+margin-bottom:20px;
+
+font-size:34px;
 
 }
 
@@ -403,149 +242,32 @@ position:relative;
 
 <header class="header">
 
-<img src="logo.png" alt="ISOS Logo">
+<img
+src="logo.png"
+alt="ISOS">
 
 <h1>
-ISOS AI Smart Content Generator
+ISOS Enterprise Generator
 </h1>
 
 <p>
-Visa, Embassy, MOFA, Immigration, Documentation,
-Attestation & Government Services Content Automation System
+Auto SEO + Auto Article + Auto Branding Engine
 </p>
 
 </header>
 
-<div class="main-wrapper">
+<div class="container">
 
-<div class="dashboard">
+<div class="generator-box">
 
-<!-- LEFT CONTROL PANEL START -->
-
-<div class="control-panel">
-
-<h2 class="panel-title">
-Content Generator Dashboard
+<h2>
+Article Title
 </h2>
 
-<div class="form-group">
-
-<label>
-Page Title
-</label>
-
 <input
 type="text"
-id="pageTitle"
+id="articleTitle"
 placeholder="Germany Work Visa 2026">
-</div>
-
-<div class="form-group">
-
-<label>
-Country
-</label>
-
-<input
-type="text"
-id="country"
-placeholder="Germany">
-</div>
-
-<div class="form-group">
-
-<label>
-Visa / Service Type
-</label>
-
-<select id="serviceType">
-
-<option>Work Visa</option>
-
-<option>Visit Visa</option>
-
-<option>Study Visa</option>
-
-<option>Family Visa</option>
-
-<option>Business Visa</option>
-
-<option>Job Seeker Visa</option>
-
-<option>Immigration</option>
-
-<option>Embassy Attestation</option>
-
-<option>MOFA Attestation</option>
-
-<option>Document Verification</option>
-
-<option>Police Character Certificate</option>
-
-<option>Power Of Attorney</option>
-
-<option>Affidavit Service</option>
-
-<option>Company Registration</option>
-
-<option>Tax Filing</option>
-
-<option>Passport Service</option>
-
-</select>
-
-</div>
-
-<div class="form-group">
-
-<label>
-Focus Keyword
-</label>
-
-<input
-type="text"
-id="keyword"
-placeholder="Germany Work Visa">
-</div
-
-<div class="form-group">
-
-<label>
-AI Featured Image URL
-</label>
-
-<input
-type="text"
-id="imageUrl"
-placeholder="https://example.com/image.jpg">
-
-</div>
-
-<div class="form-group">
-
-<label>
-Meta Description
-</label>
-
-<textarea
-id="metaDescription"
-placeholder="SEO Meta Description">
-</textarea>
-
-</div>
-
-<div class="form-group">
-
-<label>
-Extra Notes / Instructions
-</label>
-
-<textarea
-id="extraNotes"
-placeholder="Special requirements, embassy details, fees, processing time etc">
-</textarea>
-
-</div>
 
 <button
 class="btn btn-primary"
@@ -557,7 +279,7 @@ Generate Full Article
 
 <button
 class="btn btn-success"
-onclick="copyContent()">
+onclick="copyHTML()">
 
 Copy HTML
 
@@ -571,533 +293,666 @@ Download HTML
 
 </button>
 
-<div class="stats-grid">
-
-<div class="stat-box">
-
-<h3 id="wordCount">
-0
-</h3>
-
-<p>
-Words
-</p>
-
 </div>
-
-<div class="stat-box">
-
-<h3 id="readingTime">
-0
-</h3>
-
-<p>
-Minutes
-</p>
-
-</div>
-
-<div class="stat-box">
-
-<h3>
-95%
-</h3>
-
-<p>
-SEO Score
-</p>
-
-</div>
-
-<div class="stat-box">
-
-<h3>
-100%
-</h3>
-
-<p>
-Mobile Ready
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- LEFT CONTROL PANEL END -->
-
-<!-- RIGHT PREVIEW PANEL START -->
-
-<div class="preview-panel">
-
-<h2 class="preview-title">
-
-Live Article Preview
-
-</h2>
 
 <div
 id="output"
-class="preview-content">
+class="output">
 
 <h2>
 ISOS Generator Ready
 </h2>
 
 <p>
-
-Page Title درج کریں اور
-Generate Full Article پر کلک کریں۔
-
+Enter Article Title and Click Generate.
 </p>
 
 </div>
 
 </div>
+<!-- =====================================================
+ISOS GENERATOR CONTROL PANEL v21
+PART 2/4
+====================================================== -->
 
-<!-- RIGHT PREVIEW PANEL END -->
+<section class="generator-panel">
 
-</div>
+    <div class="panel-card">
 
-</div>
+        <div class="panel-header">
 
+            <img
+                src="logo.png"
+                alt="ISOS Logo"
+                class="panel-logo">
 
-<footer
-style="
-margin-top:40px;
-text-align:center;
-padding:25px;
-background:#ffffff;
-border-top:1px solid #e5e7eb;">
+            <div>
 
-<h3
-style="
-color:#0a58ca;
-margin-bottom:10px;">
+                <h2>
+                    Content Generator Dashboard
+                </h2>
 
-Islamabad Online Services ®
+                <p>
+                    Enter Page Title → Generate Full Article
+                </p>
 
-</h3>
+            </div>
 
-<p>
-WhatsApp: +92 304 484 1012
-</p>
+        </div>
 
-<p>
-Email: islamabadonline7@gmail.com
-</p>
+        <div class="form-group">
 
-<p>
-https://onlinehubs.world/isos/
-</p>
+            <label for="pageTitle">
 
-</footer>
+                Article / Page Title
 
-<a
-href="https://wa.me/923044841012"
-target="_blank"
-style="
-position:fixed;
-bottom:25px;
-left:25px;
-width:65px;
-height:65px;
-background:#25d366;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:32px;
-color:white;
-text-decoration:none;
-box-shadow:0 10px 25px rgba(0,0,0,.25);
-z-index:9999;">
+            </label>
 
-<i class="fab fa-whatsapp"></i>
+            <input
+                type="text"
+                id="pageTitle"
+                placeholder="Germany Work Visa 2026 Complete Guide">
 
-</a>
+        </div>
 
-<script>
+        <button
+            id="generateBtn"
+            class="generate-btn">
 
-/* ==========================================
-ISOS ARTICLE GENERATOR ENGINE
-========================================== */
+            🚀 Generate Full Article
+
+        </button>
+
+    </div>
+
+    <div class="seo-panel">
+
+        <h3>
+            Auto SEO Generator
+        </h3>
+
+        <div class="seo-box">
+
+            <strong>SEO Title</strong>
+
+            <div id="seoTitle">
+                Waiting...
+            </div>
+
+        </div>
+
+        <div class="seo-box">
+
+            <strong>Meta Description</strong>
+
+            <div id="seoDescription">
+                Waiting...
+            </div>
+
+        </div>
+
+        <div class="seo-box">
+
+            <strong>Focus Keyword</strong>
+
+            <div id="seoKeyword">
+                Waiting...
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+ARTICLE OUTPUT SECTION
+====================================================== -->
+
+<section class="article-section">
+
+    <div class="article-toolbar">
+
+        <button
+            id="copyBtn"
+            class="toolbar-btn">
+
+            Copy HTML
+        </button>
+
+        <button
+            id="downloadBtn"
+            class="toolbar-btn">
+
+            Download HTML
+        </button>
+
+    </div>
+
+    <div
+        id="articleOutput"
+        class="article-output">
+
+        <div class="ready-box">
+
+            <img
+                src="logo.png"
+                alt="ISOS">
+
+            <h2>
+
+                ISOS Generator Ready
+
+            </h2>
+
+            <p>
+
+                Enter Article Title and click
+                Generate Full Article.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+/* ==========================================================
+   AUTO SEO ENGINE
+   ========================================================== */
+
+function generateSEO(title){
+
+    return {
+
+        metaTitle:
+            `${title} | Islamabad Online Services`,
+
+        metaDescription:
+            `Complete guide about ${title}. Requirements, documents, process, fees, timeline and professional assistance by Islamabad Online Services.`,
+
+        keywords:
+            `${title}, Islamabad Online Services, Visa Guide, Embassy Guide, MOFA Attestation, Pakistan Documentation Services`
+
+    };
+
+}
+
+/* ==========================================================
+   ARTICLE GENERATOR ENGINE
+   ========================================================== */
 
 function generateArticle(){
 
-const title =
-document.getElementById("pageTitle").value;
+    const title =
+        document
+        .getElementById(
+            "pageTitle"
+        )
+        .value
+        .trim();
 
-const country =
-document.getElementById("country").value;
+    if(!title){
 
-const service =
-document.getElementById("serviceType").value;
+        alert(
+            "Please enter page title"
+        );
 
-const keyword =
-document.getElementById("keyword").value;
+        return;
 
-const image =
-document.getElementById("imageUrl").value;
+    }
 
-const meta =
-document.getElementById("metaDescription").value;
+    const seo =
+        generateSEO(title);
 
-const notes =
-document.getElementById("extraNotes").value;
+    const article = `
 
-if(title.trim()===""){
+    <div class="generated-article">
 
-alert("Please Enter Page Title");
+        <div class="article-brand">
 
-return;
+            <img
+                src="logo.png"
+                alt="ISOS">
+
+            <div>
+
+                <h3>
+                    Islamabad Online Services
+                </h3>
+
+                <p>
+                    Professional Documentation & Visa Support
+                </p>
+
+            </div>
+
+        </div>
+
+        <h1>
+            ${title}
+        </h1>
+
+        <div class="info-box">
+
+            <h2>
+                Overview
+            </h2>
+
+            <p>
+
+                This complete guide explains
+                ${title}
+                in detail.
+
+                Applicants can understand
+                requirements,
+                eligibility,
+                documentation,
+                timelines,
+                official procedures,
+                and professional support options.
+
+            </p>
+
+        </div>
+
+        <div class="info-box">
+
+            <h2>
+                Required Documents
+            </h2>
+
+            <ul>
+
+                <li>Valid Passport</li>
+
+                <li>CNIC Copy</li>
+
+                <li>Passport Photographs</li>
+
+                <li>Application Form</li>
+
+                <li>Supporting Documents</li>
+
+                <li>Financial Evidence</li>
+
+            </ul>
+
+        </div>
+
+        <div class="info-box">
+
+            <h2>
+                Step By Step Process
+            </h2>
+
+            <ol>
+
+                <li>Check Eligibility</li>
+
+                <li>Prepare Documents</li>
+
+                <li>Complete Application</li>
+
+                <li>Pay Fees</li>
+
+                <li>Book Appointment</li>
+
+                <li>Submit Documents</li>
+
+                <li>Attend Interview</li>
+
+                <li>Await Decision</li>
+
+                <li>Receive Final Result</li>
+
+            </ol>
+
+        </div>
+
+        <div class="info-box">
+
+            <h2>
+                Processing Time
+            </h2>
+
+            <p>
+
+                Processing time varies depending
+                on authority workload,
+                embassy requirements,
+                document verification
+                and application category.
+
+            </p>
+
+        </div>
+
+        <div class="info-box">
+
+            <h2>
+                Frequently Asked Questions
+            </h2>
+
+            <h3>
+                Who can apply?
+            </h3>
+
+            <p>
+                Eligibility depends on the official requirements.
+            </p>
+
+            <h3>
+                Are requirements subject to change?
+            </h3>
+
+            <p>
+                Yes. Always verify the latest official guidelines.
+            </p>
+
+        </div>
+
+        <div class="info-box">
+
+            <h2>
+                Professional Assistance
+            </h2>
+
+            <p>
+
+                Islamabad Online Services
+                provides assistance for:
+
+            </p>
+
+            <ul>
+
+                <li>Visa Guidance</li>
+
+                <li>MOFA Attestation</li>
+
+                <li>Embassy Documentation</li>
+
+                <li>Police Character Certificate</li>
+
+                <li>Power of Attorney</li>
+
+                <li>Business Registration</li>
+
+            </ul>
+
+        </div>
+
+        <div class="cta-box">
+
+            <h2>
+                Contact Islamabad Online Services
+            </h2>
+
+            <p>
+
+                WhatsApp:
+                +92 304 484 1012
+
+            </p>
+
+            <p>
+
+                Website:
+                onlinehubs.world
+
+            </p>
+
+        </div>
+
+    </div>
+
+    `;
+
+    document.getElementById(
+        "output"
+    ).innerHTML = article;
+
+    document.getElementById(
+        "seoTitle"
+    ).value =
+        seo.metaTitle;
+
+    document.getElementById(
+        "seoDescription"
+    ).value =
+        seo.metaDescription;
+
+    document.getElementById(
+        "seoKeywords"
+    ).value =
+        seo.keywords;
+
+    updateStatistics();
 
 }
 
-let article = `
-
-<div class="generated-article">
-
-${image ? `
-<img
-src="${image}"
-alt="${title}"
-style="
-width:100%;
-border-radius:15px;
-margin-bottom:25px;">
-` : ''}
-
-<h1
-style="
-color:#0a58ca;
-margin-bottom:20px;">
-
-${title}
-
-</h1>
-
-<div class="feature-box">
-
-<h2>
-Overview
-</h2>
-
-<p>
-
-${title}
-پاکستانی درخواست دہندگان کے لیے ایک اہم موضوع ہے۔
-
-اس گائیڈ میں اہلیت، ضروری دستاویزات،
-پروسیسنگ ٹائم، اخراجات اور سرکاری طریقہ کار
-کی تفصیل شامل ہے۔
-
-</p>
-
-</div>
-
-<div class="feature-box">
-
-<h2>
-Quick Information
-</h2>
-
-<table
-style="
-width:100%;
-border-collapse:collapse;">
-
-<tr>
-
-<th>Country</th>
-
-<td>${country}</td>
-
-</tr>
-
-<tr>
-
-<th>Service Type</th>
-
-<td>${service}</td>
-
-</tr>
-
-<tr>
-
-<th>Keyword</th>
-
-<td>${keyword}</td>
-
-</tr>
-
-</table>
-
-</div>
-
-<div class="feature-box">
-
-<h2>
-Required Documents
-</h2>
-
-<ul>
-
-<li>Passport</li>
-
-<li>CNIC</li>
-
-<li>Application Form</li>
-
-<li>Photographs</li>
-
-<li>Supporting Documents</li>
-
-<li>Financial Evidence</li>
-
-</ul>
-
-</div>
-
-<div class="feature-box">
-
-<h2>
-Eligibility Criteria
-</h2>
-
-<p>
-
-اہلیت کا انحصار متعلقہ ملک،
-ادارے یا سفارت خانے کی پالیسی پر ہوتا ہے۔
-
-</p>
-
-</div>
-
-<div class="feature-box">
-
-<h2>
-Processing Time
-</h2>
-
-<p>
-
-پروسیسنگ ٹائم کیس کی نوعیت،
-سفارت خانے کے ورک لوڈ اور
-دستاویزات کی تکمیل پر منحصر ہوتا ہے۔
-
-</p>
-
-</div>
-
-<div class="feature-box">
-
-<h2>
-Estimated Cost
-</h2>
-
-<p>
-
-اخراجات میں سرکاری فیس،
-ترجمہ، اٹیسٹیشن اور دیگر
-متعلقہ چارجز شامل ہو سکتے ہیں۔
-
-</p>
-
-</div>
-
-`;
-
-<div class="feature-box">
-
-<h2>
-Step By Step Process
-</h2>
-
-<ol>
-
-<li>Eligibility Check کریں</li>
-
-<li>Required Documents تیار کریں</li>
-
-<li>Application Form مکمل کریں</li>
-
-<li>Fees جمع کروائیں</li>
-
-<li>Appointment Book کریں</li>
-
-<li>Documents Submit کریں</li>
-
-<li>Interview Attend کریں (اگر ضروری ہو)</li>
-
-<li>Decision کا انتظار کریں</li>
-
-<li>Final Result حاصل کریں</li>
-
-</ol>
-
-</div>
-
-<div class="feature-box">
-
-<h2>
-Frequently Asked Questions (FAQ)
-</h2>
-
-<h3>
-کیا تمام درخواست دہندگان کے لیے تقاضے ایک جیسے ہوتے ہیں؟
-</h3>
-
-<p>
-نہیں، مختلف ممالک اور مختلف کیٹیگریز کے لیے تقاضے مختلف ہو سکتے ہیں۔
-</p>
-
-<h3>
-پروسیسنگ میں کتنا وقت لگتا ہے؟
-</h3>
-
-<p>
-یہ متعلقہ ادارے، سفارت خانے اور درخواست کی نوعیت پر منحصر ہوتا ہے۔
-</p>
-
-<h3>
-کیا قوانین تبدیل ہو سکتے ہیں؟
-</h3>
-
-<p>
-جی ہاں، سرکاری قوانین اور تقاضے کسی بھی وقت تبدیل ہو سکتے ہیں۔
-</p>
-
-</div>
-
-<div class="feature-box">
-
-<h2>
-Important Notes
-</h2>
-
-<p>
-
-${notes || "درخواست جمع کروانے سے پہلے متعلقہ ادارے یا سفارت خانے کی تازہ ترین ہدایات ضرور چیک کریں۔"}
-
-</p>
-
-</div>
-
-<div class="feature-box">
-
-<h2>
-Need Professional Assistance?
-</h2>
-
-<p>
-
-Islamabad Online Services آپ کو
-Documentation,
-MOFA Attestation,
-Embassy Assistance,
-Visa Guidance
-اور دیگر سروسز میں رہنمائی فراہم کرتی ہے۔
-
-</p>
-
-<p>
-
-WhatsApp:
-+92 304 484 1012
-
-</p>
-
-</div>
-
-</div>
-
-`;
-
-document.getElementById("output").innerHTML = article;
-
-/* Word Count */
-
-let words =
-document.getElementById("output")
-.innerText
-.split(/\s+/)
-.length;
-
-document.getElementById("wordCount")
-.innerHTML = words;
-
-/* Reading Time */
-
-document.getElementById("readingTime")
-.innerHTML =
-Math.ceil(words / 200);
+/* ==========================================================
+   UPDATE STATISTICS
+   ========================================================== */
+
+function updateStatistics(){
+
+    const text =
+        document
+        .getElementById("output")
+        .innerText;
+
+    const words =
+        text
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean)
+        .length;
+
+    document.getElementById(
+        "wordCount"
+    ).innerText = words;
+
+    document.getElementById(
+        "readingTime"
+    ).innerText =
+        Math.max(
+            1,
+            Math.ceil(words / 200)
+        );
 
 }
 
-/* ==========================================
-COPY HTML
-========================================== */
+/* ==========================================================
+   COPY HTML
+   ========================================================== */
 
-function copyContent(){
+function copyHTML(){
 
-let content =
-document.getElementById("output")
-.innerHTML;
+    const html =
+        document.getElementById(
+            "output"
+        ).innerHTML;
 
-navigator.clipboard.writeText(content);
+    navigator.clipboard
+        .writeText(html)
+        .then(() => {
 
-alert(
-"HTML Copied Successfully"
-);
+            alert(
+                "HTML copied successfully."
+            );
+
+        });
 
 }
 
-/* ==========================================
-DOWNLOAD HTML
-========================================== */
+/* ==========================================================
+   DOWNLOAD HTML
+   ========================================================== */
 
 function downloadHTML(){
 
-let content =
-document.getElementById("output")
-.innerHTML;
+    const pageTitle =
+        document
+        .getElementById(
+            "pageTitle"
+        )
+        .value
+        .trim()
+        .replace(/[^a-z0-9]/gi,"-")
+        .toLowerCase();
 
-let blob =
-new Blob(
-[content],
-{
-type:"text/html"
+    const htmlContent =
+`
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<title>
+${document.getElementById("seoTitle").value}
+</title>
+
+<meta name="description"
+content="${document.getElementById("seoDescription").value}">
+
+<meta name="keywords"
+content="${document.getElementById("seoKeywords").value}">
+
+<link rel="icon"
+href="logo.png">
+
+<style>
+
+body{
+
+font-family:
+Arial,
+sans-serif;
+
+max-width:1200px;
+
+margin:auto;
+
+padding:30px;
+
+line-height:1.8;
+
+color:#222;
+
 }
-);
 
-let a =
-document.createElement("a");
+h1,h2,h3{
 
-a.href =
-URL.createObjectURL(blob);
-
-a.download =
-"isos-generated-page.html";
-
-a.click();
+color:#0A58CA;
 
 }
 
-/* ==========================================
-AUTO READY MESSAGE
-========================================== */
+img{
 
-window.onload = function(){
+max-width:100%;
 
-console.log(
-"ISOS Smart Generator Loaded Successfully"
-);
+}
 
-};
+</style>
 
-</script>
+</head>
+
+<body>
+
+${document.getElementById("output").innerHTML}
 
 </body>
 </html>
+`;
+
+    const blob =
+        new Blob(
+            [htmlContent],
+            {
+                type:"text/html"
+            }
+        );
+
+    const link =
+        document.createElement(
+            "a"
+        );
+
+    link.href =
+        URL.createObjectURL(
+            blob
+        );
+
+    link.download =
+        (pageTitle || "isos-article")
+        + ".html";
+
+    link.click();
+
+}
+
+/* ==========================================================
+   QUICK TITLE ENTER
+   ========================================================== */
+
+document
+.getElementById(
+    "pageTitle"
+)
+.addEventListener(
+    "keypress",
+    function(e){
+
+        if(
+            e.key === "Enter"
+        ){
+
+            generateArticle();
+
+        }
+
+    }
+);
+
+/* ==========================================================
+   AUTO READY MESSAGE
+   ========================================================== */
+
+window.addEventListener(
+    "load",
+    function(){
+
+        console.log(
+            "ISOS Generator v21 Loaded"
+        );
+
+    }
+);
+
+/* ==========================================================
+   GLOBAL API
+   ========================================================== */
+
+window.ISOS_GENERATOR = {
+
+    generateArticle,
+
+    copyHTML,
+
+    downloadHTML,
+
+    updateStatistics
+
+};
+
+/* ==========================================================
+   END OF GENERATOR ENGINE
+   ENTERPRISE v21
+   ========================================================== */
