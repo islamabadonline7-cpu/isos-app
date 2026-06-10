@@ -3,116 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ISOS Enterprise Content Generator v21</title>
-<meta name="description" content="ISOS Enterprise AI Content Generator">
-<meta name="theme-color" content="#0A58CA">
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="logo.png">
+<title>ISOS Enterprise Generator V22</title>
 <style>
-:root{--primary:#0A58CA;--success:#25D366;--light:#F8FAFC;--border:#E5E7EB;}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Segoe UI,Tahoma,sans-serif;background:var(--light);color:#111827}
-.header{background:linear-gradient(135deg,#0A58CA,#003B8E);color:#fff;text-align:center;padding:40px 20px}
-.header img{width:90px;height:90px;border-radius:50%;background:#fff;padding:8px}
-.container{max-width:1200px;margin:auto;padding:20px}
-.card{background:#fff;padding:25px;border-radius:18px;margin-bottom:20px;box-shadow:0 10px 25px rgba(0,0,0,.08)}
-input{width:100%;padding:15px;border:1px solid var(--border);border-radius:10px;margin:15px 0}
-.btn{padding:12px 20px;border:none;border-radius:10px;cursor:pointer;font-weight:700;margin:5px}
-.btn-primary{background:#0A58CA;color:#fff}
-.btn-success{background:#25D366;color:#fff}
-.btn-warning{background:#FFD700}
-.seo-box{background:#f7f7f7;padding:12px;border-radius:10px;margin:10px 0}
-#articleOutput{min-height:400px}
-.footer{text-align:center;padding:30px}
+body{font-family:Arial,sans-serif;max-width:1200px;margin:auto;padding:20px;background:#f5f7fb}
+.card{background:#fff;padding:20px;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.1)}
+input,button,textarea{width:100%;padding:12px;margin:8px 0}
+button{background:#0A58CA;color:#fff;border:none;cursor:pointer}
+#output{margin-top:20px;white-space:pre-wrap}
 </style>
 </head>
 <body>
-
-<header class="header">
-<img src="logo.png" alt="ISOS">
-<h1>ISOS Enterprise Generator</h1>
-<p>Auto SEO + Auto Article + Auto Branding Engine</p>
-</header>
-
-<div class="container">
-
 <div class="card">
-<h2>Article Title</h2>
-<input type="text" id="pageTitle" placeholder="Germany Work Visa 2026 Complete Guide">
-
-<button class="btn btn-primary" onclick="generateArticle()">Generate Full Article</button>
-<button class="btn btn-success" onclick="copyHTML()">Copy HTML</button>
-<button class="btn btn-warning" onclick="downloadHTML()">Download HTML</button>
+<h1>ISOS Enterprise Generator V22</h1>
+<input id="title" placeholder="Enter Article Title">
+<button onclick="generateArticle()">Generate Full Article</button>
+<textarea id="seo" rows="4" placeholder="SEO output"></textarea>
+<div id="output">Ready...</div>
 </div>
-
-<div class="card">
-<h3>Auto SEO Generator</h3>
-<div class="seo-box"><strong>SEO Title:</strong> <span id="seoTitle">Waiting...</span></div>
-<div class="seo-box"><strong>Meta Description:</strong> <span id="seoDescription">Waiting...</span></div>
-<div class="seo-box"><strong>Focus Keyword:</strong> <span id="seoKeyword">Waiting...</span></div>
-</div>
-
-<div class="card" id="articleOutput">
-<h2>ISOS Generator Ready</h2>
-<p>Enter Article Title and click Generate Full Article.</p>
-</div>
-
-</div>
-
-<footer class="footer">
-<h3>Islamabad Online Services ®</h3>
-<p>WhatsApp: +92 304 484 1012</p>
-<p>Email: islamabadonline7@gmail.com</p>
-</footer>
-
 <script>
-function generateSEO(title){
- return {
-  title: title + " | Islamabad Online Services",
-  description: "Complete guide about " + title,
-  keyword: title
- };
-}
-
-function generateArticle(){
- const title=document.getElementById("pageTitle").value.trim();
- if(!title){alert("Please enter article title");return;}
- const seo=generateSEO(title);
-
- document.getElementById("seoTitle").innerText=seo.title;
- document.getElementById("seoDescription").innerText=seo.description;
- document.getElementById("seoKeyword").innerText=seo.keyword;
-
- document.getElementById("articleOutput").innerHTML=`
- <div>
- <img src="logo.png" style="width:80px">
- <h1>${title}</h1>
- <h2>Overview</h2>
- <p>This guide explains ${title} including requirements, process, fees and documentation.</p>
- <h2>Required Documents</h2>
- <ul>
- <li>Passport</li>
- <li>CNIC</li>
- <li>Application Form</li>
- </ul>
- <h2>Professional Assistance</h2>
- <p>Islamabad Online Services provides visa, embassy and MOFA guidance.</p>
- </div>`;
-}
-
-function copyHTML(){
- navigator.clipboard.writeText(document.getElementById("articleOutput").innerHTML);
- alert("HTML Copied");
-}
-
-function downloadHTML(){
- const blob=new Blob([document.getElementById("articleOutput").innerHTML],{type:"text/html"});
- const a=document.createElement("a");
- a.href=URL.createObjectURL(blob);
- a.download="isos-article.html";
- a.click();
+async function generateArticle(){
+ const title=document.getElementById('title').value.trim();
+ if(!title){alert('Enter title');return;}
+ document.getElementById('output').innerHTML='Generating...';
+ const seoTitle=title+' | Islamabad Online Services';
+ const seoDesc='Complete guide about '+title;
+ document.getElementById('seo').value=seoTitle+'\n'+seoDesc;
+ try{
+   const r=await fetch('https://isos-gemini-api.onlinehubsworld.workers.dev/',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({title:title})
+   });
+   const data=await r.json();
+   document.getElementById('output').innerText=data.article || JSON.stringify(data);
+ }catch(e){
+   document.getElementById('output').innerText='Error: '+e.message;
+ }
 }
 </script>
-
 </body>
 </html>
