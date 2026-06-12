@@ -1,0 +1,196 @@
+{
+  "version": "1.0",
+  "system": "ISOS Content Operating System",
+
+  "brand": {
+    "name": "Islamabad Online Services",
+    "short_name": "ISOS",
+    "website": "https://onlinehubs.world/isos/",
+    "email": "islamabadonline7@gmail.com",
+    "office": "G-9 Markaz Islamabad"
+  },
+
+  "social_profiles": {
+    "whatsapp": "https://wa.me/923044841012",
+    "facebook": "https://www.facebook.com/Islamabadonlineltd",
+    "linkedin": "https://www.linkedin.com/in/islamabadonlineltd/",
+    "tiktok": "https://www.tiktok.com/@islamabadonlineltd",
+    "x": "https://x.com/isbonlineltd"
+  },
+
+  "countries": [
+    "Saudi Arabia",
+    "UAE",
+    "Qatar",
+    "Oman",
+    "Bahrain",
+    "Kuwait",
+    "Germany",
+    "Italy",
+    "Spain",
+    "Portugal",
+    "Poland",
+    "Japan",
+    "South Korea",
+    "Canada",
+    "Australia",
+    "United Kingdom",
+    "United States"
+  ],
+
+  "services": [
+    "Work Visa",
+    "Family Visa",
+    "Study Visa",
+    "Tourist Visa",
+    "Business Visa",
+    "MOFA Attestation",
+    "Police Character Certificate",
+    "Apostille",
+    "Embassy Services",
+    "Power of Attorney",
+    "Affidavit",
+    "Company Registration",
+    "NTN Registration",
+    "OEC Registration",
+    "Overseas Employment"
+  ],
+
+  "documents": [
+    "Passport",
+    "CNIC",
+    "Police Character Certificate",
+    "Birth Certificate",
+    "Marriage Certificate",
+    "Degree",
+    "Transcript",
+    "Experience Letter",
+    "Bank Statement",
+    "Family Registration Certificate"
+  ],
+
+  "official_sources": [
+    "MOFA Pakistan",
+    "FBR",
+    "SECP",
+    "OEC",
+    "ICT Administration",
+    "Board of Revenue Punjab",
+    "Punjab Police",
+    "Islamabad Police",
+    "ICCI"
+  ],
+
+  "embassies": [
+    "United States Embassy",
+    "British High Commission",
+    "Saudi Arabian Embassy",
+    "United Arab Emirates Embassy",
+    "German Embassy",
+    "Italian Embassy",
+    "Spanish Embassy"
+  ],
+
+  "tools": [
+    "Visa Eligibility Checker",
+    "Visa Cost Calculator",
+    "Embassy Finder",
+    "MOFA Fee Calculator",
+    "Passport Expiry Checker",
+    "Document Checklist",
+    "Country Comparison Tool"
+  ],
+
+  "faq_library": {
+    "work_visa": [
+      "What documents are required?",
+      "How long does processing take?",
+      "What are the government fees?",
+      "Can family members accompany the applicant?",
+      "What are common refusal reasons?"
+    ],
+
+    "family_visa": [
+      "Who can sponsor a family visa?",
+      "How long is the visa valid?",
+      "What documents are required?",
+      "Can children be included?",
+      "What are common rejection reasons?"
+    ]
+  },
+
+  "templates": [
+    "Work Visa Template",
+    "Family Visa Template",
+    "Study Visa Template",
+    "Embassy Template",
+    "MOFA Template",
+    "PCC Template",
+    "OEC Template",
+    "Company Registration Template"
+  ],
+
+  "internal_links": {
+    "country_guides": [],
+    "visa_guides": [],
+    "embassy_guides": [],
+    "documentation_guides": [],
+    "tools": []
+  },
+
+  "content_clusters": [],
+
+  "entity_library": [],
+
+  "image_prompt_library": {
+    "work_visa": {
+      "featured": "Realistic immigration office with visa applicant and professional consultant",
+      "thumbnail": "Modern work visa approval concept"
+    },
+
+    "family_visa": {
+      "featured": "Happy family with travel documents and immigration approval",
+      "thumbnail": "Family visa approval concept"
+    }
+  },
+
+  "social_templates": {
+    "facebook": "Need help with {service}? Read our complete guide.",
+    "linkedin": "Professional guidance for {service}.",
+    "tiktok": "Quick guide about {service}.",
+    "x": "Latest information about {service}.",
+    "whatsapp": "Get expert support for {service}."
+  },
+
+  "trust_blocks": [
+    "Verify requirements from official sources.",
+    "Avoid dealing with unverified agents.",
+    "Confirm all fees before making payments.",
+    "Check embassy requirements before submission."
+  ],
+
+  "cta_blocks": [
+    "WhatsApp Support",
+    "Visa Assessment",
+    "Documentation Assistance",
+    "Embassy Guidance",
+    "Professional Consultation"
+  ],
+
+  "schema_library": [
+    "Article Schema",
+    "FAQ Schema",
+    "Breadcrumb Schema",
+    "Organization Schema",
+    "Local Business Schema"
+  ],
+
+  "related_content_rules": {
+    "work_visa": [
+      "Family Visa",
+      "Police Character Certificate",
+      "MOFA Attestation",
+      "Document Checklist"
+    ]
+  }
+}
