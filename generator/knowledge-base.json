@@ -1,68 +1,129 @@
-{
-"version": "2.0",
-"system": "ISOS Content Operating System",
+,
+"faq_library": {
 
-"brand": {
-"name": "Islamabad Online Services",
-"short_name": "ISOS",
-"tagline": "Documentation, Immigration, Embassy & Government Services Platform"
-},
+"work_visa": [
+"What documents are required for a work visa?",
+"How long does processing take?",
+"What are the government fees?",
+"Can family members accompany the applicant?",
+"What are common refusal reasons?"
+],
 
-"contact": {
-"whatsapp": "+92 304 484 1012",
-"email": "[islamabadonline7@gmail.com](mailto:islamabadonline7@gmail.com)",
-"website": "https://onlinehubs.world/isos/",
-"office": "G-9 Markaz Islamabad, Pakistan"
-},
+"family_visa": [
+"Who can sponsor a family visa?",
+"What documents are required?",
+"How long is the visa valid?",
+"Can children be included?",
+"What are common rejection reasons?"
+],
 
-"logo": {
-"primary_logo": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgm8vH5gLwgNYoDnSuCkL5YhYFIxz7t_q-lcKqs9J409sHnuoj2zvtYcrj_FC8sERcBfRG5UNZ0U67Xw5VYrkyxYcMgAauwwuTP1YGnpPBMlBq012tKiG78jCZashHZ7MHlTD5AOw1j4IfL-nnp12yQeAfP3Q6Z-6YIfXWBNeLes4jCkg/s1600/logo.png"
-},
+"study_visa": [
+"What are the admission requirements?",
+"Is IELTS required?",
+"What financial documents are needed?",
+"Can students work part time?",
+"What are common refusal reasons?"
+],
 
-"social_profiles": {
-"facebook": "https://www.facebook.com/Islamabadonlineltd",
-"linkedin": "https://www.linkedin.com/in/islamabadonlineltd/",
-"tiktok": "https://www.tiktok.com/@islamabadonlineltd",
-"x": "https://x.com/isbonlineltd",
-"whatsapp": "https://wa.me/923044841012"
-},
-
-"language_rules": {
-"primary_language": "Urdu",
-"secondary_language": "English",
-"output_format": [
-"Urdu First",
-"English Version Second"
+"mofa_attestation": [
+"Which documents can be attested?",
+"How much is the fee?",
+"What is the processing time?",
+"Is prior attestation required?",
+"Can someone submit on behalf of the applicant?"
 ]
 },
 
-"trust_blocks": [
-"Verify requirements from official sources before submission.",
-"Visa and embassy requirements may change without notice.",
-"Always confirm fees before making any payment.",
-"Check country specific and embassy specific instructions."
+"refusal_library": {
+
+"general_visa_refusals": [
+"Incomplete documentation",
+"Insufficient financial proof",
+"False or misleading information",
+"Weak travel history",
+"Unclear purpose of visit",
+"Missing supporting documents"
 ],
 
-"cta_blocks": [
-"Contact Islamabad Online Services for professional guidance.",
-"WhatsApp ISOS for documentation assistance.",
-"Get expert support for visa and embassy procedures.",
-"Consult ISOS before submitting important documents."
+"work_visa_refusals": [
+"Invalid job offer",
+"Unrecognized qualifications",
+"Missing experience documents",
+"Employer verification issues"
 ],
 
-"branding_rules": {
-"include_logo": true,
-"include_whatsapp": true,
-"include_website": true,
-"include_email": true,
-"include_social_profiles": true,
-"footer_signature": "Islamabad Online Services ®"
+"family_visa_refusals": [
+"Relationship verification issues",
+"Missing civil documents",
+"Sponsor eligibility issues"
+]
 },
 
-"content_policy": {
-"target_audience": "Pakistani Applicants",
-"default_tone": "Professional and Informative",
-"default_output": "Bilingual",
-"urdu_priority": true
-}
+"document_checklists": {
+
+"work_visa": [
+"Passport",
+"Passport Size Photographs",
+"CV",
+"Experience Letter",
+"Degree",
+"Police Character Certificate",
+"Medical Report"
+],
+
+"family_visa": [
+"Passport",
+"Marriage Certificate",
+"Birth Certificate",
+"Family Registration Certificate",
+"Sponsor Documents"
+],
+
+"study_visa": [
+"Passport",
+"Admission Letter",
+"Educational Documents",
+"Bank Statement",
+"Language Certificate"
+]
+},
+
+"service_templates": {
+
+"work_visa": [
+"Introduction",
+"Overview",
+"Eligibility",
+"Required Documents",
+"Step By Step Process",
+"Processing Time",
+"Fees",
+"Benefits",
+"Common Refusal Reasons",
+"FAQ",
+"Conclusion"
+],
+
+"family_visa": [
+"Introduction",
+"Eligibility",
+"Documents",
+"Application Process",
+"Processing Time",
+"Costs",
+"Common Issues",
+"FAQ",
+"Conclusion"
+],
+
+"mofa_attestation": [
+"Introduction",
+"Eligible Documents",
+"Requirements",
+"Fees",
+"Processing Time",
+"Step By Step Process",
+"FAQ",
+"Conclusion"
+]
 }
