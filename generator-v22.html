@@ -1,13 +1,40 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>ISOS Generator V22 Enterprise</title>
-</head>
+<style>
+body{font-family:Arial;margin:0;background:#f5f7fb}
+header{background:#0a58ca;color:#fff;padding:20px;text-align:center}
+.container{display:grid;grid-template-columns:380px 1fr;gap:20px;padding:20px}
+.panel{background:#fff;padding:15px;border-radius:12px}
+input,select,textarea,button{width:100%;padding:10px;margin:6px 0;box-sizing:border-box}
+button{background:#0a58ca;color:#fff;border:none}
+#preview{white-space:pre-wrap;min-height:400px}
+</style></head>
 <body>
-
-<h1>ISOS Generator V22 Enterprise</h1>
-
-<p>V22 Development Environment</p>
-
-</body>
-</html>
+<header><h1>ISOS Generator V22 Enterprise</h1></header>
+<div class="container">
+<div class="panel">
+<input id="title" placeholder="Article Title">
+<select id="country"></select>
+<select id="service"></select>
+<select id="language"><option>English</option><option>Urdu</option></select>
+<button onclick="generateArticle()">Generate Article</button>
+</div>
+<div class="panel"><div id="preview">Ready...</div></div>
+</div>
+<script>
+async function loadKB(){
+const r=await fetch('knowledge-base.json');
+const kb=await r.json();
+document.getElementById('country').innerHTML=(kb.countries||[]).map(x=>`<option>${x}</option>`).join('');
+document.getElementById('service').innerHTML=(kb.services||[]).map(x=>`<option>${x}</option>`).join('');
+}
+async function generateArticle(){
+const payload={title:title.value,country:country.value,service:service.value,language:language.value};
+preview.innerText='Generating...';
+const r=await fetch('https://isos-gemini-v22.onlinehubsworld.workers.dev/',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+const d=await r.json();
+preview.innerText=d.article||JSON.stringify(d,null,2);
+}
+loadKB();
+</script></body></html>
