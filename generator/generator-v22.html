@@ -1,40 +1,45 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>ISOS Generator V22 Enterprise</title>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISOS Enterprise Generator V22</title>
 <style>
-body{font-family:Arial;margin:0;background:#f5f7fb}
-header{background:#0a58ca;color:#fff;padding:20px;text-align:center}
-.container{display:grid;grid-template-columns:380px 1fr;gap:20px;padding:20px}
-.panel{background:#fff;padding:15px;border-radius:12px}
-input,select,textarea,button{width:100%;padding:10px;margin:6px 0;box-sizing:border-box}
-button{background:#0a58ca;color:#fff;border:none}
-#preview{white-space:pre-wrap;min-height:400px}
-</style></head>
+body{font-family:Arial,sans-serif;max-width:1200px;margin:auto;padding:20px;background:#f5f7fb}
+.card{background:#fff;padding:20px;border-radius:12px;box-shadow:0 2px 10px rgba(0,0,0,.1)}
+input,button,textarea{width:100%;padding:12px;margin:8px 0}
+button{background:#0A58CA;color:#fff;border:none;cursor:pointer}
+#output{margin-top:20px;white-space:pre-wrap}
+</style>
+</head>
 <body>
-<header><h1>ISOS Generator V22 Enterprise</h1></header>
-<div class="container">
-<div class="panel">
-<input id="title" placeholder="Article Title">
-<select id="country"></select>
-<select id="service"></select>
-<select id="language"><option>English</option><option>Urdu</option></select>
-<button onclick="generateArticle()">Generate Article</button>
-</div>
-<div class="panel"><div id="preview">Ready...</div></div>
+<div class="card">
+<h1>ISOS Enterprise Generator V22</h1>
+<input id="title" placeholder="Enter Article Title">
+<button onclick="generateArticle()">Generate Full Article</button>
+<textarea id="seo" rows="4" placeholder="SEO output"></textarea>
+<div id="output">Ready...</div>
 </div>
 <script>
-async function loadKB(){
-const r=await fetch('knowledge-base.json');
-const kb=await r.json();
-document.getElementById('country').innerHTML=(kb.countries||[]).map(x=>`<option>${x}</option>`).join('');
-document.getElementById('service').innerHTML=(kb.services||[]).map(x=>`<option>${x}</option>`).join('');
-}
 async function generateArticle(){
-const payload={title:title.value,country:country.value,service:service.value,language:language.value};
-preview.innerText='Generating...';
-const r=await fetch('https://isos-gemini-v22.onlinehubsworld.workers.dev/',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-const d=await r.json();
-preview.innerText=d.article||JSON.stringify(d,null,2);
+ const title=document.getElementById('title').value.trim();
+ if(!title){alert('Enter title');return;}
+ document.getElementById('output').innerHTML='Generating...';
+ const seoTitle=title+' | Islamabad Online Services';
+ const seoDesc='Complete guide about '+title;
+ document.getElementById('seo').value=seoTitle+'\n'+seoDesc;
+ try{
+   const r=await fetch('https://isos-gemini-api.onlinehubsworld.workers.dev/',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({title:title})
+   });
+   const data=await r.json();
+   document.getElementById('output').innerText=data.article || JSON.stringify(data);
+ }catch(e){
+   document.getElementById('output').innerText='Error: '+e.message;
+ }
 }
-loadKB();
-</script></body></html>
+</script>
+</body>
+</html>
