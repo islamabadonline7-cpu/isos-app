@@ -3,59 +3,492 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ISOS AI Content Studio</title>
+<title>ISOS Content Operating System</title>
+
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:#f5f7fb}
-header{background:#0a58ca;color:#fff;padding:20px;text-align:center}
-.container{padding:20px;max-width:1400px;margin:auto}
-.card{background:#fff;border-radius:12px;padding:20px;margin-bottom:15px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-input,textarea,button{width:100%;padding:12px;margin-top:8px;box-sizing:border-box}
-button{background:#0a58ca;color:#fff;border:none;cursor:pointer}
-.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:15px 0}
-.tab{padding:10px 15px;background:#e9ecef;border-radius:8px}
-.output{min-height:300px;white-space:pre-wrap}
-.urdu{font-family:'Noto Nastaliq Urdu','Jameel Noori Nastaleeq',serif;direction:rtl;text-align:right}
-footer{text-align:center;padding:20px;color:#666}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Arial,sans-serif;
+background:#f4f7fb;
+color:#222;
+}
+
+header{
+background:#0a58ca;
+color:#fff;
+padding:20px;
+text-align:center;
+}
+
+header h1{
+margin-bottom:5px;
+}
+
+.container{
+max-width:1400px;
+margin:auto;
+padding:20px;
+}
+
+.card{
+background:#fff;
+border-radius:12px;
+padding:20px;
+margin-bottom:20px;
+box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px;
+margin-bottom:20px;
+}
+
+.stat{
+background:#fff;
+padding:15px;
+border-radius:12px;
+box-shadow:0 2px 8px rgba(0,0,0,.08);
+text-align:center;
+}
+
+.stat h3{
+font-size:14px;
+color:#666;
+}
+
+.stat p{
+font-size:22px;
+font-weight:bold;
+margin-top:10px;
+}
+
+label{
+display:block;
+margin-top:12px;
+font-weight:bold;
+}
+
+input,
+textarea,
+select{
+width:100%;
+padding:12px;
+margin-top:5px;
+border:1px solid #ccc;
+border-radius:8px;
+}
+
+button{
+padding:12px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+background:#0a58ca;
+color:#fff;
+margin-top:10px;
+}
+
+.actions{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:10px;
+}
+
+.tabs{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-bottom:15px;
+}
+
+.tab-btn{
+padding:10px 15px;
+background:#e9ecef;
+border-radius:8px;
+cursor:pointer;
+}
+
+.tab-btn.active{
+background:#0a58ca;
+color:#fff;
+}
+
+.tab-content{
+display:none;
+}
+
+.tab-content.active{
+display:block;
+}
+
+.output{
+min-height:300px;
+white-space:pre-wrap;
+padding:15px;
+border:1px solid #ddd;
+border-radius:8px;
+background:#fafafa;
+}
+
+.urdu{
+direction:rtl;
+text-align:right;
+font-family:'Noto Nastaliq Urdu','Jameel Noori Nastaleeq',serif;
+}
+
+footer{
+text-align:center;
+padding:20px;
+color:#666;
+}
 </style>
 </head>
+
 <body>
+
 <header>
-<h1>ISOS AI Content Studio</h1>
-<p>Islamabad Online Services</p>
+<h1>ISOS Content Operating System</h1>
+<p>Islamabad Online Services®</p>
 </header>
+
 <div class="container">
+
+<div class="grid">
+
+<div class="stat">
+<h3>Words</h3>
+<p id="words">0</p>
+</div>
+
+<div class="stat">
+<h3>Characters</h3>
+<p id="chars">0</p>
+</div>
+
+<div class="stat">
+<h3>Reading Time</h3>
+<p id="reading">0 min</p>
+</div>
+
+<div class="stat">
+<h3>Date</h3>
+<p id="date">-</p>
+</div>
+
+</div>
+
 <div class="card">
+
 <label>Article Title</label>
 <input id="title" placeholder="Germany Work Visa 2026">
+
 <label>Additional Instructions</label>
 <textarea id="notes" rows="4"></textarea>
-<button onclick="generateContent()">Generate Complete Content Package</button>
+
+<label>Output Type</label>
+<select id="outputType">
+<option>Service Page</option>
+<option>Blog Article</option>
+</select>
+
+<label>Category</label>
+<select id="category">
+<option>Visa</option>
+<option>Immigration</option>
+<option>Jobs</option>
+<option>Education</option>
+<option>Attestation</option>
+<option>Business</option>
+<option>Travel</option>
+</select>
+
+<button onclick="generateContent()">
+Generate Complete Package
+</button>
+
 </div>
+
 <div class="card">
+
 <div class="tabs">
-<div class="tab">Article</div><div class="tab">SEO</div><div class="tab">FAQ</div>
-<div class="tab">Social</div><div class="tab">Images</div><div class="tab">Export</div>
+
+<div class="tab-btn active"
+onclick="showTab('article',this)">
+Article
 </div>
-<div id="output" class="output urdu">ISOS AI Content Studio Ready...</div>
+
+<div class="tab-btn"
+onclick="showTab('seo',this)">
+SEO
+</div>
+
+<div class="tab-btn"
+onclick="showTab('faq',this)">
+FAQ
+</div>
+
+<div class="tab-btn"
+onclick="showTab('social',this)">
+Social
+</div>
+
+<div class="tab-btn"
+onclick="showTab('images',this)">
+Images
+</div>
+
+<div class="tab-btn"
+onclick="showTab('export',this)">
+Export
+</div>
+
+</div>
+
+<div id="article"
+class="tab-content active">
+
+<div class="actions">
+<button onclick="copyText('articleOutput')">
+Copy Article
+</button>
+</div>
+
+<div id="articleOutput"
+class="output urdu">
+Ready...
+</div>
+
+</div>
+
+<div id="seo"
+class="tab-content">
+<div id="seoOutput"
+class="output">
+SEO will appear here
 </div>
 </div>
+
+<div id="faq"
+class="tab-content">
+<div id="faqOutput"
+class="output">
+FAQ will appear here
+</div>
+</div>
+
+<div id="social"
+class="tab-content">
+<div id="socialOutput"
+class="output">
+Social content will appear here
+</div>
+</div>
+
+<div id="images"
+class="tab-content">
+<div id="imagesOutput"
+class="output">
+Image prompts will appear here
+</div>
+</div>
+
+<div id="export"
+class="tab-content">
+
+<div class="actions">
+
+<button onclick="downloadTXT()">
+Download TXT
+</button>
+
+<button onclick="downloadHTML()">
+Download HTML
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 <footer>
-Islamabad Online Services ®<br>
-WhatsApp: +92 304 484 1012<br>
+Islamabad Online Services ®
+<br>
+WhatsApp: +92 304 484 1012
+<br>
 Email: islamabadonline7@gmail.com
 </footer>
+
 <script>
-const API_URL="https://isos-gemini-v23.onlinehubsworld.workers.dev/";
-async function generateContent(){
- const title=document.getElementById('title').value.trim();
- if(!title){alert('Enter article title');return;}
- document.getElementById('output').innerText='Generating...';
- try{
-   const r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title})});
-   const data=await r.json();
-   document.getElementById('output').innerText=data.article||JSON.stringify(data,null,2);
- }catch(e){document.getElementById('output').innerText='Error: '+e.message;}
+
+const API_URL =
+"https://isos-gemini-v23.onlinehubsworld.workers.dev/";
+
+function showTab(id,el){
+
+document
+.querySelectorAll('.tab-content')
+.forEach(x=>x.classList.remove('active'));
+
+document
+.querySelectorAll('.tab-btn')
+.forEach(x=>x.classList.remove('active'));
+
+document
+.getElementById(id)
+.classList.add('active');
+
+el.classList.add('active');
+
 }
+
+async function generateContent(){
+
+const title =
+document.getElementById('title').value.trim();
+
+if(!title){
+alert('Enter Title');
+return;
+}
+
+articleOutput.innerText =
+'Generating...';
+
+try{
+
+const r =
+await fetch(API_URL,{
+method:'POST',
+headers:{
+'Content-Type':'application/json'
+},
+body:JSON.stringify({
+title
+})
+});
+
+const data =
+await r.json();
+
+const article =
+data.article ||
+JSON.stringify(data,null,2);
+
+document
+.getElementById('articleOutput')
+.innerText = article;
+
+updateStats(article);
+
+}catch(e){
+
+articleOutput.innerText =
+'Error: '+e.message;
+
+}
+
+}
+
+function updateStats(text){
+
+document.getElementById('words')
+.innerText =
+text.split(/\s+/).length;
+
+document.getElementById('chars')
+.innerText =
+text.length;
+
+document.getElementById('reading')
+.innerText =
+Math.ceil(
+text.split(/\s+/).length/200
+) + ' min';
+
+document.getElementById('date')
+.innerText =
+new Date()
+.toLocaleDateString();
+
+}
+
+function copyText(id){
+
+navigator.clipboard.writeText(
+document.getElementById(id)
+.innerText
+);
+
+alert('Copied');
+
+}
+
+function downloadTXT(){
+
+const blob =
+new Blob(
+[
+document
+.getElementById('articleOutput')
+.innerText
+],
+{
+type:'text/plain'
+}
+);
+
+const a =
+document.createElement('a');
+
+a.href =
+URL.createObjectURL(blob);
+
+a.download =
+'article.txt';
+
+a.click();
+
+}
+
+function downloadHTML(){
+
+const blob =
+new Blob(
+[
+document
+.getElementById('articleOutput')
+.innerHTML
+],
+{
+type:'text/html'
+}
+);
+
+const a =
+document.createElement('a');
+
+a.href =
+URL.createObjectURL(blob);
+
+a.download =
+'article.html';
+
+a.click();
+
+}
+
 </script>
+
 </body>
 </html>
