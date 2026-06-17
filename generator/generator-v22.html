@@ -382,15 +382,39 @@ const data =
 await r.json();
 
 const article =
-data.article ||
-JSON.stringify(data,null,2);
+data.article || '';
 
-document
-.getElementById('articleOutput')
-.innerText = article;
+const seo =
+typeof data.seo === 'object'
+? JSON.stringify(data.seo,null,2)
+: (data.seo || '');
+
+const faq =
+Array.isArray(data.faq)
+? JSON.stringify(data.faq,null,2)
+: (data.faq || '');
+
+const social =
+typeof data.social === 'object'
+? JSON.stringify(data.social,null,2)
+: (data.social || '');
+
+const images =
+Array.isArray(data.images)
+? data.images.join('\n\n')
+: (data.images || '');
+
+document.getElementById('articleOutput').innerText = article;
+
+document.getElementById('seoOutput').innerText = seo;
+
+document.getElementById('faqOutput').innerText = faq;
+
+document.getElementById('socialOutput').innerText = social;
+
+document.getElementById('imagesOutput').innerText = images;
 
 updateStats(article);
-
 }catch(e){
 
 articleOutput.innerText =
