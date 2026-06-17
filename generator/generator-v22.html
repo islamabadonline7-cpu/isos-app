@@ -374,7 +374,10 @@ headers:{
 'Content-Type':'application/json'
 },
 body:JSON.stringify({
-title
+title,
+notes: document.getElementById('notes').value,
+outputType: document.getElementById('outputType').value,
+category: document.getElementById('category').value
 })
 });
 
