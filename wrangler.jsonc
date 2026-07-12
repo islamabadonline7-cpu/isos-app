@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+
+  "name": "isos-enterprise-ai-platform",
+
+  "main": "worker/worker-v25.3.js",
+
+  "compatibility_date": "2026-07-12",
+
+  "workers_dev": true,
+
+  "observability": {
+    "enabled": true
+  }
+}

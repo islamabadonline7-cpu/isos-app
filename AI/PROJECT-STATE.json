@@ -1,0 +1,32 @@
+{
+  "project": {
+    "name": "ISOS Enterprise AI Platform",
+    "organization": "Islamabad Online Services®",
+    "repository": "isos-app",
+    "branch": "v25-development"
+  },
+  "build": {
+    "version": "25.3.3",
+    "build": "003.0",
+    "status": "Development"
+  },
+  "worker": {
+    "primary": "worker/worker-v25.3.js",
+    "platform": "Cloudflare Workers",
+    "language": "JavaScript (ES Modules)"
+  },
+  "current": {
+    "phase": "Repository Foundation",
+    "deliverable": "PROJECT-STATE.json",
+    "status": "In Progress"
+  },
+  "documentation": {
+    "masterKnowledge": "Locked",
+    "rules": "Structure Ready",
+    "projectState": "Production v1.0"
+  },
+  "next": {
+    "deliverable": "package.json"
+  },
+  "lastUpdated": "2026-07-12"
+}

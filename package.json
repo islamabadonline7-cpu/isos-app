@@ -1,0 +1,21 @@
+{
+  "name": "isos-enterprise-ai-platform",
+  "version": "25.3.3",
+  "description": "ISOS Enterprise AI Platform",
+  "private": true,
+  "type": "module",
+  "author": "Islamabad Online Services®",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "start": "wrangler dev",
+    "check": "wrangler deploy --dry-run"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
