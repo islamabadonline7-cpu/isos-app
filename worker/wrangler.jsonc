@@ -3,7 +3,7 @@
 
   "name": "isos-enterprise-ai-platform",
 
-  "main": "worker/worker-v25.3.js",
+  "main": "worker/worker-v25.3.4.js",
 
   "compatibility_date": "2026-07-12",
 

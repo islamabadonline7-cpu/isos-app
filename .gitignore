@@ -1,0 +1,40 @@
+# =====================================================
+# AVA Enterprise OS
+# Git Ignore
+# =====================================================
+
+# Dependencies
+node_modules/
+
+# Build Output
+dist/
+build/
+coverage/
+
+# Cloudflare
+.wrangler/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+logs/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/settings.json
+
+# Temporary Files
+*.tmp
+*.temp
+diff.txt
+project-tree.txt
+
+# Runtime
+.cache/

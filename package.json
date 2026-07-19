@@ -6,15 +6,23 @@
   "type": "module",
   "author": "Islamabad Online Services®",
   "license": "UNLICENSED",
+
   "scripts": {
-    "dev": "wrangler dev",
-    "deploy": "wrangler deploy",
-    "start": "wrangler dev",
-    "check": "wrangler deploy --dry-run"
+    "build": "tsc",
+    "start": "node cli/dist/index.js",
+    "dev": "tsc --watch",
+
+    "worker:dev": "wrangler dev",
+    "worker:deploy": "wrangler deploy",
+    "worker:check": "wrangler deploy --dry-run"
   },
+
   "devDependencies": {
+    "@types/node": "^26.1.1",
+    "typescript": "^7.0.2",
     "wrangler": "^4.0.0"
   },
+
   "engines": {
     "node": ">=20"
   }

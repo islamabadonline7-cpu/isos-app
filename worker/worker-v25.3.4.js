@@ -22,7 +22,6 @@
    This file will be developed module-by-module following the
    official project standards defined in the AI documentation.
 
-================================================================ */
 /* ==========================================================
    Module 02
    Application Configuration
@@ -52,10 +51,23 @@ const APP = Object.freeze({
 
   language: "JavaScript (ES Modules)",
 
-  ai: false
+  ai: {
+
+    enabled: false,
+
+    provider: null,
+
+    model: null,
+
+    temperature: 0.7,
+
+    maxTokens: 4096
+
+  },
+
+  environment: "development"
 
 });
-
 
 /* ==========================================================
    Module 03
@@ -78,7 +90,11 @@ const HTTP = Object.freeze({
 
   METHOD_NOT_ALLOWED: 405,
 
-  INTERNAL_SERVER_ERROR: 500
+  TOO_MANY_REQUESTS: 429,
+
+  INTERNAL_SERVER_ERROR: 500,
+
+  SERVICE_UNAVAILABLE: 503
 
 });
 
@@ -153,7 +169,6 @@ function errorResponse(
 
 }
 
-
 /* ==========================================================
    Module 05
    Request Router
@@ -161,47 +176,37 @@ function errorResponse(
 
 export default {
 
-  async fetch(request) {
-
-    return handleRequest(request);
-
-  }
+    async fetch(request) {
+        return handleRequest(request);
+    }
 
 };
 
 async function handleRequest(request) {
 
-  switch (request.method) {
+    switch (request.method) {
 
-    case "OPTIONS":
+        case "OPTIONS":
+            return handleOptions();
 
-      return handleOptions();
+        case "GET": {
 
-case "GET":
+            const url = new URL(request.url);
 
-    const url = new URL(request.url);
+            return routeGet(url);
 
-    if (url.pathname === "/health") {
-        return healthResponse();
+        }
+
+        case "POST":
+            return await handlePost(request);
+
+        default:
+            return errorResponse(
+                "Method Not Allowed",
+                HTTP.METHOD_NOT_ALLOWED
+            );
+
     }
-
-    return handleGet();
-
-    case "POST":
-
-      return await handlePost(request);
-
-    default:
-
-      return errorResponse(
-
-        "Method Not Allowed",
-
-        HTTP.METHOD_NOT_ALLOWED
-
-      );
-
-  }
 
 }
 
@@ -217,7 +222,6 @@ function handleOptions() {
     });
 
 }
-
 /* ===========================================================
    Module 07
    GET Handler
@@ -226,7 +230,6 @@ function handleOptions() {
 function handleGet() {
 
   return successResponse({
-
 
     app: APP,
 
@@ -256,7 +259,7 @@ function handleGet() {
 
 async function handlePost(request) {
 
-const body = await parseBody(request);
+  const body = await parseBody(request);
 
 if (!body.success) {
 
@@ -390,5 +393,30 @@ function healthResponse() {
         timestamp: new Date().toISOString()
 
     });
+
+}
+
+/* ===========================================================
+   Module 15
+   Enterprise Route Manager
+=========================================================== */
+
+function routeGet(url) {
+
+    switch (url.pathname) {
+
+        case "/":
+            return handleGet();
+
+        case "/health":
+            return healthResponse();
+
+        default:
+            return errorResponse(
+                "Endpoint Not Found",
+                HTTP.NOT_FOUND
+            );
+
+    }
 
 }
