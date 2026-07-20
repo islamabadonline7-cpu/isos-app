@@ -1,30 +1,26 @@
-/**
- * ============================================================
- * AVA Enterprise OS
- * Command Registry
- * ------------------------------------------------------------
- * Package : E006.1-P01
- * ============================================================
- */
+import { ICommand } from "../interfaces/ICommand.js";
+import { ICommandRegistry } from "../interfaces/ICommandRegistry.js";
 
-import { COMMANDS, type CommandName } from "./constants.js";
+export class CommandRegistry implements ICommandRegistry {
+  private readonly commands = new Map<string, ICommand>();
 
-export class CommandRegistry {
-  static getAll(): readonly CommandName[] {
-    return COMMANDS;
+  register(command: ICommand): void {
+    this.commands.set(command.metadata.name, command);
   }
 
-  static exists(command: string): boolean {
-    return COMMANDS.includes(command as CommandName);
+  unregister(name: string): boolean {
+    return this.commands.delete(name);
   }
 
-  static print(): void {
-    console.log("Available Commands:\n");
+  get(name: string): ICommand | undefined {
+    return this.commands.get(name);
+  }
 
-    for (const command of COMMANDS) {
-      console.log(`  ${command}`);
-    }
+  getAll(): ICommand[] {
+    return [...this.commands.values()];
+  }
+
+  has(name: string): boolean {
+    return this.commands.has(name);
   }
 }
-
-export default CommandRegistry;

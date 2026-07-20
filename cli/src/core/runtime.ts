@@ -8,14 +8,14 @@
  * ============================================================
  */
 
-import CommandRegistry from "./command-registry.js";
+import { CommandRegistry } from "./command-registry.js";
 
 export class Router {
   static execute(command: string): void {
     switch (command.trim()) {
       case "help":
-        CommandRegistry.print();
-        break;
+    console.log("Available commands:");
+    break;
 
       case "version":
         console.log("AVA CLI Version 0.1.0");
