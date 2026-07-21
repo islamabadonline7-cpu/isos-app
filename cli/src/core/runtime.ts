@@ -1,51 +1,32 @@
-/**
- * ============================================================
- * AVA Enterprise OS
- * Router
- * ------------------------------------------------------------
- * Package : E006.1-P01
- * Author  : Islamabad Online Services®
- * ============================================================
- */
+import { ICommandContext } from "../interfaces/ICommandContext.js";
 
-import { CommandRegistry } from "./command-registry.js";
+import CommandFactory from "./command-factory.js";
+import CommandRunner from "./command-runner.js";
 
-export class Router {
-  static execute(command: string): void {
-    switch (command.trim()) {
-      case "help":
-    console.log("Available commands:");
-    break;
+export class Runtime {
 
-      case "version":
-        console.log("AVA CLI Version 0.1.0");
-        break;
+  static async execute(commandName: string): Promise<void> {
 
-      case "doctor":
-        console.log("System Status");
-        console.log("✓ Node OK");
-        console.log("✓ TypeScript OK");
-        console.log("✓ CLI OK");
-        break;
+    const factory = new CommandFactory();
 
-      case "init":
-        console.log("Initializing AVA Workspace...");
-        break;
+    const runner = new CommandRunner();
 
-      case "about":
-        console.log("AVA Enterprise OS");
-        console.log("Developed by Islamabad Online Services®");
-        break;
+    const command = await factory.create(commandName);
 
-      case "clear":
-        console.clear();
-        break;
+    const context: ICommandContext = {
 
-      default:
-        console.log(`Unknown command: ${command}`);
-        console.log("Type 'help' to see available commands.");
-    }
+      cwd: process.cwd(),
+
+      args: process.argv.slice(2),
+
+      env: process.env,
+
+    };
+
+    await runner.run(command, context);
+
   }
+
 }
 
-export default Router;
+export default Runtime;
