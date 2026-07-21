@@ -1,17 +1,18 @@
 import { ICommandContext } from "../interfaces/ICommandContext.js";
 
-import CommandFactory from "./command-factory.js";
-import CommandRunner from "./command-runner.js";
+import ServiceContainer from "../runtime/container.js";
 
 export class Runtime {
 
-  static async execute(commandName: string): Promise<void> {
+  constructor(
+    private readonly container: ServiceContainer
+  ) {}
 
-    const factory = new CommandFactory();
+  async start(): Promise<void> {
 
-    const runner = new CommandRunner();
+    const commandName = process.argv[2] ?? "help";
 
-    const command = await factory.create(commandName);
+    const command = await this.container.factory.create(commandName);
 
     const context: ICommandContext = {
 
@@ -23,7 +24,7 @@ export class Runtime {
 
     };
 
-    await runner.run(command, context);
+    await this.container.runner.run(command, context);
 
   }
 
