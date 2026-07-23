@@ -14,7 +14,9 @@
 
     "worker:dev": "wrangler dev",
     "worker:deploy": "wrangler deploy",
-    "worker:check": "wrangler deploy --dry-run"
+    "worker:check": "wrangler deploy --dry-run",
+
+    "export": "node tools/export-project.js"
   },
 
   "devDependencies": {
